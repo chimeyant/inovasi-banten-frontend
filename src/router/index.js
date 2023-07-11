@@ -15,6 +15,7 @@ import Dashboard from "../views/backend/pages/Dashboard.vue";
 
 //Master Data App
 import MasterAppInfo from "../views/backend/pages/masterdata/appinfo/Index.vue";
+import MasterDataProvinsi from "../views/backend/pages/masterdata/province/Index.vue";
 import MasterDataCategory from "../views/backend/pages/masterdata/category/Index.vue";
 import MasterDataDokter from "../views/backend/pages/masterdata/doctor/Index.vue";
 import MasterDataKelasBpjs from "../views/backend/pages/masterdata/kelas/Index.vue";
@@ -98,34 +99,9 @@ const routes = [
         component: MasterAppInfo,
       },
       {
-        path: "master-category",
-        name: "master-category",
-        component: MasterDataCategory,
-      },
-      {
-        path: "master-dokter",
-        name: "master-dokter",
-        component: MasterDataDokter,
-      },
-      {
-        path: "master-kelas-bpjs",
-        name: "master-kelas-bpjs",
-        component: MasterDataKelasBpjs,
-      },
-      {
-        path: "master-problem",
-        name: "master-problem",
-        component: MasterDataProblem,
-      },
-      {
-        path: "master-diagnosis",
-        name: "master-diagnosis",
-        component: MasterDataDiagnosis,
-      },
-      {
-        path: "master-proclist",
-        name: "master-proclist",
-        component: MasterDataProclist,
+        path: "master-data-province",
+        name: "master-data-province",
+        component: MasterDataProvinsi,
       },
 
       //Route Manajement
