@@ -602,7 +602,7 @@ export default {
     signout: function () {
       this.clearMenu();
       this.signOut();
-      this.$router.push({ name: "signin" });
+      this.$router.push({ name: "home" });
     },
     deleteRecord: function () {
       this.postDelete().then(() => {

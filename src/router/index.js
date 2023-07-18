@@ -16,12 +16,14 @@ import Dashboard from "../views/backend/pages/Dashboard.vue";
 //Master Data App
 import MasterAppInfo from "../views/backend/pages/masterdata/appinfo/Index.vue";
 import MasterDataProvinsi from "../views/backend/pages/masterdata/province/Index.vue";
-import MasterDataCategory from "../views/backend/pages/masterdata/category/Index.vue";
-import MasterDataDokter from "../views/backend/pages/masterdata/doctor/Index.vue";
-import MasterDataKelasBpjs from "../views/backend/pages/masterdata/kelas/Index.vue";
-import MasterDataProblem from "../views/backend/pages/masterdata/problem/Index.vue";
-import MasterDataDiagnosis from "../views/backend/pages/masterdata/diaglist/Index.vue";
-import MasterDataProclist from "../views/backend/pages/masterdata/proclist/Index.vue";
+import MasterDataRegency from "../views/backend/pages/masterdata/regency/Index.vue";
+import MasterDataDistrict from "../views/backend/pages/masterdata/district/Index.vue";
+import MasterDataVillage from "../views/backend/pages/masterdata/village/Index.vue";
+import MasterDataCatgeory from "../views/backend/pages/masterdata/category/Index.vue";
+import MasterDataIndikator from "../views/backend/pages/masterdata/indikator/Index.vue";
+import MasterDataOpd from "../views/backend/pages/masterdata/opd/Index.vue";
+import MasterDataJenisInovasi from "../views/backend/pages/masterdata/jenis-inovasi/Index.vue";
+import MasterDataUrusan from "../views/backend/pages/masterdata/urusan/Index.vue";
 
 //Manajemen Page
 import ManajemenKlaim from "../views/backend/pages/management/klaim/Index.vue";
@@ -102,6 +104,48 @@ const routes = [
         path: "master-data-province",
         name: "master-data-province",
         component: MasterDataProvinsi,
+      },
+      {
+        path: "master-data-regency/:province_code/:province_name",
+        name: "master-data-regency",
+        component: MasterDataRegency,
+      },
+      {
+        path:
+          "master-data-district/:province_code/:province_name/:regency_code/:regency_name",
+        name: "master-data-district",
+        component: MasterDataDistrict,
+      },
+      {
+        path:
+          "master-data-village/:province_code/:province_name/:regency_code/:regency_name/:district_code/:district_name",
+        name: "master-data-village",
+        component: MasterDataVillage,
+      },
+      {
+        path: "master-data-category",
+        name: "master-data-category",
+        component: MasterDataCatgeory,
+      },
+      {
+        path: "master-data-indikator",
+        name: "master-data-indikator",
+        component: MasterDataIndikator,
+      },
+      {
+        path: "master-data-opd",
+        name: "master-data-opd",
+        component: MasterDataOpd,
+      },
+      {
+        path: "master-data-jenis-inovasi",
+        name: "master-data-jenis-inovasi",
+        component: MasterDataJenisInovasi,
+      },
+      {
+        path: "master-data-urusan",
+        name: "master-data-urusan",
+        component: MasterDataUrusan,
       },
 
       //Route Manajement

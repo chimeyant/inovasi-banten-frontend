@@ -1,29 +1,10 @@
 <template>
   <div :class="device.desktop ? `home pa-6 grey lighten-4`:`home pa-0 grey lighten-4`">
+
     <v-row>
       <v-col cols="12">
-        <v-card class="animate__animated animate__fadeInUp rounded-0">
+        <v-card class="animated animate__fadeInUp rounded-0">
           <v-card-title :class="`flex flex-row-reverse ` + theme.color + ` lighten-1`">
-            <v-tooltip
-              :color="theme.color"
-              bottom
-            >
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  text
-                  small
-                  icon
-                  v-on="on"
-                  v-show="page.actions.export"
-                >
-                  <v-icon
-                    :color="theme.mode == 'dark' ? `white` : `black`"
-                    @click="addNewRecord"
-                  >mdi-files</v-icon>
-                </v-btn>
-              </template>
-              <span>Export Data</span>
-            </v-tooltip>
             <v-tooltip
               :color="theme.color"
               bottom
@@ -39,7 +20,7 @@
                 >
                   <v-icon
                     :color="theme.mode == 'dark' ? `white` : `black`"
-                    @click="addNewRecord"
+                    @click="openForm"
                   >add_circle</v-icon>
                 </v-btn>
               </template>
@@ -55,7 +36,6 @@
                   small
                   icon
                   v-on="on"
-                  v-show="page.actions.refresh"
                 >
                   <v-icon
                     :color="theme.mode == 'dark' ? `white` : `black`"
@@ -65,16 +45,18 @@
               </template>
               <span>Refresh Data</span>
             </v-tooltip>
+
             <v-spacer></v-spacer>
             <v-text-field
-              v-model="table.options.search"
+              v-model="search"
               append-icon="mdi-magnify"
               label="Pencarian"
               single-line
               hide-details
-              dense
               solo
+              dense
               :color="theme.color"
+              style="max-width: 350px"
             ></v-text-field>
           </v-card-title>
           <v-data-table
@@ -98,10 +80,20 @@
               height="1"
               indeterminate
             ></v-progress-linear>
+            <template v-slot:item.progress="{ value }">
+              <v-progress-linear
+                :color="theme.color"
+                v-model="value"
+                height="25"
+              >
+                <strong>{{ value }}%</strong>
+              </v-progress-linear>
+            </template>
+
             <template v-slot:item.status="{ value }">
               <v-chip
-                small
                 :color="value.color"
+                small
               >{{ value.text }}</v-chip>
             </template>
             <template v-slot:item.id="{ value }">
@@ -121,26 +113,28 @@
                 </template>
 
                 <v-list>
-                  <v-list-item @click="editRecord(value)">
+                  <v-list-item
+                    @click="editRecord(value)"
+                    v-show="page.actions.edit"
+                  >
                     <v-list-item-title>
-                      <v-icon color="orange">mdi-pencil-circle</v-icon>
-                      Ubah Data
+                      <v-icon color="orange">mdi-pencil-circle</v-icon>Ubah
                     </v-list-item-title>
                   </v-list-item>
-                  <v-list-item @click="postDeleteRecord(value)">
+                  <v-list-item
+                    @click="postDeleteRecord(value)"
+                    v-show="page.actions.delete"
+                  >
                     <v-list-item-title>
-                      <v-icon color="red">mdi-delete-circle</v-icon>
-                      Hapus Data
+                      <v-icon color="red">mdi-delete-circle</v-icon>Hapus
                     </v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-menu>
-
             </template>
           </v-data-table>
           <v-list
             subheader
-            three-line
             v-show="device.mobile"
           >
 
@@ -158,8 +152,8 @@
                     <v-checkbox :input-value="active"></v-checkbox>
                   </v-list-item-action>
                   <v-list-item-content>
-                    <v-list-item-title> {{ item.name}}</v-list-item-title>
-                    <v-list-item-subtitle>{{ item.email }} </v-list-item-subtitle>
+                    <v-list-item-title>{{ item.name }}</v-list-item-title>
+                    <v-list-item-subtitle>{{ item.description }} </v-list-item-subtitle>
                   </v-list-item-content>
                   <v-list-item-action>
                     <v-menu
@@ -190,7 +184,7 @@
                           </v-list-item-title>
                         </v-list-item>
                         <v-list-item
-                          @click="postDeleteRecord(item.id)"
+                          @click="postDeleteRecord(item.uuid)"
                           v-show="page.actions.delete"
                         >
                           <v-list-item-title>
@@ -201,10 +195,8 @@
                       </v-list>
                     </v-menu>
                   </v-list-item-action>
-
                 </template>
               </v-list-item>
-
             </v-list-item-group>
           </v-list>
         </v-card>
@@ -214,7 +206,7 @@
       <v-dialog
         transition="dialog-bottom-transition"
         v-model="form.add"
-        :max-width="device.desktop ? `800px` : `100%`"
+        :max-width="device.desktop ? `600px` : `100%`"
         persistent
         :fullscreen="device.mobile"
       >
@@ -224,111 +216,58 @@
             :dark="theme.mode"
           >
             <v-icon
-              class="mr-1 animate__animated animate__flash animate__infinite"
-              color="orange"
               small
-            >mdi-circle</v-icon> Formulir Manajemen Pengguna
+              color="orange"
+              class="mr-1 animate__animated animate__flash animate__infinite"
+            >mdi-circle</v-icon> Formulir Master Indikator
           </v-toolbar>
           <v-card-text class="mt-2">
             <v-col cols="12">
-              <v-text-field
-                label="Nama Pengguna"
-                :color="theme.color"
-                hide-details
-                autocomplete="off"
+              <v-select
+                label="Kategori"
                 outlined
                 dense
+                hide-details
+                v-model="record.category_uuid"
+                :items="categories"
+              ></v-select>
+            </v-col>
+            <v-col col="12">
+              <v-text-field
+                outlined
+                :color="theme.color"
+                hide-details
+                label="*Indikator"
+                placeholder=""
                 v-model="record.name"
-              >
-              </v-text-field>
+                :filled="record.name"
+                dense
+              ></v-text-field>
             </v-col>
-            <v-col cols="12">
+            <v-col col="12">
               <v-text-field
-                label="Email"
-                :color="theme.color"
-                type="email"
-                hide-details
-                autocomplete="off"
-                v-model="record.email"
                 outlined
-                placeholder="user@bantenprov.go.id"
+                :color="theme.color"
+                hide-details
+                label="*Skor"
+                placeholder=""
+                v-model="record.skor"
+                :filled="record.skor"
                 dense
               ></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-select
-                label="Level"
-                :color="theme.color"
-                v-model="record.authent"
-                :items="authents"
-                hide-details
+              <v-switch
+                label="Status"
                 outlined
                 dense
-              ></v-select>
-            </v-col>
-            <v-col
-              cols="12"
-              v-show="record.authent == 'kabkota-opd'"
-            >
-              <v-select
-                label="KAB/KOTA"
-                outlined
-                dense
-                hide-details
+                hide-detail
+                v-model="record.status"
                 :color="theme.color"
-                :items="kabupatens"
-                v-model="record.regency_code"
-              ></v-select>
-            </v-col>
-            <v-col
-              cols="12"
-              v-show="record.authent == 'provinsi-opd' || record.authent == 'kabkota-opd'"
-            >
-              <v-select
-                label="OPD Pengelola"
-                outlined
-                dense
-                hide-details
-                :color="theme.color"
-                v-model="record.opd_uuid"
-                :items="opds"
-              ></v-select>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field
-                label="Phone (WA)"
-                outlined
-                dense
-                hide-details
-                :color="theme.color"
-                maxLength="15"
-                v-model="record.phone"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-row>
-                <v-col cols="4">
-                  <v-switch
-                    label="Status"
-                    :color="theme.color"
-                    v-model="record.status"
-                    hide-details
-                    dense
-                  ></v-switch>
-                </v-col>
-                <v-col cols="4">
-                  <v-switch
-                    label="Reset Kata Sandi"
-                    :color="theme.color"
-                    v-model="record.reset"
-                    hide-details
-                    dense
-                  ></v-switch>
-                </v-col>
-              </v-row>
-
+              ></v-switch>
             </v-col>
           </v-card-text>
+
           <v-divider></v-divider>
           <v-card-actions class="justify-end">
             <v-btn
@@ -336,45 +275,54 @@
               :color="theme.color"
               v-show="!form.edit"
               @click="postAddNewRecord"
-            >Kirim</v-btn>
+            >Tambah</v-btn>
             <v-btn
               outlined
               :color="theme.color"
               v-show="form.edit"
               @click="postUpdateRecord"
-            >Kirim</v-btn>
+            >Ubah</v-btn>
             <v-btn
               outlined
               color="grey"
               @click="closeForm"
             >Batal</v-btn>
-
           </v-card-actions>
-          <v-col>
-            <div class="subtitle-2 font-sm ml-1 grey--text">
-            </div>
-          </v-col>
         </v-card>
       </v-dialog>
     </v-col>
   </div>
 </template>
-
-<script>
+    <script>
 import { mapActions, mapState } from "vuex";
+import "animate.css";
 
 export default {
-  name: "manajemen-user",
+  name: "master-indikator",
   data: () => ({
     num: 1,
     headers: [
       {
-        text: "NAMA",
+        text: "INDIKATOR",
         align: "start",
         sortable: true,
+
         value: "name",
       },
-      { text: "EMAIL", value: "email" },
+      {
+        text: "KATEGORI",
+        align: "start",
+        sortable: true,
+
+        value: "category",
+      },
+      {
+        text: "SKOR",
+        align: "right",
+        sortable: false,
+        value: "skor",
+        width: 100,
+      },
       {
         text: "STATUS",
         align: "center",
@@ -385,27 +333,14 @@ export default {
       {
         text: "AKSI",
         value: "id",
-        align: "center",
+        width: 100,
         sortable: false,
-        width: 50,
+        align: "center",
       },
     ],
-    status: [
-      { text: "Aktif", value: 0 },
-      { text: "Non Aktif", value: 1 },
-    ],
-    authents: [
-      { text: "Administrator", value: "administrator" },
-      { text: "Team Pengkaji", value: "team-pengkaji" },
-      { text: "Pemda Tingkat I | Provinsi", value: "provinsi" },
-      { text: "OPD Pemda Tingkat I | OPD Provinsi", value: "provinsi-opd" },
-      { text: "Pemda Tingkat II | KAB/KOTA", value: "kabkota" },
-      { text: "OPD Pemda Tingkat II | OPD KAB/KOTA", value: "kabkota-opd" },
-    ],
     search: null,
-    jurusans: [],
-    opds: [],
-    kabupatens: [],
+    filename: null,
+    categories: [],
   }),
   computed: {
     ...mapState([
@@ -417,10 +352,10 @@ export default {
       "records",
       "loading",
       "event",
+      "snackbar",
       "table",
       "form",
     ]),
-
     filterItems() {
       if (this.search != null) {
         return this.records.filter((item) => {
@@ -436,38 +371,39 @@ export default {
   created() {
     this.setPage({
       crud: true,
-      dataUrl: "api/v2/utility/users",
-      pagination: true,
-      title: "MANAJEMEN PENGGUNA",
-      subtitle: "Berikut Daftar Pengguna Yang Tersedia",
+      dataUrl: "api/v2/master-data/indikator",
+      pagination: false,
+      key: "id",
+      title: "MASTER INDIKATOR",
+      subtitle: "Berikut Daftar Seluruh Indikator Yang Tersedia",
       breadcrumbs: [
         {
-          text: "Utility",
-          disabled: false,
+          text: "Master",
+          disabled: true,
           href: "",
         },
         {
-          text: "Manajemen Pengguna",
-          disabled: false,
-          href: "master-jenis-pengaduan",
+          text: "Indikator",
+          disabled: true,
+          href: "",
         },
       ],
-      add: false,
-      edit: false,
+      showtable: true,
       actions: {
         refresh: true,
         add: true,
         edit: true,
         delete: true,
+        bulkdelete: false,
+        print: false,
+        export: false,
+        help: false,
       },
-      showtable: true,
     });
-
-    // this.fetchRecords();
+    this.fetchRecords();
   },
   mounted() {
-    this.fetchRegencies();
-    this.fetchOpds();
+    this.fetchCategories();
   },
   methods: {
     ...mapActions([
@@ -477,68 +413,68 @@ export default {
       "postEdit",
       "postUpdate",
       "postConfirmDelete",
+      "assignFileBrowse",
+      "setLoading",
+      "setRecord",
       "setForm",
     ]),
-
-    addNewRecord: function () {
+    openForm: function () {
       this.setForm({
         add: true,
         edit: false,
       });
+      this.setRecord({});
     },
-
     closeForm: function () {
       this.setForm({
         add: false,
         edit: false,
       });
     },
-
     postAddNewRecord: function () {
       this.postAddNew(this.record).then(() => {
-        this.fetchRecords();
         this.closeForm();
       });
     },
     editRecord: function (val) {
-      this.postEdit(val);
+      this.postEdit(val).then(() => {
+        this.filename = this.record.icon;
+      });
       this.setForm({
         add: true,
         edit: true,
       });
     },
-
     postUpdateRecord: function () {
       this.postUpdate(this.record).then(() => {
-        this.fetchRecords();
         this.closeForm();
       });
     },
-
     postDeleteRecord: function (val) {
       this.postConfirmDelete(val);
     },
-
-    fetchRegencies: async function () {
-      try {
-        let { data } = await this.http.get("api/v2/combo/regency");
-        this.kabupatens = data;
-      } catch (error) {}
+    postDownload(val) {
+      window.open(val, "__blank");
     },
-
-    fetchOpds: async function () {
-      try {
-        let { data } = await this.http.get("api/v2/combo/opd");
-        this.opds = data;
-      } catch (error) {}
+    uploadFile: function () {
+      this.assignFileBrowse({
+        fileType: [".png", ".jpg", ".jpeg"],
+        query: {
+          doctype: "apps",
+        },
+        callback: (response) => {
+          setTimeout(() => {
+            this.filename = response.name;
+            this.record.icon = response.name;
+          }, 500);
+        },
+      });
     },
-  },
-  watch: {
-    "table.options": {
-      handler() {
-        this.fetchRecords();
-      },
-      deep: true,
+    fetchCategories: async function () {
+      try {
+        let { data } = await this.http.get("api/v2/combo/category");
+        this.categories = data;
+      } catch (error) {}
     },
   },
 };

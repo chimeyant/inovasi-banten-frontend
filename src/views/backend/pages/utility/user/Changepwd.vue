@@ -108,10 +108,10 @@ export default {
           return;
         }
         let {
-          data: { status, message },
+          data: { success, message },
         } = await this.http.post("api/v2/utility/change-pwd", this.record);
 
-        if (!status) {
+        if (!success) {
           this.snackbar.color = "red";
           this.snackbar.text = message;
           this.snackbar.state = true;
@@ -124,9 +124,15 @@ export default {
         this.record.password = null;
         this.record.repassword = null;
       } catch (error) {
-        this.snackbar.color = "red";
-        this.snackbar.text = error.data.errors[0].message;
-        this.snackbar.state = true;
+        if (error.response.status == 500) {
+          this.snackbar.color = "red";
+          this.snackbar.text = error.response.data.message;
+          this.snackbar.state = true;
+        } else {
+          this.snackbar.color = "red";
+          this.snackbar.text = error.data.errors[0].message;
+          this.snackbar.state = true;
+        }
       }
     },
   },

@@ -227,37 +227,12 @@
                 outlined
                 :color="theme.color"
                 hide-details
-                label="Kode"
-                placeholder="Isilah kode kategori bila diperlukan"
-                v-model="record.code"
-                :filled="record.code"
-                dense
-              ></v-text-field>
-            </v-col>
-            <v-col col="12">
-              <v-text-field
-                outlined
-                :color="theme.color"
-                hide-details
                 label="*Kategori"
                 placeholder="Isilah nama kategori yang anda inginkan"
                 v-model="record.name"
                 :filled="record.name"
                 dense
               ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-textarea
-                label="Penjelasan"
-                outlined
-                placeholder="Isilah penjelsan mengenai kategori yang anda buat"
-                dense
-                hide-details
-                v-model="record.description"
-                :color="theme.color"
-                :filled="record.description"
-                rows="3"
-              >{{ record.description }}</v-textarea>
             </v-col>
             <v-col cols="12">
               <v-switch
@@ -304,24 +279,10 @@ export default {
     num: 1,
     headers: [
       {
-        text: "KODE",
-        align: "start",
-        sortable: false,
-        width: 50,
-        value: "code",
-      },
-      {
         text: "KATEGORY",
         align: "start",
         sortable: false,
         value: "name",
-        width: 300,
-      },
-      {
-        text: "KETERANGAN ALASAN",
-        value: "description",
-        sortable: false,
-        align: "left",
       },
       {
         text: "STATUS",
@@ -401,7 +362,9 @@ export default {
     });
     this.fetchRecords();
   },
-  mounted() {},
+  mounted() {
+    this.fetchCatgeories();
+  },
   methods: {
     ...mapActions([
       "setPage",

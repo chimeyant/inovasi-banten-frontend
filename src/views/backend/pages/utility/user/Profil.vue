@@ -153,10 +153,10 @@ export default {
     fetchUpdate: async function () {
       try {
         let {
-          data: { status, message, data },
+          data: { success, message },
         } = await this.http.post("api/v2/utility/update-profil", this.record);
 
-        if (!status) {
+        if (!success) {
           this.snackbar.color = "red";
           this.snackbar.text = message;
           this.snackbar.state = true;
@@ -166,7 +166,6 @@ export default {
         this.snackbar.text = message;
         this.snackbar.state = true;
 
-        this.record = data;
         this.fetchRecord();
         this.getUserInfo();
       } catch (error) {

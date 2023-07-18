@@ -632,6 +632,12 @@ export default new Vuex.Store({
             },
           });
 
+          commit("TABLE_MUTATION", {
+            footer: {
+              total: data.length,
+            },
+          });
+
           commit("RECORDS_MUTATION", data);
 
           commit("EVENT_MUTATION", {

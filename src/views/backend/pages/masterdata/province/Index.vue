@@ -96,7 +96,7 @@
                 small
               >{{ value.text }}</v-chip>
             </template>
-            <template v-slot:item.id="{ value }">
+            <template v-slot:item.aksi="{ value }">
               <v-menu
                 bottom
                 origin="center center"
@@ -113,12 +113,24 @@
                 </template>
 
                 <v-list>
+                  <v-list-item @click="openRegency(value)">
+                    <v-list-item-title>
+                      <v-icon
+                        class="mr-1"
+                        :color="theme.color"
+                      >mdi-map</v-icon>Atur Kabupaten Kota
+                    </v-list-item-title>
+                  </v-list-item>
+                  <v-divider></v-divider>
                   <v-list-item
                     @click="editRecord(value)"
                     v-show="page.actions.edit"
                   >
                     <v-list-item-title>
-                      <v-icon color="orange">mdi-pencil-circle</v-icon>Ubah
+                      <v-icon
+                        class="mr-1"
+                        color="orange"
+                      >mdi-pencil-circle</v-icon>Ubah
                     </v-list-item-title>
                   </v-list-item>
                   <v-list-item
@@ -126,7 +138,10 @@
                     v-show="page.actions.delete"
                   >
                     <v-list-item-title>
-                      <v-icon color="red">mdi-delete-circle</v-icon>Hapus
+                      <v-icon
+                        class="mr-1"
+                        color="red"
+                      >mdi-delete-circle</v-icon>Hapus
                     </v-list-item-title>
                   </v-list-item>
                 </v-list>
@@ -290,14 +305,14 @@ export default {
         value: "code",
       },
       {
-        text: "NAMA",
+        text: "PROVINSI",
         align: "start",
         sortable: false,
         value: "name",
       },
       {
         text: "AKSI",
-        value: "id",
+        value: "aksi",
         width: 100,
         sortable: false,
         align: "center",
@@ -429,6 +444,15 @@ export default {
             this.filename = response.name;
             this.record.icon = response.name;
           }, 500);
+        },
+      });
+    },
+    openRegency: function (val) {
+      this.$router.push({
+        name: "master-data-regency",
+        params: {
+          province_code: val.code,
+          province_name: val.name,
         },
       });
     },
