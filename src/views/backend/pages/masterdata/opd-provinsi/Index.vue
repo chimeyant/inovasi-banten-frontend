@@ -219,52 +219,32 @@
               small
               color="orange"
               class="mr-1 animate__animated animate__flash animate__infinite"
-            >mdi-circle</v-icon> Formulir Master Indikator
+            >mdi-circle</v-icon> Formulir Master OPD
           </v-toolbar>
           <v-card-text class="mt-2">
-            <v-col cols="12">
-              <v-select
-                label="Kategori"
+            <v-col col="12">
+              <v-text-field
                 outlined
-                dense
+                :color="theme.color"
                 hide-details
-                v-model="record.category_uuid"
-                :items="categories"
-              ></v-select>
+                label="*Kode OPD"
+                placeholder=""
+                v-model="record.code"
+                :filled="record.code"
+                dense
+              ></v-text-field>
             </v-col>
             <v-col col="12">
               <v-text-field
                 outlined
                 :color="theme.color"
                 hide-details
-                label="*Indikator"
+                label="*Nama OPD"
                 placeholder=""
                 v-model="record.name"
                 :filled="record.name"
                 dense
               ></v-text-field>
-            </v-col>
-            <v-col col="12">
-              <v-text-field
-                outlined
-                :color="theme.color"
-                hide-details
-                label="*Skor"
-                placeholder=""
-                v-model="record.skor"
-                :filled="record.skor"
-                dense
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-switch
-                label="Status"
-                outlined
-                dense
-                hide-detail
-                v-model="record.status"
-                :color="theme.color"
-              ></v-switch>
             </v-col>
           </v-card-text>
 
@@ -293,42 +273,27 @@
     </v-col>
   </div>
 </template>
-    <script>
+        <script>
 import { mapActions, mapState } from "vuex";
 import "animate.css";
 
 export default {
-  name: "master-indikator",
+  name: "master-opd",
   data: () => ({
     num: 1,
     headers: [
       {
-        text: "INDIKATOR",
+        text: "KODE",
         align: "start",
         sortable: true,
-
+        value: "code",
+        width: 150,
+      },
+      {
+        text: "OPD",
+        align: "start",
+        sortable: true,
         value: "name",
-      },
-      {
-        text: "KATEGORI",
-        align: "start",
-        sortable: true,
-
-        value: "category",
-      },
-      {
-        text: "SKOR",
-        align: "right",
-        sortable: false,
-        value: "skor",
-        width: 100,
-      },
-      {
-        text: "STATUS",
-        align: "center",
-        sortable: false,
-        value: "status",
-        width: 100,
       },
       {
         text: "AKSI",
@@ -340,7 +305,6 @@ export default {
     ],
     search: null,
     filename: null,
-    categories: [],
   }),
   computed: {
     ...mapState([
@@ -371,11 +335,11 @@ export default {
   created() {
     this.setPage({
       crud: true,
-      dataUrl: "api/v2/master-data/indikator",
+      dataUrl: "api/v2/master-data/opd-provinsi",
       pagination: false,
       key: "id",
-      title: "MASTER INDIKATOR INOVASI",
-      subtitle: "Berikut Daftar Seluruh Indikator Inovasi Yang Tersedia",
+      title: "MASTER OPD",
+      subtitle: "Berikut Daftar Seluruh OPD Yang Tersedia",
       breadcrumbs: [
         {
           text: "Master",
@@ -383,7 +347,7 @@ export default {
           href: "",
         },
         {
-          text: "Indikator",
+          text: "OPD",
           disabled: true,
           href: "",
         },
@@ -402,9 +366,7 @@ export default {
     });
     this.fetchRecords();
   },
-  mounted() {
-    this.fetchCategories();
-  },
+  mounted() {},
   methods: {
     ...mapActions([
       "setPage",
@@ -469,12 +431,6 @@ export default {
           }, 500);
         },
       });
-    },
-    fetchCategories: async function () {
-      try {
-        let { data } = await this.http.get("api/v2/combo/category");
-        this.categories = data;
-      } catch (error) {}
     },
   },
 };

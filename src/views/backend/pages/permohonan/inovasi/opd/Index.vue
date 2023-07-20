@@ -20,7 +20,7 @@
                 >
                   <v-icon
                     :color="theme.mode == 'dark' ? `white` : `black`"
-                    @click="openForm"
+                    @click="openPermohonanCreate"
                   >add_circle</v-icon>
                 </v-btn>
               </template>
@@ -113,12 +113,40 @@
                 </template>
 
                 <v-list>
+                  <v-list-item @click="editRecord(value)">
+                    <v-list-item-title>
+                      <v-icon
+                        class="mr-1"
+                        :color="theme.color"
+                      >mdi-clipboard-list-outline</v-icon>Indikator
+                    </v-list-item-title>
+                  </v-list-item>
+                  <v-list-item @click="editRecord(value)">
+                    <v-list-item-title>
+                      <v-icon
+                        class="mr-1"
+                        :color="theme.color"
+                      >mdi-eye</v-icon>Pratinjau
+                    </v-list-item-title>
+                  </v-list-item>
+                  <v-list-item @click="editRecord(value)">
+                    <v-list-item-title>
+                      <v-icon
+                        class="mr-1"
+                        :color="theme.color"
+                      >mdi-email-send</v-icon>Kirim Permohonan
+                    </v-list-item-title>
+                  </v-list-item>
+                  <v-divider></v-divider>
                   <v-list-item
                     @click="editRecord(value)"
                     v-show="page.actions.edit"
                   >
                     <v-list-item-title>
-                      <v-icon color="orange">mdi-pencil-circle</v-icon>Ubah
+                      <v-icon
+                        class="mr-1"
+                        color="orange"
+                      >mdi-pencil-circle</v-icon>Ubah
                     </v-list-item-title>
                   </v-list-item>
                   <v-list-item
@@ -126,7 +154,10 @@
                     v-show="page.actions.delete"
                   >
                     <v-list-item-title>
-                      <v-icon color="red">mdi-delete-circle</v-icon>Hapus
+                      <v-icon
+                        class="mr-1"
+                        color="red"
+                      >mdi-delete-circle</v-icon>Hapus
                     </v-list-item-title>
                   </v-list-item>
                 </v-list>
@@ -293,34 +324,42 @@
     </v-col>
   </div>
 </template>
-    <script>
+      <script>
 import { mapActions, mapState } from "vuex";
 import "animate.css";
 
 export default {
-  name: "master-indikator",
+  name: "permohonan-inovasi",
   data: () => ({
     num: 1,
     headers: [
       {
-        text: "INDIKATOR",
+        text: "JUDUL INOVASI",
         align: "start",
         sortable: true,
 
         value: "name",
       },
-      {
-        text: "KATEGORI",
-        align: "start",
-        sortable: true,
 
-        value: "category",
+      {
+        text: "TAHAPAN",
+        align: "right",
+        sortable: false,
+        value: "tahapan",
+        width: 100,
       },
       {
-        text: "SKOR",
+        text: "INDIKATOR",
         align: "right",
         sortable: false,
         value: "skor",
+        width: 100,
+      },
+      {
+        text: "KEMATANGAN",
+        align: "right",
+        sortable: false,
+        value: "kematangan",
         width: 100,
       },
       {
@@ -371,19 +410,19 @@ export default {
   created() {
     this.setPage({
       crud: true,
-      dataUrl: "api/v2/master-data/indikator",
+      dataUrl: "api/v2/permohonan/opd/inovasi",
       pagination: false,
       key: "id",
-      title: "MASTER INDIKATOR INOVASI",
-      subtitle: "Berikut Daftar Seluruh Indikator Inovasi Yang Tersedia",
+      title: "PERMOHONAN INOVASI",
+      subtitle: "Berikut Daftar Seluruh Permohonan Inovasi Yang Tersedia",
       breadcrumbs: [
         {
-          text: "Master",
+          text: "Permohonan",
           disabled: true,
           href: "",
         },
         {
-          text: "Indikator",
+          text: "Inovasi",
           disabled: true,
           href: "",
         },
@@ -475,6 +514,11 @@ export default {
         let { data } = await this.http.get("api/v2/combo/category");
         this.categories = data;
       } catch (error) {}
+    },
+    openPermohonanCreate: function () {
+      this.$router.push({
+        name: "permohonan-inovasi-opd-create",
+      });
     },
   },
 };

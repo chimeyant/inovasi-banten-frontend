@@ -1,10 +1,29 @@
 <template>
   <div :class="device.desktop ? `home pa-6 grey lighten-4`:`home pa-0 grey lighten-4`">
-
     <v-row>
       <v-col cols="12">
-        <v-card class="animated animate__fadeInUp rounded-0">
+        <v-card class="animate__animated animate__fadeInUp rounded-0">
           <v-card-title :class="`flex flex-row-reverse ` + theme.color + ` lighten-1`">
+            <v-tooltip
+              :color="theme.color"
+              bottom
+            >
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  text
+                  small
+                  icon
+                  v-on="on"
+                  v-show="page.actions.export"
+                >
+                  <v-icon
+                    :color="theme.mode == 'dark' ? `white` : `black`"
+                    @click="addNewRecord"
+                  >mdi-files</v-icon>
+                </v-btn>
+              </template>
+              <span>Export Data</span>
+            </v-tooltip>
             <v-tooltip
               :color="theme.color"
               bottom
@@ -20,7 +39,7 @@
                 >
                   <v-icon
                     :color="theme.mode == 'dark' ? `white` : `black`"
-                    @click="openForm"
+                    @click="addNewRecord"
                   >add_circle</v-icon>
                 </v-btn>
               </template>
@@ -36,6 +55,7 @@
                   small
                   icon
                   v-on="on"
+                  v-show="page.actions.refresh"
                 >
                   <v-icon
                     :color="theme.mode == 'dark' ? `white` : `black`"
@@ -45,18 +65,16 @@
               </template>
               <span>Refresh Data</span>
             </v-tooltip>
-
             <v-spacer></v-spacer>
             <v-text-field
-              v-model="search"
+              v-model="table.options.search"
               append-icon="mdi-magnify"
               label="Pencarian"
               single-line
               hide-details
-              solo
               dense
+              solo
               :color="theme.color"
-              style="max-width: 350px"
             ></v-text-field>
           </v-card-title>
           <v-data-table
@@ -80,20 +98,10 @@
               height="1"
               indeterminate
             ></v-progress-linear>
-            <template v-slot:item.progress="{ value }">
-              <v-progress-linear
-                :color="theme.color"
-                v-model="value"
-                height="25"
-              >
-                <strong>{{ value }}%</strong>
-              </v-progress-linear>
-            </template>
-
             <template v-slot:item.status="{ value }">
               <v-chip
-                :color="value.color"
                 small
+                :color="value.color"
               >{{ value.text }}</v-chip>
             </template>
             <template v-slot:item.id="{ value }">
@@ -113,28 +121,26 @@
                 </template>
 
                 <v-list>
-                  <v-list-item
-                    @click="editRecord(value)"
-                    v-show="page.actions.edit"
-                  >
+                  <v-list-item @click="editRecord(value)">
                     <v-list-item-title>
-                      <v-icon color="orange">mdi-pencil-circle</v-icon>Ubah
+                      <v-icon color="orange">mdi-pencil-circle</v-icon>
+                      Ubah Data
                     </v-list-item-title>
                   </v-list-item>
-                  <v-list-item
-                    @click="postDeleteRecord(value)"
-                    v-show="page.actions.delete"
-                  >
+                  <v-list-item @click="postDeleteRecord(value)">
                     <v-list-item-title>
-                      <v-icon color="red">mdi-delete-circle</v-icon>Hapus
+                      <v-icon color="red">mdi-delete-circle</v-icon>
+                      Hapus Data
                     </v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-menu>
+
             </template>
           </v-data-table>
           <v-list
             subheader
+            three-line
             v-show="device.mobile"
           >
 
@@ -152,8 +158,8 @@
                     <v-checkbox :input-value="active"></v-checkbox>
                   </v-list-item-action>
                   <v-list-item-content>
-                    <v-list-item-title>{{ item.name }}</v-list-item-title>
-                    <v-list-item-subtitle>{{ item.description }} </v-list-item-subtitle>
+                    <v-list-item-title> {{ item.name}}</v-list-item-title>
+                    <v-list-item-subtitle>{{ item.email }} </v-list-item-subtitle>
                   </v-list-item-content>
                   <v-list-item-action>
                     <v-menu
@@ -184,7 +190,7 @@
                           </v-list-item-title>
                         </v-list-item>
                         <v-list-item
-                          @click="postDeleteRecord(item.uuid)"
+                          @click="postDeleteRecord(item.id)"
                           v-show="page.actions.delete"
                         >
                           <v-list-item-title>
@@ -195,8 +201,10 @@
                       </v-list>
                     </v-menu>
                   </v-list-item-action>
+
                 </template>
               </v-list-item>
+
             </v-list-item-group>
           </v-list>
         </v-card>
@@ -206,7 +214,7 @@
       <v-dialog
         transition="dialog-bottom-transition"
         v-model="form.add"
-        :max-width="device.desktop ? `600px` : `100%`"
+        :max-width="device.desktop ? `800px` : `100%`"
         persistent
         :fullscreen="device.mobile"
       >
@@ -216,58 +224,84 @@
             :dark="theme.mode"
           >
             <v-icon
-              small
-              color="orange"
               class="mr-1 animate__animated animate__flash animate__infinite"
-            >mdi-circle</v-icon> Formulir Master Indikator
+              color="orange"
+              small
+            >mdi-circle</v-icon> Formulir Manajemen Pengguna OPD Provinsi
           </v-toolbar>
           <v-card-text class="mt-2">
             <v-col cols="12">
-              <v-select
-                label="Kategori"
-                outlined
-                dense
-                hide-details
-                v-model="record.category_uuid"
-                :items="categories"
-              ></v-select>
-            </v-col>
-            <v-col col="12">
               <v-text-field
-                outlined
+                label="Nama Pengguna"
                 :color="theme.color"
                 hide-details
-                label="*Indikator"
-                placeholder=""
+                autocomplete="off"
+                outlined
+                dense
                 v-model="record.name"
-                :filled="record.name"
+              >
+              </v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field
+                label="Email"
+                :color="theme.color"
+                type="email"
+                hide-details
+                autocomplete="off"
+                v-model="record.email"
+                outlined
+                placeholder="user@bantenprov.go.id"
                 dense
               ></v-text-field>
             </v-col>
-            <v-col col="12">
-              <v-text-field
+
+            <v-col cols="12">
+              <v-select
+                label="OPD Pengelola"
                 outlined
-                :color="theme.color"
-                hide-details
-                label="*Skor"
-                placeholder=""
-                v-model="record.skor"
-                :filled="record.skor"
                 dense
+                hide-details
+                :color="theme.color"
+                v-model="record.opd_uuid"
+                :items="opds"
+              ></v-select>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field
+                label="Phone (WA)"
+                outlined
+                dense
+                hide-details
+                :color="theme.color"
+                maxLength="15"
+                v-model="record.phone"
               ></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-switch
-                label="Status"
-                outlined
-                dense
-                hide-detail
-                v-model="record.status"
-                :color="theme.color"
-              ></v-switch>
+              <v-row>
+                <v-col cols="4">
+                  <v-switch
+                    label="Status"
+                    :color="theme.color"
+                    v-model="record.status"
+                    hide-details
+                    dense
+                  ></v-switch>
+                </v-col>
+                <v-col cols="4">
+                  <v-switch
+                    label="Reset Kata Sandi"
+                    :color="theme.color"
+                    v-model="record.reset"
+                    hide-details
+                    dense
+                  ></v-switch>
+                </v-col>
+              </v-row>
+
             </v-col>
           </v-card-text>
-
           <v-divider></v-divider>
           <v-card-actions class="justify-end">
             <v-btn
@@ -275,54 +309,45 @@
               :color="theme.color"
               v-show="!form.edit"
               @click="postAddNewRecord"
-            >Tambah</v-btn>
+            >Kirim</v-btn>
             <v-btn
               outlined
               :color="theme.color"
               v-show="form.edit"
               @click="postUpdateRecord"
-            >Ubah</v-btn>
+            >Kirim</v-btn>
             <v-btn
               outlined
               color="grey"
               @click="closeForm"
             >Batal</v-btn>
+
           </v-card-actions>
+          <v-col>
+            <div class="subtitle-2 font-sm ml-1 grey--text">
+            </div>
+          </v-col>
         </v-card>
       </v-dialog>
     </v-col>
   </div>
 </template>
-    <script>
+  
+  <script>
 import { mapActions, mapState } from "vuex";
-import "animate.css";
 
 export default {
-  name: "master-indikator",
+  name: "manajemen-user",
   data: () => ({
     num: 1,
     headers: [
       {
-        text: "INDIKATOR",
+        text: "NAMA",
         align: "start",
         sortable: true,
-
         value: "name",
       },
-      {
-        text: "KATEGORI",
-        align: "start",
-        sortable: true,
-
-        value: "category",
-      },
-      {
-        text: "SKOR",
-        align: "right",
-        sortable: false,
-        value: "skor",
-        width: 100,
-      },
+      { text: "EMAIL", value: "email" },
       {
         text: "STATUS",
         align: "center",
@@ -333,14 +358,27 @@ export default {
       {
         text: "AKSI",
         value: "id",
-        width: 100,
-        sortable: false,
         align: "center",
+        sortable: false,
+        width: 50,
       },
     ],
+    status: [
+      { text: "Aktif", value: 0 },
+      { text: "Non Aktif", value: 1 },
+    ],
+    // authents: [
+    //   { text: "Administrator", value: "administrator" },
+    //   { text: "Team Pengkaji", value: "team-pengkaji" },
+    //   { text: "Pemda Tingkat I | Provinsi", value: "provinsi" },
+    //   { text: "OPD Pemda Tingkat I | OPD Provinsi", value: "provinsi-opd" },
+    //   { text: "Pemda Tingkat II | KAB/KOTA", value: "kabkota" },
+    //   { text: "OPD Pemda Tingkat II | OPD KAB/KOTA", value: "kabkota-opd" },
+    // ],
     search: null,
-    filename: null,
-    categories: [],
+    jurusans: [],
+    opds: [],
+    kabupatens: [],
   }),
   computed: {
     ...mapState([
@@ -352,10 +390,10 @@ export default {
       "records",
       "loading",
       "event",
-      "snackbar",
       "table",
       "form",
     ]),
+
     filterItems() {
       if (this.search != null) {
         return this.records.filter((item) => {
@@ -371,39 +409,38 @@ export default {
   created() {
     this.setPage({
       crud: true,
-      dataUrl: "api/v2/master-data/indikator",
-      pagination: false,
-      key: "id",
-      title: "MASTER INDIKATOR INOVASI",
-      subtitle: "Berikut Daftar Seluruh Indikator Inovasi Yang Tersedia",
+      dataUrl: "api/v2/utility/users-provinsi",
+      pagination: true,
+      title: "MANAJEMEN PENGGUNA",
+      subtitle: "Berikut Daftar Pengguna Yang Tersedia",
       breadcrumbs: [
         {
-          text: "Master",
-          disabled: true,
+          text: "Utility",
+          disabled: false,
           href: "",
         },
         {
-          text: "Indikator",
-          disabled: true,
-          href: "",
+          text: "Manajemen Pengguna",
+          disabled: false,
+          href: "master-jenis-pengaduan",
         },
       ],
-      showtable: true,
+      add: false,
+      edit: false,
       actions: {
         refresh: true,
         add: true,
         edit: true,
         delete: true,
-        bulkdelete: false,
-        print: false,
-        export: false,
-        help: false,
       },
+      showtable: true,
     });
-    this.fetchRecords();
+
+    // this.fetchRecords();
   },
   mounted() {
-    this.fetchCategories();
+    this.fetchRegencies();
+    this.fetchOpds();
   },
   methods: {
     ...mapActions([
@@ -413,69 +450,70 @@ export default {
       "postEdit",
       "postUpdate",
       "postConfirmDelete",
-      "assignFileBrowse",
-      "setLoading",
-      "setRecord",
       "setForm",
     ]),
-    openForm: function () {
+
+    addNewRecord: function () {
       this.setForm({
         add: true,
         edit: false,
       });
-      this.setRecord({});
     },
+
     closeForm: function () {
       this.setForm({
         add: false,
         edit: false,
       });
     },
+
     postAddNewRecord: function () {
       this.postAddNew(this.record).then(() => {
+        this.fetchRecords();
         this.closeForm();
       });
     },
     editRecord: function (val) {
-      this.postEdit(val).then(() => {
-        this.filename = this.record.icon;
-      });
+      this.postEdit(val);
       this.setForm({
         add: true,
         edit: true,
       });
     },
+
     postUpdateRecord: function () {
       this.postUpdate(this.record).then(() => {
+        this.fetchRecords();
         this.closeForm();
       });
     },
+
     postDeleteRecord: function (val) {
       this.postConfirmDelete(val);
     },
-    postDownload(val) {
-      window.open(val, "__blank");
-    },
-    uploadFile: function () {
-      this.assignFileBrowse({
-        fileType: [".png", ".jpg", ".jpeg"],
-        query: {
-          doctype: "apps",
-        },
-        callback: (response) => {
-          setTimeout(() => {
-            this.filename = response.name;
-            this.record.icon = response.name;
-          }, 500);
-        },
-      });
-    },
-    fetchCategories: async function () {
+
+    fetchRegencies: async function () {
       try {
-        let { data } = await this.http.get("api/v2/combo/category");
-        this.categories = data;
+        let { data } = await this.http.get("api/v2/combo/regency");
+        this.kabupatens = data;
       } catch (error) {}
+    },
+
+    fetchOpds: async function () {
+      try {
+        let { data } = await this.http.get("api/v2/combo/opd");
+        this.opds = data;
+      } catch (error) {}
+    },
+  },
+  watch: {
+    "table.options": {
+      handler() {
+        this.fetchRecords();
+      },
+      deep: true,
     },
   },
 };
 </script>
+  

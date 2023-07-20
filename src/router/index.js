@@ -21,12 +21,23 @@ import MasterDataDistrict from "../views/backend/pages/masterdata/district/Index
 import MasterDataVillage from "../views/backend/pages/masterdata/village/Index.vue";
 import MasterDataCatgeory from "../views/backend/pages/masterdata/category/Index.vue";
 import MasterDataIndikator from "../views/backend/pages/masterdata/indikator/Index.vue";
+import MasterDataIndikatorPemda from "../views/backend/pages/masterdata/inidkator-pemda/Index.vue";
 import MasterDataOpd from "../views/backend/pages/masterdata/opd/Index.vue";
 import MasterDataJenisInovasi from "../views/backend/pages/masterdata/jenis-inovasi/Index.vue";
 import MasterDataUrusan from "../views/backend/pages/masterdata/urusan/Index.vue";
+import MasterDataBentuk from "../views/backend/pages/masterdata/bentuk/Index.vue";
 
-//Manajemen Page
-import ManajemenKlaim from "../views/backend/pages/management/klaim/Index.vue";
+/**
+ * Master Data Provinsi
+ */
+import MasterDataOpdProvinsi from "../views/backend/pages/masterdata/opd-provinsi/Index.vue";
+import PermohonanProfile from "../views/backend/pages/permohonan/profile/Index.vue";
+
+/**
+ * Rooute OPD
+ */
+import PermohonanOpdInovasi from "../views/backend/pages/permohonan/inovasi/opd/Index.vue";
+import PermohonanOpdInovasiCreate from "../views/backend/pages/permohonan/inovasi/opd/Create.vue";
 
 //Utiity Group Page
 import User from "../views/backend/pages/utility/user/Index.vue";
@@ -36,6 +47,7 @@ import UtilityManajemenFitur from "../views/backend/pages/utility/manajemenfitur
 import UtilitymanajemenFiturAdministrator from "../views/backend/pages/utility/manajemenfitur/administrator/Index.vue";
 import UtilityUpdateHistory from "../views/backend/pages/utility/updatehistory/Index.vue";
 import UtilityUpdateHistoryItem from "../views/backend/pages/utility/updatehistory/items/Index.vue";
+import UtilityManajemenUserProvinsi from "../views/backend/pages/utility/user-provinsi/Index.vue";
 
 //Backend Halaman Depan
 import HalamanDepanSlider from "../views/backend/pages/halamandepan/sliders/Index.vue";
@@ -133,9 +145,19 @@ const routes = [
         component: MasterDataIndikator,
       },
       {
+        path: "master-data-indikator-pemda",
+        name: "master-data-indikator-pemda",
+        component: MasterDataIndikatorPemda,
+      },
+      {
         path: "master-data-opd",
         name: "master-data-opd",
         component: MasterDataOpd,
+      },
+      {
+        path: "master-data-opd-provinsi",
+        name: "master-data-opd-provinsi",
+        component: MasterDataOpdProvinsi,
       },
       {
         path: "master-data-jenis-inovasi",
@@ -147,12 +169,31 @@ const routes = [
         name: "master-data-urusan",
         component: MasterDataUrusan,
       },
-
-      //Route Manajement
       {
-        path: "manajemen-klaim",
-        name: "manajemen-klaim",
-        component: ManajemenKlaim,
+        path: "master-data-bentuk",
+        name: "master-data-bentuk",
+        component: MasterDataBentuk,
+      },
+
+      //Route Provinsi
+      {
+        path: "permohonan-profile",
+        name: "permohonan-profile",
+        component: PermohonanProfile,
+      },
+
+      /**
+       * Route Permohonan Inovasi OPD
+       */
+      {
+        path: "permohonan-inovasi-opd",
+        name: "permohonan-inovasi-opd",
+        component: PermohonanOpdInovasi,
+      },
+      {
+        path: "permohonan-inovasi-opd-create",
+        name: "permohonan-inovasi-opd-create",
+        component: PermohonanOpdInovasiCreate,
       },
 
       //Route slider
@@ -195,6 +236,11 @@ const routes = [
         path: "utility-update-history-items/:update_history_id",
         name: "utility-update-history-items",
         component: UtilityUpdateHistoryItem,
+      },
+      {
+        path: "utility-manajemen-user-provinsi",
+        name: "utility-manajemen-user-provinsi",
+        component: UtilityManajemenUserProvinsi,
       },
     ],
   },

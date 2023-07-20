@@ -137,10 +137,10 @@ export default {
           if (this.auth.user.user.authent == "administrator") {
             this.$router.push({ name: "dashboard" });
           }
-          if (this.auth.user.user.authent == "operator") {
+          if (this.auth.user.user.authent == "provinsi") {
             this.$router.push({ name: "dashboard" });
           }
-          if (this.auth.user.user.authent == "user") {
+          if (this.auth.user.user.authent == "provinsi-opd") {
             this.$router.push({ name: "dashboard" });
           }
         } catch (error) {

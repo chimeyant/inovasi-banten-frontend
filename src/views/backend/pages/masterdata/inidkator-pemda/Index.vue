@@ -293,12 +293,12 @@
     </v-col>
   </div>
 </template>
-    <script>
+      <script>
 import { mapActions, mapState } from "vuex";
 import "animate.css";
 
 export default {
-  name: "master-indikator",
+  name: "master-indikator-pemda",
   data: () => ({
     num: 1,
     headers: [
@@ -371,11 +371,11 @@ export default {
   created() {
     this.setPage({
       crud: true,
-      dataUrl: "api/v2/master-data/indikator",
+      dataUrl: "api/v2/master-data/indikator-pemda",
       pagination: false,
       key: "id",
-      title: "MASTER INDIKATOR INOVASI",
-      subtitle: "Berikut Daftar Seluruh Indikator Inovasi Yang Tersedia",
+      title: "MASTER INDIKATOR PEMDA",
+      subtitle: "Berikut Daftar Seluruh Indikator Pemda Yang Tersedia",
       breadcrumbs: [
         {
           text: "Master",

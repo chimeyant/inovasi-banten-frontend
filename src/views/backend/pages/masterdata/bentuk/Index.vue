@@ -219,42 +219,21 @@
               small
               color="orange"
               class="mr-1 animate__animated animate__flash animate__infinite"
-            >mdi-circle</v-icon> Formulir Master Indikator
+            >mdi-circle</v-icon> Formulir Master Jenis Inovasi
           </v-toolbar>
           <v-card-text class="mt-2">
-            <v-col cols="12">
-              <v-select
-                label="Kategori"
-                outlined
-                dense
-                hide-details
-                v-model="record.category_uuid"
-                :items="categories"
-              ></v-select>
-            </v-col>
             <v-col col="12">
-              <v-text-field
+              <v-textarea
                 outlined
                 :color="theme.color"
                 hide-details
-                label="*Indikator"
+                label="Bentuk Inovasi"
                 placeholder=""
                 v-model="record.name"
                 :filled="record.name"
                 dense
-              ></v-text-field>
-            </v-col>
-            <v-col col="12">
-              <v-text-field
-                outlined
-                :color="theme.color"
-                hide-details
-                label="*Skor"
-                placeholder=""
-                v-model="record.skor"
-                :filled="record.skor"
-                dense
-              ></v-text-field>
+                rows="3"
+              ></v-textarea>
             </v-col>
             <v-col cols="12">
               <v-switch
@@ -293,42 +272,27 @@
     </v-col>
   </div>
 </template>
-    <script>
+          <script>
 import { mapActions, mapState } from "vuex";
 import "animate.css";
 
 export default {
-  name: "master-indikator",
+  name: "master-bentuk",
   data: () => ({
     num: 1,
     headers: [
       {
-        text: "INDIKATOR",
+        text: "BENTUK",
         align: "start",
         sortable: true,
-
         value: "name",
-      },
-      {
-        text: "KATEGORI",
-        align: "start",
-        sortable: true,
-
-        value: "category",
-      },
-      {
-        text: "SKOR",
-        align: "right",
-        sortable: false,
-        value: "skor",
-        width: 100,
       },
       {
         text: "STATUS",
         align: "center",
         sortable: false,
         value: "status",
-        width: 100,
+        width: 159,
       },
       {
         text: "AKSI",
@@ -340,7 +304,6 @@ export default {
     ],
     search: null,
     filename: null,
-    categories: [],
   }),
   computed: {
     ...mapState([
@@ -371,11 +334,11 @@ export default {
   created() {
     this.setPage({
       crud: true,
-      dataUrl: "api/v2/master-data/indikator",
+      dataUrl: "api/v2/master-data/bentuk",
       pagination: false,
       key: "id",
-      title: "MASTER INDIKATOR INOVASI",
-      subtitle: "Berikut Daftar Seluruh Indikator Inovasi Yang Tersedia",
+      title: "MASTER URUSAN",
+      subtitle: "Berikut Daftar Seluruh Bentuk Yang Tersedia",
       breadcrumbs: [
         {
           text: "Master",
@@ -383,7 +346,7 @@ export default {
           href: "",
         },
         {
-          text: "Indikator",
+          text: "Bentuk",
           disabled: true,
           href: "",
         },
@@ -402,9 +365,7 @@ export default {
     });
     this.fetchRecords();
   },
-  mounted() {
-    this.fetchCategories();
-  },
+  mounted() {},
   methods: {
     ...mapActions([
       "setPage",
@@ -469,12 +430,6 @@ export default {
           }, 500);
         },
       });
-    },
-    fetchCategories: async function () {
-      try {
-        let { data } = await this.http.get("api/v2/combo/category");
-        this.categories = data;
-      } catch (error) {}
     },
   },
 };
