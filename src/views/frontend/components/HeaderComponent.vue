@@ -23,7 +23,8 @@
     <v-spacer />
     <v-list
       color="transparent"
-      class="d-flex white light  mt-4 mr-5 mb-5"
+      class="d-flex white light  mt-4  mb-5"
+      style="margin-right: 150px !important;"
     >
       <template v-for="(menu,index) in menus">
         <v-list-item
@@ -56,6 +57,7 @@
             <v-list-item
               v-for="(item, index) in menu.submenus"
               :key="index"
+              :to="item.route"
             >
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item>
@@ -138,7 +140,7 @@ export default {
           {
             title: "Seluruh Inovasi",
             icon: "mdi-clover",
-            route: "#",
+            route: "/repository",
             type: "item",
           },
           {
