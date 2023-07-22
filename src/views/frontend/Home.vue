@@ -3,6 +3,7 @@
     <slider />
     <sekilas />
     <high-light />
+    <sponsor />
 
   </div>
 </template>
@@ -13,6 +14,7 @@ import Slider from "./components/slider/Index.vue";
 import Sekilas from "./components/sekilas/Index.vue";
 import HighLight from "./components/HighLight/Index.vue";
 import Statistik from "./components/Statistik/Index.vue";
+import Sponsor from "./components/sponsor/Index.vue";
 export default {
   name: "home",
   components: {
@@ -20,6 +22,7 @@ export default {
     Sekilas,
     HighLight,
     Statistik,
+    Sponsor,
   },
   data: () => ({}),
   mounted() {
