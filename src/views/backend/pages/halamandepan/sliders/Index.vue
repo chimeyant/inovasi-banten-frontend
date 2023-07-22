@@ -193,7 +193,7 @@
           >
             <v-icon
               small
-              :color="corlib.primary"
+              color="orange"
               class="mr-1 animate__animated animate__flash animate__infinite"
             >mdi-circle</v-icon>Formulir Slider
           </v-toolbar>
@@ -212,10 +212,7 @@
                 >
                 </v-text-field>
               </v-col>
-              <v-col
-                cols="12"
-                v-if="false"
-              >
+              <v-col cols="12">
                 <v-text-field
                   label="Sub Judul"
                   :color="theme.color"
@@ -242,46 +239,92 @@
               </v-col>
 
               <v-col cols="12">
-                <div></div>
-                <v-spacer></v-spacer>
-                <v-col cols="12">
-                  <v-img
-                    :aspect-ratio="4 / 2"
-                    :src="foto"
-                    :lazy-src="foto"
-                    class="grey"
+
+                <v-img
+                  :aspect-ratio="4 / 2"
+                  :src="foto"
+                  :lazy-src="foto"
+                  class="grey"
+                >
+                  <div
+                    class="d-flex flex-column align-center justify-center"
+                    style="height: 100%"
                   >
-                    <div
-                      class="d-flex flex-column align-center justify-center"
-                      style="height: 100%"
-                    >
-                      <div style="
+                    <div style="
                           position: absolute;
                           right: 8px;
                           bottom: 8px;
                           height: 36px;
                           width: 36px;
                         ">
-                        <v-btn
-                          icon
-                          color="white"
-                          @click="uploadFoto"
-                        >
-                          <v-icon>photo_camera</v-icon>
-                        </v-btn>
-                      </div>
+                      <v-btn
+                        icon
+                        color="white"
+                        @click="uploadFoto"
+                      >
+                        <v-icon>photo_camera</v-icon>
+                      </v-btn>
                     </div>
-                  </v-img>
-                  <center>Gambar 3x4 Max: 2Mb</center>
-                </v-col>
+                  </div>
+                </v-img>
+                <center>Gambar Utama (1900px x 500px Max: 2Mb)</center>
               </v-col>
-              <v-col cols="5">
-                <v-switch
-                  label="Publish"
+              <v-col cols=12>
+                <v-text-field
+                  label="Gambar Title Max: 2Mb"
+                  append-outer-icon="attachment"
+                  v-model="top_image"
                   :color="theme.color"
-                  v-model="record.status"
+                  outlined
+                  dense
+                  @click:append-outer="uploadTopImage()"
+                  hide-details
+                ></v-text-field>
+              </v-col>
+              <v-col cols=12>
+                <v-text-field
+                  label="Gambar Footer Max: 2Mb"
+                  append-outer-icon="attachment"
+                  v-model="bottom_image"
+                  :color="theme.color"
+                  outlined
+                  dense
+                  @click:append-outer="uploadBottomImage"
+                  hide-details
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  label="Nomor Prioritas"
+                  :color="theme.color"
                   :hide-details="device.desktop"
-                ></v-switch>
+                  autocomplete="off"
+                  v-model="record.priority_number"
+                  outlined
+                  :dense="device.desktop"
+                  type="number"
+                >
+                </v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-row>
+                  <v-col cols="6">
+                    <v-switch
+                      label="Publish"
+                      :color="theme.color"
+                      v-model="record.status"
+                      :hide-details="device.desktop"
+                    ></v-switch>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-switch
+                      label="Prioritas"
+                      :color="theme.color"
+                      v-model="record.priority_status"
+                      :hide-details="device.desktop"
+                    ></v-switch>
+                  </v-col>
+                </v-row>
               </v-col>
             </v-row>
           </v-card-text>
@@ -345,6 +388,8 @@ export default {
     ],
     search: null,
     foto: "/",
+    top_image: null,
+    bottom_image: null,
 
     add: false,
     edit: false,
@@ -403,6 +448,9 @@ export default {
         add: true,
         edit: false,
       });
+      this.foto = "/";
+      this.top_image = null;
+      this.bottom_image = null;
     },
     closeForm: function () {
       this.setForm({
@@ -419,6 +467,8 @@ export default {
     editRecord: function (val) {
       this.postEdit(val).then(() => {
         this.foto = this.record.path_url;
+        this.top_image = this.record.top_image;
+        this.bottom_image = this.record.bottom_image;
       });
       this.setForm({
         add: true,
@@ -431,6 +481,7 @@ export default {
         this.fetchRecords();
         this.add = false;
         this.edit = false;
+        this.closeForm();
       });
     },
 
@@ -449,6 +500,36 @@ export default {
             this.foto = response.path;
             this.record.path = response.name;
           }, 1000);
+        },
+      });
+    },
+
+    uploadTopImage: function () {
+      this.assignFileBrowse({
+        fileType: [".png"],
+        query: {
+          doctype: "sliders",
+        },
+        callback: (response) => {
+          setTimeout(() => {
+            this.top_image = response.name;
+            this.record.top_image = response.name;
+          }, 500);
+        },
+      });
+    },
+
+    uploadBottomImage: function () {
+      this.assignFileBrowse({
+        fileType: [".png"],
+        query: {
+          doctype: "sliders",
+        },
+        callback: (response) => {
+          setTimeout(() => {
+            this.bottom_image = response.name;
+            this.record.bottom_image = response.name;
+          }, 500);
         },
       });
     },

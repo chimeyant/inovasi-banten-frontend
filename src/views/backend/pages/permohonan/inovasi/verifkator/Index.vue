@@ -113,50 +113,23 @@
                 </template>
 
                 <v-list>
-                  <v-list-item @click="openIndikator(value)">
+                  <v-list-item @click="openVerifikasi(value)">
                     <v-list-item-title>
                       <v-icon
                         class="mr-1"
                         :color="theme.color"
-                      >mdi-clipboard-list-outline</v-icon>Indikator
+                      >mdi-file-search</v-icon>Verifikasi Permohonan
                     </v-list-item-title>
                   </v-list-item>
-                  <v-list-item
-                    v-show="false"
-                    @click="editRecord(value)"
-                  >
+                  <v-list-item @click="openFormStatusVerfikasi(value)">
                     <v-list-item-title>
                       <v-icon
                         class="mr-1"
                         :color="theme.color"
-                      >mdi-eye</v-icon>Pratinjau
+                      >mdi-shield-sun-outline</v-icon>Proses Status Permohonan
                     </v-list-item-title>
                   </v-list-item>
-                  <v-list-item @click="postPush(value)">
-                    <v-list-item-title>
-                      <v-icon
-                        class="mr-1"
-                        :color="theme.color"
-                      >mdi-email-send</v-icon>Kirim Permohonan
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item @click="postPull(value)">
-                    <v-list-item-title>
-                      <v-icon
-                        class="mr-1"
-                        color="red"
-                      >mdi-email-receive</v-icon>Batalkan Permohonan
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item @click="openHistory(value)">
-                    <v-list-item-title>
-                      <v-icon
-                        class="mr-1"
-                        color="grey"
-                      >mdi-math-log</v-icon>Histori Permohonan
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-divider></v-divider>
+
                   <v-list-item
                     @click="editRecord(value)"
                     v-show="page.actions.edit"
@@ -344,7 +317,7 @@
     <v-col cols="12">
       <v-dialog
         transition="dialog-bottom-transition"
-        v-model="history.show"
+        v-model="verifikasi.show"
         :max-width="device.desktop ? `600px` : `100%`"
         persistent
         :fullscreen="device.mobile"
@@ -358,55 +331,56 @@
               small
               color="orange"
               class="mr-1 animate__animated animate__flash animate__infinite"
-            >mdi-circle</v-icon> Histori Permohonan Anda
+            >mdi-circle</v-icon> Formulir Verifikasi Status
           </v-toolbar>
-          <v-card-text class="mt-2 overflow-y-scroll">
-            <v-timeline
-              align-top
-              dense
-            >
-              <v-timeline-item
-                :color="item.status"
-                small
-                v-for="(item,index) in history.records"
-                :key="index"
-              >
-                <v-row class="pt-1">
-                  <v-col cols="3">
-                    <strong>{{ item.tanggal  }}</strong>
-                    <br>
-                    <div>{{ item.waktu }}</div>
-                  </v-col>
+          <v-card-text class="mt-2">
+            <v-col col="12">
+              <v-textarea
+                outlined
+                :color="theme.color"
+                hide-details
+                label="Pesan"
+                placeholder=""
+                v-model="verifikasi.record.content"
+                :filled="verifikasi.record.content"
+                rows="3"
+                dense
+              ></v-textarea>
+            </v-col>
+            <v-col cols="12">
+              <v-select
+                label="Status"
+                outlined
+                dense
+                hide-details
+                v-model="verifikasi.record.status"
+                :items="verifikasi.status"
+                :color="theme.color"
+              ></v-select>
+            </v-col>
 
-                  <v-col>
-                    <strong>{{ item.title }}</strong>
-                    <div>
-                      {{ item.user }}
-                    </div>
-                    <div :class="`text-caption `+ item.status+`--text`">
-                      {{ item.content }}
-                    </div>
-                  </v-col>
-                </v-row>
-              </v-timeline-item>
-            </v-timeline>
           </v-card-text>
 
           <v-divider></v-divider>
           <v-card-actions class="justify-end">
+            <v-btn
+              outlined
+              :color="theme.color"
+              @click="postVerfikasiStatus"
+            >Kirim</v-btn>
 
             <v-btn
               outlined
               color="grey"
-              @click="closeHistory"
-            >Tutup</v-btn>
+              @click="closeFormStatusVerfikasi"
+            >Batal</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
     </v-col>
   </div>
 </template>
-      <script>
+          <script>
 import { mapActions, mapState } from "vuex";
 import "animate.css";
 
@@ -415,6 +389,13 @@ export default {
   data: () => ({
     num: 1,
     headers: [
+      {
+        text: "OPD",
+        align: "start",
+        sortable: true,
+
+        value: "opd",
+      },
       {
         text: "JUDUL INOVASI",
         align: "start",
@@ -462,9 +443,20 @@ export default {
     search: null,
     filename: null,
     categories: [],
-    history: {
+    verifikasi: {
       show: false,
-      records: [],
+      record: {},
+      status: [
+        { text: "Dokumen Terverifikasi", value: "4" },
+        {
+          text: "Subtansi Terverifikasi",
+          value: "5",
+        },
+        {
+          text: "Ditolak, Perlu Perbaikan",
+          value: "2",
+        },
+      ],
     },
   }),
   computed: {
@@ -496,7 +488,7 @@ export default {
   created() {
     this.setPage({
       crud: true,
-      dataUrl: "api/v2/permohonan/opd/inovasi",
+      dataUrl: "api/v2/permohonan/verifikator/inovasi",
       pagination: false,
       key: "id",
       title: "PERMOHONAN INOVASI",
@@ -516,9 +508,9 @@ export default {
       showtable: true,
       actions: {
         refresh: true,
-        add: true,
-        edit: true,
-        delete: true,
+        add: false,
+        edit: false,
+        delete: false,
         bulkdelete: false,
         print: false,
         export: false,
@@ -672,18 +664,50 @@ export default {
         this.setLoading({ dialog: false, text: "" });
       }
     },
-    openHistory: async function (val) {
-      try {
-        let { data } = await this.http.get(
-          "api/v2/permohonan/inovasi-history/" + val
-        );
-        this.history.records = data;
-        this.history.show = true;
-      } catch (error) {}
+    openFormStatusVerfikasi: function (val) {
+      this.verifikasi.record = {};
+      this.verifikasi.show = true;
+      this.verifikasi.record.inovasi_uuid = val;
     },
-    closeHistory: function () {
-      this.history.show = false;
-      this.history.records = [];
+    closeFormStatusVerfikasi: function () {
+      this.verifikasi.show = false;
+      this.verifikasi.record = {};
+    },
+    postVerfikasiStatus: async function () {
+      try {
+        this.setLoading({ dialog: true, text: "Proses verifikasi..." });
+        let {
+          data: { code, success, message, error },
+        } = await this.http.post(
+          "api/v2/permohonan/verifikator/inovasi-set-status",
+          this.verifikasi.record
+        );
+        if (!success) {
+          this.snackbar.color = "orange";
+          this.snackbar.text = message;
+          this.snackbar.state = true;
+          return;
+        }
+        this.snackbar.color = this.theme.color;
+        this.snackbar.text = message;
+        this.snackbar.state = true;
+        this.fetchRecords();
+        this.closeFormStatusVerfikasi();
+      } catch (error) {
+        this.snackbar.color = "red";
+        this.snackbar.text = "Opps.., terjadi kesalahan ";
+        this.snackbar.state = false;
+      } finally {
+        this.setLoading({ dialog: false, text: "" });
+      }
+    },
+    openVerifikasi: function (val) {
+      this.$router.push({
+        name: "permohonan-inovasi-verifikator-verifikasi",
+        params: {
+          id: val,
+        },
+      });
     },
   },
 };

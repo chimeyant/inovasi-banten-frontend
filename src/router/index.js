@@ -10,6 +10,9 @@ import Home from "../views/frontend/Home.vue";
 //BASE APLIKASI
 import Base from "../views/backend/Base.vue";
 
+//Exception
+import PageUnderConstructions from "../views/backend/pages/exception/under-construction/Index.vue";
+
 //Dashboard Page
 import Dashboard from "../views/backend/pages/Dashboard.vue";
 
@@ -23,21 +26,38 @@ import MasterDataCatgeory from "../views/backend/pages/masterdata/category/Index
 import MasterDataIndikator from "../views/backend/pages/masterdata/indikator/Index.vue";
 import MasterDataIndikatorPemda from "../views/backend/pages/masterdata/inidkator-pemda/Index.vue";
 import MasterDataOpd from "../views/backend/pages/masterdata/opd/Index.vue";
+import MasterDataOpdProvinsi from "../views/backend/pages/masterdata/opd-provinsi/Index.vue";
+import MasterDataOpdKankota from "../views/backend/pages/masterdata/opd-kabkota/Index.vue";
 import MasterDataJenisInovasi from "../views/backend/pages/masterdata/jenis-inovasi/Index.vue";
 import MasterDataUrusan from "../views/backend/pages/masterdata/urusan/Index.vue";
 import MasterDataBentuk from "../views/backend/pages/masterdata/bentuk/Index.vue";
 
 /**
- * Master Data Provinsi
+ * Page Admininstartor
  */
-import MasterDataOpdProvinsi from "../views/backend/pages/masterdata/opd-provinsi/Index.vue";
+import PermohonanAdminPublisher from "../views/backend/pages/permohonan/inovasi/admin/Index.vue";
+import PermohonanAdminReview from "../views/backend/pages/permohonan/inovasi/admin/review/Index.vue";
+
+/**
+ * Inovasi Admin Inovasi Provinsi / Kab Kota
+ */
 import PermohonanProfile from "../views/backend/pages/permohonan/profile/Index.vue";
+import PermohonanProfileDocument from "../views/backend/pages/permohonan/profile/document/Index.vue";
+import PermohonanAdminInovasi from "../views/backend/pages/permohonan/admin/inovasi/Index.vue";
+
+/**
+ * Inovasi Verifkator
+ */
+import PermohonanVerifikatorInovasi from "../views/backend/pages/permohonan/inovasi/verifkator/Index.vue";
+import PermohonanVerifikatorVerifikasi from "../views/backend/pages/permohonan/inovasi/verifkator/verifikasi/Index.vue";
 
 /**
  * Rooute OPD
  */
 import PermohonanOpdInovasi from "../views/backend/pages/permohonan/inovasi/opd/Index.vue";
 import PermohonanOpdInovasiCreate from "../views/backend/pages/permohonan/inovasi/opd/Create.vue";
+import PermohonanOpdInovasiIndkator from "../views/backend/pages/permohonan/inovasi/opd/indikator/Index.vue";
+import PermohonanOpdInovasiDocument from "../views/backend/pages/permohonan/inovasi/opd/document/Index.vue";
 
 //Utiity Group Page
 import User from "../views/backend/pages/utility/user/Index.vue";
@@ -48,6 +68,7 @@ import UtilitymanajemenFiturAdministrator from "../views/backend/pages/utility/m
 import UtilityUpdateHistory from "../views/backend/pages/utility/updatehistory/Index.vue";
 import UtilityUpdateHistoryItem from "../views/backend/pages/utility/updatehistory/items/Index.vue";
 import UtilityManajemenUserProvinsi from "../views/backend/pages/utility/user-provinsi/Index.vue";
+import UtilityManajemenUSerKabkota from "../views/backend/pages/utility/user-kabkota/Index.vue";
 
 //Backend Halaman Depan
 import HalamanDepanSlider from "../views/backend/pages/halamandepan/sliders/Index.vue";
@@ -95,6 +116,11 @@ const routes = [
       { path: "", redirect: { name: "dashboard" } },
       { path: "dashboard", name: "dashboard", component: Dashboard },
       { path: "user", name: "user", component: User },
+      {
+        path: "page-under-construction",
+        name: "page-under-construction",
+        component: PageUnderConstructions,
+      },
       {
         path: "chngpwd",
         name: "chngpwd",
@@ -160,6 +186,11 @@ const routes = [
         component: MasterDataOpdProvinsi,
       },
       {
+        path: "master-data-opd-kabkota",
+        name: "master-data-opd-kabkota",
+        component: MasterDataOpdKankota,
+      },
+      {
         path: "master-data-jenis-inovasi",
         name: "master-data-jenis-inovasi",
         component: MasterDataJenisInovasi,
@@ -175,11 +206,50 @@ const routes = [
         component: MasterDataBentuk,
       },
 
-      //Route Provinsi
+      //Route Profil
       {
         path: "permohonan-profile",
         name: "permohonan-profile",
         component: PermohonanProfile,
+      },
+      {
+        path:
+          "permohonan-profile-document/:profile_uuid/:indikator_pemda_uuid/:profile_indikator_uuid/:indikator_pemda_name",
+        name: "permohonan-profile-document",
+        component: PermohonanProfileDocument,
+      },
+      {
+        path: "permohonan-inovasi-admin",
+        name: "permohonan-inovasi-admin",
+        component: PermohonanAdminInovasi,
+      },
+
+      /**
+       * Route Verifikator
+       */
+      {
+        path: "permohonan-inovasi-verifikator",
+        name: "permohonan-inovasi-verifikator",
+        component: PermohonanVerifikatorInovasi,
+      },
+      {
+        path: "permohonan-inovasi-verifikator-verifikasi/:id",
+        name: "permohonan-inovasi-verifikator-verifikasi",
+        component: PermohonanVerifikatorVerifikasi,
+      },
+
+      /**
+       * Route Admin Publisher
+       */
+      {
+        path: "permohonan-inovasi-publisher",
+        name: "permohonan-inovasi-publisher",
+        component: PermohonanAdminPublisher,
+      },
+      {
+        path: "permohonan-inovasi-review/:id",
+        name: "permohonan-inovasi-review",
+        component: PermohonanAdminReview,
       },
 
       /**
@@ -194,6 +264,17 @@ const routes = [
         path: "permohonan-inovasi-opd-create",
         name: "permohonan-inovasi-opd-create",
         component: PermohonanOpdInovasiCreate,
+      },
+      {
+        path: "permohonan-inovasi-opd-indikator/:inovasi_uuid",
+        name: "permohonan-inovasi-opd-indikator",
+        component: PermohonanOpdInovasiIndkator,
+      },
+      {
+        path:
+          "permohonan-inovasi-opd-document/:inovasi_uuid/:indikator_uuid/:inovasi_indikator_uuid/:indikator_name",
+        name: "permohonan-inovasi-opd-document",
+        component: PermohonanOpdInovasiDocument,
       },
 
       //Route slider
@@ -241,6 +322,11 @@ const routes = [
         path: "utility-manajemen-user-provinsi",
         name: "utility-manajemen-user-provinsi",
         component: UtilityManajemenUserProvinsi,
+      },
+      {
+        path: "utility-manajemen-user-kabkota",
+        name: "utility-manajemen-user-kabkota",
+        component: UtilityManajemenUSerKabkota,
       },
     ],
   },

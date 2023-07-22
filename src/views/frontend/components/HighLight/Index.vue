@@ -36,14 +36,18 @@
                   >
                   <div class="highlight-slide-title black--text">
                     {{ "Judul Inovasi...!!" }}
+                    <div>
+
+                      <span class="mt-1 ml-2 black--text body-2 grey--text ">{{ "01/01/2022" }}</span>
+                    </div>
                   </div>
                   <div class="pa-3 mt-5 mb-5">
                     <v-row>
                       <v-btn
                         @click=""
                         color="green"
-                      ></v-btn>
-                      <span class="mt-1 ml-2 black--text body-2 grey--text ">{{ "01/01/2022" }}</span>
+                      >Selengkapnya</v-btn>
+
                     </v-row>
                   </div>
                 </div>

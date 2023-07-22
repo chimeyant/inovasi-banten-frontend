@@ -20,6 +20,27 @@
                 >
                   <v-icon
                     :color="theme.mode == 'dark' ? `white` : `black`"
+                    @click="openFormGenerate"
+                  >mdi-plus-circle-multiple-outline</v-icon>
+                </v-btn>
+              </template>
+              <span>Generate</span>
+            </v-tooltip>
+            <v-tooltip
+              :color="theme.color"
+              bottom
+            >
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  text
+                  small
+                  icon
+                  v-on="on"
+                  v-show="page.actions.add"
+                  class="animate__animated animate__shakeY animate__delay-1s"
+                >
+                  <v-icon
+                    :color="theme.mode == 'dark' ? `white` : `black`"
                     @click="openForm"
                   >add_circle</v-icon>
                 </v-btn>
@@ -271,6 +292,56 @@
         </v-card>
       </v-dialog>
     </v-col>
+
+    <v-col cols="12">
+      <v-dialog
+        transition="dialog-bottom-transition"
+        v-model="generate.show"
+        :max-width="device.desktop ? `600px` : `100%`"
+        persistent
+        :fullscreen="device.mobile"
+      >
+        <v-card>
+          <v-toolbar
+            :color="theme.color"
+            :dark="theme.mode"
+          >
+            <v-icon
+              small
+              color="orange"
+              class="mr-1 animate__animated animate__flash animate__infinite"
+            >mdi-circle</v-icon> Formulir Generate OPD
+          </v-toolbar>
+          <v-card-text class="mt-2">
+            <v-col col="12">
+              <v-select
+                label="Kab/Kota"
+                outlined
+                dense
+                hide-details
+                :color="theme.color"
+                v-model="generate.record.regency_code"
+                :items="generate.regencies"
+              ></v-select>
+            </v-col>
+          </v-card-text>
+
+          <v-divider></v-divider>
+          <v-card-actions class="justify-end">
+            <v-btn
+              outlined
+              :color="theme.color"
+              @click="postGenerate"
+            >Proses</v-btn>
+            <v-btn
+              outlined
+              color="grey"
+              @click="closeFormGenerate"
+            >Batal</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-col>
   </div>
 </template>
       <script>
@@ -305,6 +376,11 @@ export default {
     ],
     search: null,
     filename: null,
+    generate: {
+      show: false,
+      record: {},
+      regencies: [],
+    },
   }),
   computed: {
     ...mapState([
@@ -366,7 +442,9 @@ export default {
     });
     this.fetchRecords();
   },
-  mounted() {},
+  mounted() {
+    this.fetchRegency();
+  },
   methods: {
     ...mapActions([
       "setPage",
@@ -431,6 +509,48 @@ export default {
           }, 500);
         },
       });
+    },
+    openFormGenerate: function () {
+      this.generate.show = true;
+    },
+    closeFormGenerate: function () {
+      this.generate.show = false;
+      this.record = {};
+    },
+    fetchRegency: async function () {
+      try {
+        let { data } = await this.http.get("api/v2/combo/regency");
+        this.generate.regencies = data;
+      } catch (error) {}
+    },
+    postGenerate: async function () {
+      try {
+        this.setLoading({ dialog: true, text: "Generate OPD" });
+        let {
+          data: { code, success, message },
+        } = await this.http.post(
+          "api/v2/master-data/opd-generate",
+          this.generate.record
+        );
+        if (!success) {
+          this.snackbar.color = "orange";
+          this.snackbar.text = message;
+          this.snackbar.state = true;
+          return;
+        }
+
+        this.snackbar.color = this.theme.color;
+        this.snackbar.text = message;
+        this.snackbar.state = true;
+        this.fetchRecords();
+        this.closeFormGenerate();
+      } catch (error) {
+        this.snackbar.color = "red";
+        this.snackbar.text = "Opps..., terjadi kesalahan " + error;
+        this.snackbar.state = true;
+      } finally {
+        this.setLoading({ dialog: false, text: "" });
+      }
     },
   },
 };

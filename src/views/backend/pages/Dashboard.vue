@@ -5,36 +5,37 @@
   >
 
     <v-row>
-      <div class="ml-5 mb-10 font-weight-bold black--text">
+      <div class="ml-5 mb-5 font-weight-bolder subtitle-1">
         Selamat Datang, {{ user.name.toUpperCase() }}
-        <div class="font-weight-regular grey--text">
+        <div class="font-weight-thin black--text">
           Inilah dashboard aplikasi anda
         </div>
       </div>
     </v-row>
-    <v-row class="pa-6">
+    <v-row class="pa-2">
       <v-col cols=8>
-        <v-card>
+        <v-card class="rounded-0">
           <v-card-title
-            style="background-color:#608580"
-            class="white--text"
-          >Data Statistik Per Bulan</v-card-title>
+            style="background-color:teal; font-size: 12pt;"
+            class="white--text font-weight-regular"
+          ><v-icon
+              color="white"
+              class="mr-2"
+            >mdi-chart-bar</v-icon> Data Statistik Permohonan Inovasi</v-card-title>
           <v-card-text class="mt-5">
-            <data-chart
-              :title="databarchart.title"
-              :labels="databarchart.labels"
-              :datas="databarchart.datas"
-              :key="barkey"
-            />
+            <chart-permohonan />
           </v-card-text>
         </v-card>
       </v-col>
       <v-col cols=4>
-        <v-card>
+        <v-card class="rounded-0">
           <v-card-title
-            style="background-color:#608580"
-            class="white--text"
-          >Data Berdasarkan Kategori </v-card-title>
+            style="background-color:teal; font-size: 12pt;"
+            class="white--text font-weight-regular"
+          ><v-icon
+              color="white"
+              class="mr-2"
+            >mdi-chart-pie</v-icon>Data Berdasarkan Tahapan Inovasi </v-card-title>
           <v-card-text class="mt-5">
             <pie-chart
               :title="datapiechart.title"
@@ -46,9 +47,671 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-row class="pa-2">
+      <v-col cols=12>
+        <v-card class="rounded-0">
+          <v-card-title
+            style="background-color:teal; font-size: 12pt;"
+            class="white--text font-weight-regular"
+          ><v-icon
+              color="white"
+              class="mr-2"
+            >mdi-home-map-marker</v-icon>Peta Sebaran Inovasi</v-card-title>
+          <v-card-text class="mt-5">
+            <v-col cols="12">
+              <l-map
+                style="height: 400px;width: 100%;z-index:9999; "
+                :zoom="zoom"
+                :center="center"
+                @update:center="centerUpdated"
+              >
+                <v-geosearch
+                  :options="geosearchOptions"
+                  style="width:100px; border: 1px;"
+                ></v-geosearch>
+                <l-tile-layer
+                  :url="url"
+                  :attribution="attribution"
+                ></l-tile-layer>
+                <l-marker
+                  :key="marker.id"
+                  :visible="marker.visible"
+                  :draggable="marker.draggable"
+                  :lat-lng.sync="marker.position"
+                >
 
-    <v-row class="pa-1">
+                  <l-icon
+                    iconSize=32
+                    icon-url="/images/icon-marker-merah.png"
+                  />
+                  <l-popup :content="marker.tooltip" />
+                  <l-tooltip :content="marker.tooltip" />
+                </l-marker>
+              </l-map>
+            </v-col>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row class="pa-2">
+      <v-col cols="12">
+        <div class="text-center font-weight-regular ">Total Dan Data Kematangan Inovasi Dareah</div>
+      </v-col>
+      <v-col cols="3">
+        <v-card
+          class="rounded-0 "
+          color="teal"
+          style=" font-size: 12pt;"
+        >
+          <v-card-text>
+            <v-row>
+              <v-col cols="12">
+                <div class="text-center font-weight-bold white--text">SEMUA DATA INOVASI</div>
+              </v-col>
+              <v-col cols=12>
+                <div class="text-center mb-3">
+                  <v-icon
+                    x-large
+                    color="white"
+                  >mdi-diamond-stone</v-icon>
+                </div>
+                <div class="white--text font-weight-thin text-center mb-1">
+                  Total 123 Data Inovasi
+                </div>
+                <div class="text-center">
+                  <v-progress-linear
+                    v-model="inovasi.total.kematangan"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
 
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">kematangan {{ inovasi.total.kematangan }} %</span>
+                </div>
+                <div class="text-center mt-2">
+                  <v-progress-linear
+                    v-model="inovasi.total.skor"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">skor {{ inovasi.total.skor }} %</span>
+                </div>
+              </v-col>
+            </v-row>
+
+          </v-card-text>
+        </v-card>
+
+      </v-col>
+
+      <v-col cols="3">
+        <v-card
+          class="rounded-0 "
+          color="teal"
+          style=" font-size: 12pt;"
+        >
+          <v-card-text>
+            <v-row>
+              <v-col cols="12">
+                <div class="text-center font-weight-bold white--text">INISIATIF</div>
+              </v-col>
+              <v-col cols=12>
+                <div class="text-center mb-3">
+                  <v-icon
+                    x-large
+                    color="white"
+                  >mdi-flower-tulip</v-icon>
+                </div>
+                <div class="white--text font-weight-thin text-center mb-1">
+                  Total 123 Data Inovasi
+                </div>
+                <div class="text-center">
+                  <v-progress-linear
+                    v-model="inovasi.total.kematangan"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">kematangan {{ inovasi.total.kematangan }} %</span>
+                </div>
+                <div class="text-center mt-2">
+                  <v-progress-linear
+                    v-model="inovasi.total.skor"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">skor {{ inovasi.total.skor }} %</span>
+                </div>
+              </v-col>
+            </v-row>
+
+          </v-card-text>
+        </v-card>
+
+      </v-col>
+
+      <v-col cols="3">
+        <v-card
+          class="rounded-0 "
+          color="teal"
+          style=" font-size: 12pt;"
+        >
+          <v-card-text>
+            <v-row>
+              <v-col cols="12">
+                <div class="text-center font-weight-bold white--text">UJI COBA</div>
+              </v-col>
+              <v-col cols=12>
+                <div class="text-center mb-3">
+                  <v-icon
+                    x-large
+                    color="white"
+                  >mdi-flask-empty-plus-outline</v-icon>
+                </div>
+                <div class="white--text font-weight-thin text-center mb-1">
+                  Total 123 Data Inovasi
+                </div>
+                <div class="text-center">
+                  <v-progress-linear
+                    v-model="inovasi.total.kematangan"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">kematangan {{ inovasi.total.kematangan }} %</span>
+                </div>
+                <div class="text-center mt-2">
+                  <v-progress-linear
+                    v-model="inovasi.total.skor"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">skor {{ inovasi.total.skor }} %</span>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+      <v-col cols="3">
+        <v-card
+          class="rounded-0 "
+          color="teal"
+          style=" font-size: 12pt;"
+        >
+          <v-card-text>
+            <v-row>
+              <v-col cols="12">
+                <div class="text-center font-weight-bold white--text">PENERAPAN</div>
+              </v-col>
+              <v-col cols=12>
+                <div class="text-center mb-3">
+                  <v-icon
+                    x-large
+                    color="white"
+                  >mdi-run-fast</v-icon>
+                </div>
+                <div class="white--text font-weight-thin text-center mb-1">
+                  Total 123 Data Inovasi
+                </div>
+                <div class="text-center">
+                  <v-progress-linear
+                    v-model="inovasi.total.kematangan"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">kematangan {{ inovasi.total.kematangan }} %</span>
+                </div>
+                <div class="text-center mt-2">
+                  <v-progress-linear
+                    v-model="inovasi.total.skor"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">skor {{ inovasi.total.skor }} %</span>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+    </v-row>
+
+    <v-row class="pa-2">
+      <v-col cols="12">
+        <div class="text-center font-weight-regular ">Total Dan Data Kematangan Inovasi Pemeintah Daerah Tingkat I </div>
+      </v-col>
+      <v-col cols="3">
+        <v-card
+          class="rounded-0 "
+          color="teal"
+          style=" font-size: 12pt;"
+        >
+          <v-card-text>
+            <v-row>
+              <v-col cols="12">
+                <div class="text-center font-weight-bold white--text">SEMUA DATA INOVASI</div>
+              </v-col>
+              <v-col cols=12>
+                <div class="text-center mb-3">
+                  <v-icon
+                    x-large
+                    color="white"
+                  >mdi-diamond-stone</v-icon>
+                </div>
+                <div class="white--text font-weight-thin text-center mb-1">
+                  Total 123 Data Inovasi
+                </div>
+                <div class="text-center">
+                  <v-progress-linear
+                    v-model="inovasi.total.kematangan"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">kematangan {{ inovasi.total.kematangan }} %</span>
+                </div>
+                <div class="text-center mt-2">
+                  <v-progress-linear
+                    v-model="inovasi.total.skor"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">skor {{ inovasi.total.skor }} %</span>
+                </div>
+              </v-col>
+            </v-row>
+
+          </v-card-text>
+        </v-card>
+
+      </v-col>
+
+      <v-col cols="3">
+        <v-card
+          class="rounded-0 "
+          color="teal"
+          style=" font-size: 12pt;"
+        >
+          <v-card-text>
+            <v-row>
+              <v-col cols="12">
+                <div class="text-center font-weight-bold white--text">INISIATIF</div>
+              </v-col>
+              <v-col cols=12>
+                <div class="text-center mb-3">
+                  <v-icon
+                    x-large
+                    color="white"
+                  >mdi-flower-tulip</v-icon>
+                </div>
+                <div class="white--text font-weight-thin text-center mb-1">
+                  Total 123 Data Inovasi
+                </div>
+                <div class="text-center">
+                  <v-progress-linear
+                    v-model="inovasi.total.kematangan"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">kematangan {{ inovasi.total.kematangan }} %</span>
+                </div>
+                <div class="text-center mt-2">
+                  <v-progress-linear
+                    v-model="inovasi.total.skor"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">skor {{ inovasi.total.skor }} %</span>
+                </div>
+              </v-col>
+            </v-row>
+
+          </v-card-text>
+        </v-card>
+
+      </v-col>
+
+      <v-col cols="3">
+        <v-card
+          class="rounded-0 "
+          color="teal"
+          style=" font-size: 12pt;"
+        >
+          <v-card-text>
+            <v-row>
+              <v-col cols="12">
+                <div class="text-center font-weight-bold white--text">UJI COBA</div>
+              </v-col>
+              <v-col cols=12>
+                <div class="text-center mb-3">
+                  <v-icon
+                    x-large
+                    color="white"
+                  >mdi-flask-empty-plus-outline</v-icon>
+                </div>
+                <div class="white--text font-weight-thin text-center mb-1">
+                  Total 123 Data Inovasi
+                </div>
+                <div class="text-center">
+                  <v-progress-linear
+                    v-model="inovasi.total.kematangan"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">kematangan {{ inovasi.total.kematangan }} %</span>
+                </div>
+                <div class="text-center mt-2">
+                  <v-progress-linear
+                    v-model="inovasi.total.skor"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">skor {{ inovasi.total.skor }} %</span>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+      <v-col cols="3">
+        <v-card
+          class="rounded-0 "
+          color="teal"
+          style=" font-size: 12pt;"
+        >
+          <v-card-text>
+            <v-row>
+              <v-col cols="12">
+                <div class="text-center font-weight-bold white--text">PENERAPAN</div>
+              </v-col>
+              <v-col cols=12>
+                <div class="text-center mb-3">
+                  <v-icon
+                    x-large
+                    color="white"
+                  >mdi-run-fast</v-icon>
+                </div>
+                <div class="white--text font-weight-thin text-center mb-1">
+                  Total 123 Data Inovasi
+                </div>
+                <div class="text-center">
+                  <v-progress-linear
+                    v-model="inovasi.total.kematangan"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">kematangan {{ inovasi.total.kematangan }} %</span>
+                </div>
+                <div class="text-center mt-2">
+                  <v-progress-linear
+                    v-model="inovasi.total.skor"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">skor {{ inovasi.total.skor }} %</span>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+    </v-row>
+
+    <v-row class="pa-2">
+      <v-col cols="12">
+        <div class="text-center font-weight-regular ">Total Dan Data Kematangan Inovasi Pemerintah Daerah Tingkat II</div>
+      </v-col>
+      <v-col cols="3">
+        <v-card
+          class="rounded-0 "
+          color="teal"
+          style=" font-size: 12pt;"
+        >
+          <v-card-text>
+            <v-row>
+              <v-col cols="12">
+                <div class="text-center font-weight-bold white--text">SEMUA DATA INOVASI</div>
+              </v-col>
+              <v-col cols=12>
+                <div class="text-center mb-3">
+                  <v-icon
+                    x-large
+                    color="white"
+                  >mdi-diamond-stone</v-icon>
+                </div>
+                <div class="white--text font-weight-thin text-center mb-1">
+                  Total 123 Data Inovasi
+                </div>
+                <div class="text-center">
+                  <v-progress-linear
+                    v-model="inovasi.total.kematangan"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">kematangan {{ inovasi.total.kematangan }} %</span>
+                </div>
+                <div class="text-center mt-2">
+                  <v-progress-linear
+                    v-model="inovasi.total.skor"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">skor {{ inovasi.total.skor }} %</span>
+                </div>
+              </v-col>
+            </v-row>
+
+          </v-card-text>
+        </v-card>
+
+      </v-col>
+
+      <v-col cols="3">
+        <v-card
+          class="rounded-0 "
+          color="teal"
+          style=" font-size: 12pt;"
+        >
+          <v-card-text>
+            <v-row>
+              <v-col cols="12">
+                <div class="text-center font-weight-bold white--text">INISIATIF</div>
+              </v-col>
+              <v-col cols=12>
+                <div class="text-center mb-3">
+                  <v-icon
+                    x-large
+                    color="white"
+                  >mdi-flower-tulip</v-icon>
+                </div>
+                <div class="white--text font-weight-thin text-center mb-1">
+                  Total 123 Data Inovasi
+                </div>
+                <div class="text-center">
+                  <v-progress-linear
+                    v-model="inovasi.total.kematangan"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">kematangan {{ inovasi.total.kematangan }} %</span>
+                </div>
+                <div class="text-center mt-2">
+                  <v-progress-linear
+                    v-model="inovasi.total.skor"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">skor {{ inovasi.total.skor }} %</span>
+                </div>
+              </v-col>
+            </v-row>
+
+          </v-card-text>
+        </v-card>
+
+      </v-col>
+
+      <v-col cols="3">
+        <v-card
+          class="rounded-0 "
+          color="teal"
+          style=" font-size: 12pt;"
+        >
+          <v-card-text>
+            <v-row>
+              <v-col cols="12">
+                <div class="text-center font-weight-bold white--text">UJI COBA</div>
+              </v-col>
+              <v-col cols=12>
+                <div class="text-center mb-3">
+                  <v-icon
+                    x-large
+                    color="white"
+                  >mdi-flask-empty-plus-outline</v-icon>
+                </div>
+                <div class="white--text font-weight-thin text-center mb-1">
+                  Total 123 Data Inovasi
+                </div>
+                <div class="text-center">
+                  <v-progress-linear
+                    v-model="inovasi.total.kematangan"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">kematangan {{ inovasi.total.kematangan }} %</span>
+                </div>
+                <div class="text-center mt-2">
+                  <v-progress-linear
+                    v-model="inovasi.total.skor"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">skor {{ inovasi.total.skor }} %</span>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+      <v-col cols="3">
+        <v-card
+          class="rounded-0 "
+          color="teal"
+          style=" font-size: 12pt;"
+        >
+          <v-card-text>
+            <v-row>
+              <v-col cols="12">
+                <div class="text-center font-weight-bold white--text">PENERAPAN</div>
+              </v-col>
+              <v-col cols=12>
+                <div class="text-center mb-3">
+                  <v-icon
+                    x-large
+                    color="white"
+                  >mdi-run-fast</v-icon>
+                </div>
+                <div class="white--text font-weight-thin text-center mb-1">
+                  Total 123 Data Inovasi
+                </div>
+                <div class="text-center">
+                  <v-progress-linear
+                    v-model="inovasi.total.kematangan"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">kematangan {{ inovasi.total.kematangan }} %</span>
+                </div>
+                <div class="text-center mt-2">
+                  <v-progress-linear
+                    v-model="inovasi.total.skor"
+                    color="orange"
+                    height="15"
+                    striped
+                  >
+
+                  </v-progress-linear>
+                  <span class="body-2 white--text font-weight-thin mt-1 text-center">skor {{ inovasi.total.skor }} %</span>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+    </v-row>
+
+    <!-- <v-row class="pa-1">
       <v-col class="stats-widget-v3">
         <v-row :class="device.mobile ? `pa-1 ` : `pa-7`">
           <v-col :cols="device.mobile ? `12` : `4`">
@@ -159,15 +822,15 @@
             </v-card>
           </v-col>
         </v-row>
-
       </v-col>
-    </v-row>
+    </v-row> -->
 
   </v-container>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
+import ChartPermohonan from "../pages/chart/ChartPermohonanInovasi.vue";
 import DataChart from "../pages/chart/ChartRecapMothly.vue";
 import PieChart from "../pages/chart/PieChart";
 import {
@@ -186,6 +849,7 @@ export default {
   name: "dashboard",
 
   components: {
+    ChartPermohonan,
     DataChart,
     PieChart,
     LMap,
@@ -201,17 +865,17 @@ export default {
     num: 1,
 
     //variable dashboard
-    groupdata: {
-      jmldatastatistik: 0,
-      jmldatageospasial: 0,
-      jmldatakeuangan: 0,
+    inovasi: {
+      total: {
+        kematangan: 30,
+        skor: 50,
+      },
     },
-
     //property map
     //url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
     url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
     attribution:
-      '&copy; <a target="_blank" href="http://osm.org/copyright"><span class="green--text">Dinas Komunikasi Informatika Statistik dan Persandian</span>',
+      '&copy; <a target="_blank" href=""><span class="green--text"> ESRI Pemerintah Provinsi Banten</span>',
     zoom: 11,
     //-6.1716001, 106.6405384
     center: [-6.1716001, 106.6405384],
@@ -224,7 +888,7 @@ export default {
     marker: {
       id: "m1",
       position: { lat: -6.1716001, lng: 106.6405384 },
-      tooltip: "<h4>Lampu Merah</h4><p>Rambu Lampu Merah </p>",
+      tooltip: "<h4>JIPP Banten</h4><p>Lokasi Inovasi</p>",
       draggable: false,
       visible: true,
     },
@@ -254,9 +918,9 @@ export default {
       datas: [30, 40, 50, 12, 30],
     },
     datapiechart: {
-      title: "Data Berdasarkan Pengobatan",
-      labels: [],
-      datas: [],
+      title: "Data Berdasarkan Tahapan Inovasi",
+      labels: ["Inisiatif", "Uji Coba", "Penerapan"],
+      datas: [10, 16, 18],
     },
 
     piekey: 0,
@@ -287,9 +951,9 @@ export default {
       ],
     });
 
-    this.fetcDataPertahun();
-    this.fetcTarifRsPertahun();
-    this.fetchDataPengobatan();
+    //this.fetcDataPertahun();
+    //this.fetcTarifRsPertahun();
+    //this.fetchDataPengobatan();
   },
   mounted() {},
   methods: {
@@ -353,6 +1017,25 @@ export default {
           this.barkey += 1;
         });
       } catch (error) {}
+    },
+
+    /**
+     * Map
+     */
+    centerUpdated(center) {
+      this.center = center;
+    },
+    getUserPosition: async function () {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((pos) => {
+          this.center = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+          this.center = [pos.coords.latitude, pos.coords.longitude];
+          this.marker.position = {
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude,
+          };
+        });
+      }
     },
   },
 };

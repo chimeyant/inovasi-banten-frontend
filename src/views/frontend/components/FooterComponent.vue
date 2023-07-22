@@ -31,7 +31,7 @@
         cols="12"
         class="copyright"
       >
-        {{ info.app_company }} || Copyright &copy; 2023 || Design By U&C
+        {{ info.app_company }} || Copyright &copy; 2023 || Design By Ants
       </v-col>
     </v-row>
   </div>

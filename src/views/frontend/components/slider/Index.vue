@@ -2,7 +2,7 @@
   <div>
     <v-carousel
       cycle
-      :height="device.desktop ? `650` : `400`"
+      :height="device.desktop ? `500` : `400`"
       hide-delimiter-background
       :show-arrows="false"
     >
@@ -19,6 +19,17 @@
             <div class="bg-black">
               <div class="container-title">
                 <div class="flex flex-column">
+                  <div
+                    v-if="slide.top_image_status"
+                    class="slider-title animated animate__fadeInUpBig animate__delay-5s"
+                  >
+                    <img
+                      :src="slide.top_image_path"
+                      alt=""
+                      height="100px"
+                      srcset=""
+                    >
+                  </div>
                   <div class="slider-title animated animate__lightSpeedInRight">
                     {{ slide.title }}
                   </div>

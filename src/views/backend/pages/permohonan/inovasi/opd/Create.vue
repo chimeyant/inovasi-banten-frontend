@@ -423,6 +423,8 @@
                         outlined
                         dense
                         hide-details
+                        v-model="record.alamat_dalam_peta"
+                        :filled="record.alamat_dalam_peta"
                         :color="theme.color"
                       ></v-text-field>
                     </v-col>
@@ -452,7 +454,6 @@
                         :filled="record.lng"
                       ></v-text-field>
                     </v-col>
-
                   </v-col>
                 </v-row>
               </v-col>

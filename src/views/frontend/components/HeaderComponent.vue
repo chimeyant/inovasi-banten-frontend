@@ -25,15 +25,44 @@
       color="transparent"
       class="d-flex white light  mt-4 mr-5 mb-5"
     >
-      <v-list-item
-        class="hidden-sm-and-down font-weight-bold  "
-        link
-        v-for="(menu,index) in menus"
-        :key="index"
-        :to="menu.route"
-      >
-        <v-list-item-title class="green--text">{{ menu.title }}</v-list-item-title>
-      </v-list-item>
+      <template v-for="(menu,index) in menus">
+        <v-list-item
+          active-class="green darken-1 white--text rounded-pill animate__animated animate__bounce "
+          class="hidden-sm-and-down rounded-pill"
+          link
+          :to="menu.route"
+          v-if="menu.type=='item'"
+        >
+          <v-list-item-title class="font-weight-bold">{{ menu.title }}</v-list-item-title>
+        </v-list-item>
+
+        <v-menu
+          offset-y
+          v-if="menu.type=='subMenu'"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              active-class="green darken-1 white--text rounded-pill"
+              class="font-weight-bold rounded-pill "
+              v-bind="attrs"
+              v-on="on"
+              text
+              style="text-transform: unset !important;height: 50px;"
+            >
+              {{ menu.title }}
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="(item, index) in menu.submenus"
+              :key="index"
+            >
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+
+      </template>
     </v-list>
 
     <v-menu
@@ -75,19 +104,15 @@
               Klinik Inovasi
             </v-list-item-title>
           </v-list-item>
-          <v-list-item>
-            <v-list-item-title @click="$router.push({ name: 'visualisasi' })">
-              Visualisasi
-            </v-list-item-title>
-          </v-list-item>
+
           <v-list-item>
             <v-list-item-title @click="$router.push({ name: 'dokumen' })">
-              Dokumen
+              Faq
             </v-list-item-title>
           </v-list-item>
           <v-list-item>
-            <v-list-item-title @click="$router.push({ name: 'integrasi' })">
-              Integrasi
+            <v-list-item-title @click="$router.push({ name: 'login' })">
+              Login
             </v-list-item-title>
           </v-list-item>
 
@@ -104,11 +129,66 @@ export default {
 
   data: () => ({
     menus: [
-      { title: "Beranda", route: "/home" },
-      { title: "Repository", route: "/repo" },
-      { title: "Kompetisi", route: "/kompetisi" },
-      { title: "Klinik Inovasi", route: "/klinik-inovasi" },
-      { title: "FAQ", route: "/faq" },
+      { title: "Beranda", route: "/home", type: "item" },
+      {
+        title: "Repository",
+        route: "#",
+        type: "subMenu",
+        submenus: [
+          {
+            title: "Seluruh Inovasi",
+            icon: "mdi-clover",
+            route: "#",
+            type: "item",
+          },
+          {
+            title: "Grafik Inovasi",
+            icon: "mdi-clover",
+            route: "#",
+            type: "item",
+          },
+        ],
+      },
+      {
+        title: "Kompetisi",
+        route: "/kompetisi",
+        type: "subMenu",
+        submenus: [
+          {
+            title: "IGA",
+            icon: "mdi-clover",
+            route: "#",
+            type: "item",
+          },
+          {
+            title: "SINOVIC",
+            icon: "mdi-clover",
+            route: "#",
+            type: "item",
+          },
+        ],
+      },
+      {
+        title: "Klinik Inovasi",
+        route: "/klinik-inovasi",
+        type: "subMenu",
+        submenus: [
+          {
+            title: "Tim Kajian",
+            icon: "mdi-clover",
+            route: "#",
+            type: "item",
+          },
+          {
+            title: "Inovator",
+            icon: "mdi-clover",
+            route: "#",
+            type: "item",
+          },
+        ],
+      },
+      { title: "FAQ", route: "/faq", type: "item" },
+      { title: "Login", route: "/login", type: "item" },
     ],
   }),
   mounted() {},

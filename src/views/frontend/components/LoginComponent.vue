@@ -40,6 +40,7 @@
               dense
               hide-details
               v-model="uname"
+              prepend-inner-icon="mdi-email"
             ></v-text-field>
           </v-col>
           <v-col cols="12">
@@ -50,14 +51,17 @@
               dense
               hide-details
               v-model="upass"
-              type="password"
+              :type="password? 'password':'text'"
               v-on:keyup.enter="postAuthent"
+              :color="theme.color"
+              :append-icon="password?  `mdi-eye-off`:'mdi-eye'"
+              @click:append="showPassword"
+              prepend-inner-icon="mdi-lock"
             ></v-text-field>
           </v-col>
           <v-col cols="12">
             <v-row class="pr-4 pt-5">
               <div class="pl-5 font-weight-medium grey--text">
-                Lupa Kata sandi..?
 
               </div>
               <v-spacer></v-spacer>
@@ -66,7 +70,10 @@
                 dense
                 :color="theme.color"
                 @click="postAuthent"
-              >Masuk</v-btn>
+              ><v-icon
+                  class="mr-2"
+                  color="orange"
+                >mdi-login</v-icon> Masuk</v-btn>
             </v-row>
 
             <v-row class="forget-password">
@@ -110,6 +117,7 @@ export default {
   data: () => ({
     uname: "",
     upass: "",
+    password: true,
   }),
   mounted() {
     this.setPage({
@@ -137,10 +145,19 @@ export default {
           if (this.auth.user.user.authent == "administrator") {
             this.$router.push({ name: "dashboard" });
           }
+          if (this.auth.user.user.authent == "team-pengkaji") {
+            this.$router.push({ name: "dashboard" });
+          }
           if (this.auth.user.user.authent == "provinsi") {
             this.$router.push({ name: "dashboard" });
           }
           if (this.auth.user.user.authent == "provinsi-opd") {
+            this.$router.push({ name: "dashboard" });
+          }
+          if (this.auth.user.user.authent == "kabkota") {
+            this.$router.push({ name: "dashboard" });
+          }
+          if (this.auth.user.user.authent == "kabkota-opd") {
             this.$router.push({ name: "dashboard" });
           }
         } catch (error) {
@@ -149,6 +166,14 @@ export default {
           this.snackbar.state = true;
         }
       });
+    },
+
+    showPassword: function () {
+      if (this.password) {
+        this.password = false;
+      } else {
+        this.password = true;
+      }
     },
   },
 };

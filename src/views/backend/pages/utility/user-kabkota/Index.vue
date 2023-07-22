@@ -227,7 +227,7 @@
               class="mr-1 animate__animated animate__flash animate__infinite"
               color="orange"
               small
-            >mdi-circle</v-icon> Formulir Manajemen Pengguna
+            >mdi-circle</v-icon> Formulir Manajemen Pengguna OPD Provinsi
           </v-toolbar>
           <v-card-text class="mt-2">
             <v-col cols="12">
@@ -255,33 +255,7 @@
                 dense
               ></v-text-field>
             </v-col>
-            <v-col cols="12">
-              <v-select
-                label="Level"
-                :color="theme.color"
-                v-model="record.authent"
-                :items="authents"
-                hide-details
-                outlined
-                dense
-                @change="fetchOpdProvinsi"
-              ></v-select>
-            </v-col>
-            <v-col
-              cols="12"
-              v-if="record.authent=='kabkota' || record.authent=='kabkota-opd'"
-            >
-              <v-select
-                label="KAB/KOTA"
-                outlined
-                dense
-                hide-details
-                :color="theme.color"
-                :items="kabupatens"
-                v-model="record.regency_code"
-                @change="fetchOpds"
-              ></v-select>
-            </v-col>
+
             <v-col cols="12">
               <v-select
                 label="OPD Pengelola"
@@ -358,8 +332,8 @@
     </v-col>
   </div>
 </template>
-
-<script>
+    
+    <script>
 import { mapActions, mapState } from "vuex";
 
 export default {
@@ -393,14 +367,14 @@ export default {
       { text: "Aktif", value: 0 },
       { text: "Non Aktif", value: 1 },
     ],
-    authents: [
-      { text: "Administrator", value: "administrator" },
-      { text: "Team Pengkaji", value: "team-pengkaji" },
-      { text: "Pemda Tingkat I | Provinsi", value: "provinsi" },
-      { text: "OPD Pemda Tingkat I | OPD Provinsi", value: "provinsi-opd" },
-      { text: "Pemda Tingkat II | KAB/KOTA", value: "kabkota" },
-      { text: "OPD Pemda Tingkat II | OPD KAB/KOTA", value: "kabkota-opd" },
-    ],
+    // authents: [
+    //   { text: "Administrator", value: "administrator" },
+    //   { text: "Team Pengkaji", value: "team-pengkaji" },
+    //   { text: "Pemda Tingkat I | Provinsi", value: "provinsi" },
+    //   { text: "OPD Pemda Tingkat I | OPD Provinsi", value: "provinsi-opd" },
+    //   { text: "Pemda Tingkat II | KAB/KOTA", value: "kabkota" },
+    //   { text: "OPD Pemda Tingkat II | OPD KAB/KOTA", value: "kabkota-opd" },
+    // ],
     search: null,
     jurusans: [],
     opds: [],
@@ -435,7 +409,7 @@ export default {
   created() {
     this.setPage({
       crud: true,
-      dataUrl: "api/v2/utility/users",
+      dataUrl: "api/v2/utility/users-kabkota",
       pagination: true,
       title: "MANAJEMEN PENGGUNA",
       subtitle: "Berikut Daftar Pengguna Yang Tersedia",
@@ -466,6 +440,7 @@ export default {
   },
   mounted() {
     this.fetchRegencies();
+    this.fetchOpds();
   },
   methods: {
     ...mapActions([
@@ -526,23 +501,9 @@ export default {
 
     fetchOpds: async function () {
       try {
-        let { data } = await this.http.get(
-          "api/v2/combo/opd-by-regency/" + this.record.regency_code
-        );
+        let { data } = await this.http.get("api/v2/combo/opd-kabkota");
         this.opds = data;
       } catch (error) {}
-    },
-    fetchOpdProvinsi: async function () {
-      this.opds = [];
-      if (
-        this.record.authent == "provinsi" ||
-        this.record.authent == "provinsi-opd"
-      ) {
-        try {
-          let { data } = await this.http.get("api/v2/combo/opd");
-          this.opds = data;
-        } catch (error) {}
-      }
     },
   },
   watch: {
@@ -555,3 +516,4 @@ export default {
   },
 };
 </script>
+    
