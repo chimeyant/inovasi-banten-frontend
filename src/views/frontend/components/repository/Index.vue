@@ -1,8 +1,8 @@
 <template>
   <div class="mt-10">
-    <v-container>
+    <v-container class="animate__animated animate__fadeIn">
 
-      <v-row class="ml-5">
+      <v-row class="ml-5 ">
         <h3 class="display-1 font-weight-bold">Repository</h3>
         <v-spacer></v-spacer>
 

@@ -149,6 +149,12 @@ export default {
             route: "#",
             type: "item",
           },
+          {
+            title: "Peta Inovasi",
+            icon: "mdi-clover",
+            route: "#",
+            type: "item",
+          },
         ],
       },
       {
