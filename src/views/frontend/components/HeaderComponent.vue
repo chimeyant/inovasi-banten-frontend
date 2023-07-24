@@ -11,7 +11,7 @@
       <div class="pl-5 pr-5">
         <img
           src="/images/logo.png"
-          width="100px"
+          width="160px"
           height="40px"
           alt="logo"
           :class="device.desktop ? `animate__animated animate__tada ant-header-logo`:`ant-header-logo-mobile`"

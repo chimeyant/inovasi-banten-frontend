@@ -17,6 +17,17 @@
 
             <v-row class="mt-5">
               <v-col cols="12">
+                <v-select
+                  label="Kategori"
+                  outlined
+                  dense
+                  hide-details
+                  v-model="record.category_uuid"
+                  :items="categories"
+                  :color="theme.color"
+                ></v-select>
+              </v-col>
+              <v-col cols="12">
                 <v-text-field
                   class="font-weight-thin"
                   placeholder="Silahkan isi dengan judul inovasi yang anda akan ajukan..."
@@ -557,6 +568,7 @@ export default {
     regencies: [],
     districts: [],
     villages: [],
+    categories: [],
   }),
   computed: {
     ...mapState([
@@ -611,6 +623,7 @@ export default {
     this.fetchUrusans();
     this.fetchBentuks();
     this.fetchRegencies();
+    this.fetchCategories();
   },
   methods: {
     ...mapActions([
@@ -746,6 +759,12 @@ export default {
           "api/v2/combo/village/" + this.record.district_code
         );
         this.villages = data;
+      } catch (error) {}
+    },
+    fetchCategories: async function () {
+      try {
+        let { data } = await this.http.get("api/v2/combo/category");
+        this.categories = data;
       } catch (error) {}
     },
   },
