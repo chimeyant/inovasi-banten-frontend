@@ -86,6 +86,11 @@
                       <td class="font-weight-bold grey--text">{{ record.nomor_register }}</td>
                     </tr>
                     <tr>
+                      <td>Kategori</td>
+                      <td class="pl-2 pr-2">:</td>
+                      <td class="font-weight-bold">{{ record.category }}</td>
+                    </tr>
+                    <tr>
                       <td>Judul Inovasi</td>
                       <td class="pl-2 pr-2">:</td>
                       <td class="font-weight-bold">{{ record.name }}</td>
