@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="text-center pt-10 title">SALAM INOVASI</div>
+  <div class="mb-10">
+    <div class="text-center pt-10 title font-weight-bolder">SALAM INOVASI</div>
     <div class="mt-10">
       <v-container>
         <v-row>
@@ -10,20 +10,18 @@
                 src="images/ilustration02.png"
                 alt=""
                 srcset=""
-                width="450"
+                width="500"
               >
 
             </v-row>
 
           </v-col>
           <v-col cols="6">
-            <p style="text-align: justify;">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, dolorum fuga magni ipsa impedit vel perferendis dicta veniam atque, provident sequi maxime ad expedita optio qui quidem minus rem. Id?
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur amet itaque aliquam dolor illo. Nulla harum quibusdam provident repellat, minus ipsam ab debitis non perferendis! Adipisci culpa aliquam ipsum nisi!
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum perferendis deserunt nostrum animi nemo minima quas. Iusto, dignissimos molestiae? Magnam fugiat odio distinctio dolor dolore minima, unde dicta quos quas!
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate minima labore saepe quidem animi amet expedita ad atque consectetur! Repellat odio voluptate aperiam aliquam vitae est rerum illum ex fugit.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque saepe ducimus nesciunt tempora itaque ratione quae vitae laborum quibusdam soluta quod blanditiis nobis, quasi est maxime officiis amet at totam.
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit quasi esse voluptatem nemo doloribus molestias nostrum maxime. Doloribus dignissimos repudiandae dicta saepe commodi veniam architecto cumque at fugit, tenetur sint!
+            <p
+              style="text-align: justify;"
+              class="body-1"
+            >
+              Jaringan Inovasi Banten merupakan pusat data dan informasi inovasi yang diciptakan oleh pemerintah provinsi yang akan menyediakan repository inovasi-inovasi daerah di Banten agar dapat ditirukan oleh yang lain, media untuk Coaching Clinic pengembangan inovasi daerah dan menjadi Innovation Single Windows yang menyediakan data dan informasi yang diperlukan dalam kompetisi-kompetisi yang diadakan oleh pemerintah pusat.
             </p>
           </v-col>
         </v-row>
