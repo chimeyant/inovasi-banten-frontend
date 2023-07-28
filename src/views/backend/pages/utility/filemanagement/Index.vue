@@ -301,7 +301,7 @@ export default {
         width: 150,
       },
       {
-        text: "Date",
+        text: "DATE CREATED",
         align: "center",
         sortable: true,
         value: "date",
