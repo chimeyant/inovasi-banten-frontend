@@ -652,6 +652,7 @@ export default new Vuex.Store({
         });
         commit("RECORDS_MUTATION", []);
         commit("RECORD_MUTATION", {});
+        dispatch("catchError", error);
       } finally {
         commit("LOADING_MUTATION", {
           table: false,
@@ -1094,6 +1095,8 @@ export default new Vuex.Store({
             text: "Unauthorized or Forbiden",
             state: true,
           });
+
+          route.push({ name: "login" });
         }
 
         if (status === 500) {
