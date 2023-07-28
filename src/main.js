@@ -23,6 +23,8 @@ Vue.use(TiptapVuetifyPlugin, {
   iconsGroup: "md",
 });
 
+Vue.config.productionTip = false;
+
 new Vue({
   router,
   store,
@@ -49,7 +51,3 @@ new Vue({
   },
   render: (h) => h(App),
 }).$mount("#app");
-
-Vue.config.silent = true;
-Vue.config.productionTip = false;
-Vue.config.devtools = false;
