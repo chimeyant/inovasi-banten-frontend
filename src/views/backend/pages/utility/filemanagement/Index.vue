@@ -305,14 +305,14 @@ export default {
         align: "center",
         sortable: true,
         value: "date",
-        width: 150,
+        width: 200,
       },
       {
         text: "STATUS",
         align: "center",
         sortable: false,
         value: "status",
-        width: 159,
+        width: 100,
       },
       {
         text: "AKSI",
