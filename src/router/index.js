@@ -70,6 +70,7 @@ import UtilityUpdateHistory from "../views/backend/pages/utility/updatehistory/I
 import UtilityUpdateHistoryItem from "../views/backend/pages/utility/updatehistory/items/Index.vue";
 import UtilityManajemenUserProvinsi from "../views/backend/pages/utility/user-provinsi/Index.vue";
 import UtilityManajemenUSerKabkota from "../views/backend/pages/utility/user-kabkota/Index.vue";
+import UtilityFileManagement from "../views/backend/pages/utility/filemanagement/Index.vue";
 
 //Backend Halaman Depan
 import HalamanDepanSlider from "../views/backend/pages/halamandepan/sliders/Index.vue";
@@ -329,6 +330,11 @@ const routes = [
         path: "utility-manajemen-user-kabkota",
         name: "utility-manajemen-user-kabkota",
         component: UtilityManajemenUSerKabkota,
+      },
+      {
+        path: "utility-file-management",
+        name: "utility-file-management",
+        component: UtilityFileManagement,
       },
     ],
   },
