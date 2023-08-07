@@ -74,7 +74,7 @@ import UtilityFileManagement from "../views/backend/pages/utility/filemanagement
 
 //Backend Halaman Depan
 import HalamanDepanSlider from "../views/backend/pages/halamandepan/sliders/Index.vue";
-import HalamanDepanPengumuman from "../views/backend/pages/halamandepan/pengumuman/Index.vue";
+import HalamanDepanSponsor from "../views/backend/pages/halamandepan/sponsors/Index.vue";
 import HalamanDepanVideo from "../views/backend/pages/halamandepan/videos/Index.vue";
 
 //page exception
@@ -286,11 +286,11 @@ const routes = [
         name: "halaman_depan_slider",
         component: HalamanDepanSlider,
       },
-      //Route Pengumuman
+      //Route Sponsor
       {
-        path: "halaman-depan-pengumuman",
-        name: "halaman-depan-pengumuman",
-        component: HalamanDepanPengumuman,
+        path: "halaman-depan-sponsor",
+        name: "halaman-depan-sponsor",
+        component: HalamanDepanSponsor,
       },
       {
         path: "halaman-depan-video",

@@ -1,7 +1,10 @@
 <template>
   <div>
-    <div class="text-center pt-10 title">SPONSOR KAMI</div>
-    <div class="mt-10">
+    <div class="text-center pt-10 title">DUKUNGAN</div>
+    <div class="text-center body-1">
+      Simpul Jaringan Inovasi Provinsi Banten
+    </div>
+    <div class="mt-10 mb-10">
       <v-container>
         <div class="sponsors-list-wrapper">
           <Carousel
@@ -16,7 +19,7 @@
                 <img
                   :src="sponsor.image"
                   alt=""
-                  style="width:100px ;"
+                  style="width:75px ;"
                 >
               </div>
             </Slide>
@@ -56,22 +59,18 @@ export default {
   },
   methods: {
     fetchSponsors: async function () {
-      await this.http
-        .get(
-          "https://api.pnlgforum.tangerangkab.go.id/api/v1/sponsor/list?include=image"
-        )
-        .then((response) => {
-          response.data.data.data.forEach((element) => {
-            if (element.image) {
-              const row = {};
-              row["id"] = element.id;
-              row["name"] = element.name;
-              row["image"] = element.image.full_path;
-              this.datas.push(row);
-            }
-          });
-          //
+      await this.http.get("sponsors").then((response) => {
+        response.data.forEach((element) => {
+          if (element.logo) {
+            const row = {};
+            row["id"] = element.id;
+            row["name"] = element.name;
+            row["image"] = element.logo;
+            this.datas.push(row);
+          }
         });
+        //
+      });
     },
   },
 };

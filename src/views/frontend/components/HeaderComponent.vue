@@ -93,7 +93,7 @@
 
           <v-list-item>
             <v-list-item-title @click="$router.push({name:'infografis'})">
-              Repository
+              Data Inovasi
             </v-list-item-title>
           </v-list-item>
           <v-list-item>
@@ -133,7 +133,7 @@ export default {
     menus: [
       { title: "Beranda", route: "/home", type: "item" },
       {
-        title: "Repository",
+        title: "Data Inovasi",
         route: "#",
         type: "subMenu",
         submenus: [
