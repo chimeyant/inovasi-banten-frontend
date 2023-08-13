@@ -53,12 +53,22 @@ import PermohonanVerifikatorInovasi from "../views/backend/pages/permohonan/inov
 import PermohonanVerifikatorVerifikasi from "../views/backend/pages/permohonan/inovasi/verifkator/verifikasi/Index.vue";
 
 /**
+ * Route Klinik Inovasi Admin
+ */
+import PermohonanAdminMessage from "../views/backend/pages/permohonan/message/admin/Index.vue";
+
+/**
  * Rooute OPD
  */
 import PermohonanOpdInovasi from "../views/backend/pages/permohonan/inovasi/opd/Index.vue";
 import PermohonanOpdInovasiCreate from "../views/backend/pages/permohonan/inovasi/opd/Create.vue";
 import PermohonanOpdInovasiIndkator from "../views/backend/pages/permohonan/inovasi/opd/indikator/Index.vue";
 import PermohonanOpdInovasiDocument from "../views/backend/pages/permohonan/inovasi/opd/document/Index.vue";
+
+/**
+ * Route Klinik Konsultasi
+ */
+import PermohonanOpdMessage from "../views/backend/pages/permohonan/message/opd/Index.vue";
 
 //Utiity Group Page
 import User from "../views/backend/pages/utility/user/Index.vue";
@@ -256,6 +266,15 @@ const routes = [
       },
 
       /**
+       * Route Admin Klinik Inovasi
+       */
+      {
+        path: "permohonan-message-admin",
+        name: "permohonan-message-admin",
+        component: PermohonanAdminMessage,
+      },
+
+      /**
        * Route Permohonan Inovasi OPD
        */
       {
@@ -278,6 +297,15 @@ const routes = [
           "permohonan-inovasi-opd-document/:inovasi_uuid/:indikator_uuid/:inovasi_indikator_uuid/:indikator_name",
         name: "permohonan-inovasi-opd-document",
         component: PermohonanOpdInovasiDocument,
+      },
+
+      /**
+       * route Opd Klinik Konsultasi
+       */
+      {
+        path: "permohonan-message",
+        name: "permohonan-message",
+        component: PermohonanOpdMessage,
       },
 
       //Route slider
