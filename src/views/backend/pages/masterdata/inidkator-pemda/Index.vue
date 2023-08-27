@@ -310,13 +310,6 @@ export default {
         value: "name",
       },
       {
-        text: "KATEGORI",
-        align: "start",
-        sortable: true,
-
-        value: "category",
-      },
-      {
         text: "SKOR",
         align: "right",
         sortable: false,

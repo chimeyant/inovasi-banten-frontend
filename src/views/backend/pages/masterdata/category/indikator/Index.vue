@@ -20,6 +20,27 @@
                 >
                   <v-icon
                     :color="theme.mode == 'dark' ? `white` : `black`"
+                    @click="$router.push({name:'master-data-category'})"
+                  >mdi-close-circle</v-icon>
+                </v-btn>
+              </template>
+              <span>Kembali</span>
+            </v-tooltip>
+            <v-tooltip
+              :color="theme.color"
+              bottom
+            >
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  text
+                  small
+                  icon
+                  v-on="on"
+                  v-show="page.actions.add"
+                  class="animate__animated animate__shakeY animate__delay-1s"
+                >
+                  <v-icon
+                    :color="theme.mode == 'dark' ? `white` : `black`"
                     @click="openForm"
                   >add_circle</v-icon>
                 </v-btn>
@@ -89,6 +110,12 @@
                 <strong>{{ value }}%</strong>
               </v-progress-linear>
             </template>
+            <template v-slot:item.optional="{ value }">
+              <v-chip
+                :color="value.color"
+                small
+              >{{ value.text }}</v-chip>
+            </template>
 
             <template v-slot:item.status="{ value }">
               <v-chip
@@ -96,7 +123,7 @@
                 small
               >{{ value.text }}</v-chip>
             </template>
-            <template v-slot:item.aksi="{ value }">
+            <template v-slot:item.id="{ value }">
               <v-menu
                 bottom
                 origin="center center"
@@ -114,19 +141,7 @@
 
                 <v-list>
                   <v-list-item
-                    @click="openIndikator(value)"
-                    v-show="page.actions.edit"
-                  >
-                    <v-list-item-title>
-                      <v-icon
-                        class="mr-2"
-                        :color="theme.color"
-                      >mdi-notebook-check</v-icon>Indikator
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-divider></v-divider>
-                  <v-list-item
-                    @click="editRecord(value.id)"
+                    @click="editRecord(value)"
                     v-show="page.actions.edit"
                   >
                     <v-list-item-title>
@@ -134,7 +149,7 @@
                     </v-list-item-title>
                   </v-list-item>
                   <v-list-item
-                    @click="postDeleteRecord(value.id)"
+                    @click="postDeleteRecord(value)"
                     v-show="page.actions.delete"
                   >
                     <v-list-item-title>
@@ -184,24 +199,6 @@
                       </template>
 
                       <v-list>
-                        <v-list-item
-                          @click="editRecord(item.id)"
-                          v-show="page.actions.edit"
-                        >
-                          <v-list-item-title>
-                            <v-icon color="orange">mdi-pencil-circle</v-icon>
-                            Index Inovasi Daerah
-                          </v-list-item-title>
-                        </v-list-item>
-                        <v-list-item
-                          @click="editRecord(item.id)"
-                          v-show="page.actions.edit"
-                        >
-                          <v-list-item-title>
-                            <v-icon color="orange">mdi-pencil-circle</v-icon>
-                            KIPP
-                          </v-list-item-title>
-                        </v-list-item>
 
                         <v-divider v-if="page.delete || page.edit"></v-divider>
                         <v-list-item
@@ -249,7 +246,7 @@
               small
               color="orange"
               class="mr-1 animate__animated animate__flash animate__infinite"
-            >mdi-circle</v-icon> Formulir Master Kategori
+            >mdi-circle</v-icon> Formulir Master Indikator
           </v-toolbar>
           <v-card-text class="mt-2">
             <v-col col="12">
@@ -257,8 +254,8 @@
                 outlined
                 :color="theme.color"
                 hide-details
-                label="*Kategori"
-                placeholder="Isilah nama kategori yang anda inginkan"
+                label="*Indikator"
+                placeholder=""
                 v-model="record.name"
                 :filled="record.name"
                 dense
@@ -269,31 +266,37 @@
                 outlined
                 :color="theme.color"
                 hide-details
-                label="*Kode"
-                v-model="record.code"
-                :filled="record.code"
-                dense
-              ></v-text-field>
-            </v-col>
-            <v-col col="12">
-              <v-text-field
-                outlined
-                :color="theme.color"
-                hide-details
-                label="*Icon"
-                placeholder="mdi-account"
-                v-model="record.icon"
-                :filled="record.icon"
+                label="*Skor"
+                placeholder=""
+                v-model="record.skor"
+                :filled="record.skor"
                 dense
               ></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-switch
-                label="Status"
-                :color="theme.color"
-                v-model="record.status"
-                dense
-              ></v-switch>
+              <v-row>
+                <v-col cols="6">
+                  <v-switch
+                    label="Tidak Wajib | Optional"
+                    outlined
+                    dense
+                    hide-detail
+                    v-model="record.optional"
+                    :color="theme.color"
+                  ></v-switch>
+                </v-col>
+                <v-col cols="6">
+                  <v-switch
+                    label="Aktif"
+                    outlined
+                    dense
+                    hide-detail
+                    v-model="record.status"
+                    :color="theme.color"
+                  ></v-switch>
+                </v-col>
+
+              </v-row>
             </v-col>
           </v-card-text>
 
@@ -322,45 +325,53 @@
     </v-col>
   </div>
 </template>
-<script>
+        <script>
 import { mapActions, mapState } from "vuex";
 import "animate.css";
 
 export default {
-  name: "master-category",
+  name: "master-indikator",
   data: () => ({
     num: 1,
     headers: [
       {
-        text: "KATEGORY",
+        text: "INDIKATOR",
         align: "start",
-        sortable: false,
+        sortable: true,
         value: "name",
       },
       {
-        text: "JUMLAH",
-        value: "jml",
-        width: 57,
+        text: "SKOR",
+        align: "right",
         sortable: false,
+        value: "skor",
+        width: 100,
+      },
+      {
+        text: "WAJIB",
         align: "center",
+        sortable: false,
+        value: "optional",
+        width: 100,
       },
       {
         text: "STATUS",
-        value: "status",
-        width: 57,
-        sortable: false,
         align: "center",
+        sortable: false,
+        value: "status",
+        width: 100,
       },
       {
         text: "AKSI",
-        value: "aksi",
-        width: 80,
+        value: "id",
+        width: 100,
         sortable: false,
         align: "center",
       },
     ],
     search: null,
     filename: null,
+    categories: [],
   }),
   computed: {
     ...mapState([
@@ -391,19 +402,24 @@ export default {
   created() {
     this.setPage({
       crud: true,
-      dataUrl: "api/v2/master-data/category",
+      dataUrl:
+        "api/v2/master-data/indikator/" + this.$route.params.category_uuid,
       pagination: false,
       key: "id",
-      title: "MASTER KATEGORI DATA",
-      subtitle: "Berikut Daftar Seluruh Kategori Yang Tersedia",
+      title:
+        "MASTER INDIKATOR " + this.$route.params.category_name.toUpperCase(),
+      subtitle:
+        "Berikut Daftar Seluruh " +
+        this.$route.params.category_name +
+        " Yang Tersedia",
       breadcrumbs: [
         {
-          text: "Master Data",
+          text: "Master",
           disabled: true,
           href: "",
         },
         {
-          text: "KATEGORI",
+          text: "Indikator",
           disabled: true,
           href: "",
         },
@@ -423,7 +439,7 @@ export default {
     this.fetchRecords();
   },
   mounted() {
-    this.fetchCatgeories();
+    this.fetchCategories();
   },
   methods: {
     ...mapActions([
@@ -490,14 +506,11 @@ export default {
         },
       });
     },
-    openIndikator: function (val) {
-      this.$router.push({
-        name: "master-data-category-indikator",
-        params: {
-          category_uuid: val.id,
-          category_name: val.name,
-        },
-      });
+    fetchCategories: async function () {
+      try {
+        let { data } = await this.http.get("api/v2/combo/category");
+        this.categories = data;
+      } catch (error) {}
     },
   },
 };

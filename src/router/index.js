@@ -24,6 +24,7 @@ import MasterDataRegency from "../views/backend/pages/masterdata/regency/Index.v
 import MasterDataDistrict from "../views/backend/pages/masterdata/district/Index.vue";
 import MasterDataVillage from "../views/backend/pages/masterdata/village/Index.vue";
 import MasterDataCatgeory from "../views/backend/pages/masterdata/category/Index.vue";
+import MasterDataCategoryIndikator from "../views/backend/pages/masterdata/category/indikator/Index.vue";
 import MasterDataIndikator from "../views/backend/pages/masterdata/indikator/Index.vue";
 import MasterDataIndikatorPemda from "../views/backend/pages/masterdata/inidkator-pemda/Index.vue";
 import MasterDataOpd from "../views/backend/pages/masterdata/opd/Index.vue";
@@ -36,6 +37,7 @@ import MasterDataBentuk from "../views/backend/pages/masterdata/bentuk/Index.vue
 /**
  * Page Admininstartor
  */
+import PermohonanAdminKompetisi from "../views/backend/pages/permohonan/admin/kompetisi/Index.vue";
 import PermohonanAdminPublisher from "../views/backend/pages/permohonan/inovasi/admin/Index.vue";
 import PermohonanAdminReview from "../views/backend/pages/permohonan/inovasi/admin/review/Index.vue";
 
@@ -58,10 +60,28 @@ import PermohonanVerifikatorVerifikasi from "../views/backend/pages/permohonan/i
 import PermohonanAdminMessage from "../views/backend/pages/permohonan/message/admin/Index.vue";
 
 /**
+ * route Permohonan Admin Kabupaten
+ */
+import VerifikasiKabKotaSinovic from "../views/backend/pages/permohonan/inovasi/kabupaten/sinovic/Index.vue";
+import VerifikasiKabKotaSinovicCreate from "../views/backend/pages/permohonan/inovasi/kabupaten/sinovic/verifikasi/Index.vue";
+
+/**
  * Rooute OPD
  */
+
+//IGA
+import PermohonanOpdIga from "../views/backend/pages/permohonan/inovasi/opd/iga/Index.vue";
+import PermohonanOpdIgaCreate from "../views/backend/pages/permohonan/inovasi/opd/iga/create/Index.vue";
+
+//sinovic
+import PermohonanOpdSinovic from "../views/backend/pages/permohonan/inovasi/opd/sinovic/Index.vue";
+import PermohonanOpdSinovicCreate from "../views/backend/pages/permohonan/inovasi/opd/sinovic/create/Index.vue";
+
+//deprected
 import PermohonanOpdInovasi from "../views/backend/pages/permohonan/inovasi/opd/Index.vue";
-import PermohonanOpdInovasiCreate from "../views/backend/pages/permohonan/inovasi/opd/Create.vue";
+import PermohonanOpdCategory from "../views/backend/pages/permohonan/inovasi/opd/category/Index.vue";
+import PermohonanOpdInovasiSinovicCreate from "../views/backend/pages/permohonan/inovasi/opd/category/sinovik/Create.vue";
+import PermohonanOpdInovasiIgaCreate from "../views/backend/pages/permohonan/inovasi/opd/category/iga/Create.vue";
 import PermohonanOpdInovasiIndkator from "../views/backend/pages/permohonan/inovasi/opd/indikator/Index.vue";
 import PermohonanOpdInovasiDocument from "../views/backend/pages/permohonan/inovasi/opd/document/Index.vue";
 
@@ -179,6 +199,11 @@ const routes = [
         component: MasterDataCatgeory,
       },
       {
+        path: "master-data-category-indikator/:category_uuid/:category_name",
+        name: "master-data-category-indikator",
+        component: MasterDataCategoryIndikator,
+      },
+      {
         path: "master-data-indikator",
         name: "master-data-indikator",
         component: MasterDataIndikator,
@@ -231,10 +256,16 @@ const routes = [
         name: "permohonan-profile-document",
         component: PermohonanProfileDocument,
       },
+
       {
         path: "permohonan-inovasi-admin",
         name: "permohonan-inovasi-admin",
         component: PermohonanAdminInovasi,
+      },
+      {
+        path: "permohonan-admin-kompetisi",
+        name: "permohonan-admin-kompetisi",
+        component: PermohonanAdminKompetisi,
       },
 
       /**
@@ -275,18 +306,61 @@ const routes = [
       },
 
       /**
+       * Route Verifikasi Kab Kota
+       */
+      {
+        path: "verifikasi-kabkota-sinovic",
+        name: "verifikasi-kabkota-sinovic",
+        component: VerifikasiKabKotaSinovic,
+      },
+      {
+        path: "verifikasi-kabkota-sinovic-create/:id",
+        name: "verifikasi-kabkota-sinovic-create",
+        component: VerifikasiKabKotaSinovicCreate,
+      },
+
+      /**
        * Route Permohonan Inovasi OPD
        */
       {
-        path: "permohonan-inovasi-opd",
-        name: "permohonan-inovasi-opd",
-        component: PermohonanOpdInovasi,
+        path: "permohonan-opd-iga",
+        name: "permohonan-opd-iga",
+        component: PermohonanOpdIga,
       },
       {
-        path: "permohonan-inovasi-opd-create",
-        name: "permohonan-inovasi-opd-create",
-        component: PermohonanOpdInovasiCreate,
+        path: "permohonan-opd-iga-create",
+        name: "permohonan-opd-iga-create",
+        component: PermohonanOpdIgaCreate,
       },
+
+      {
+        path: "permohonan-opd-sinovic",
+        name: "permohonan-opd-sinovic",
+        component: PermohonanOpdSinovic,
+      },
+      {
+        path: "permohonan-opd-sinovic-create",
+        name: "permohonan-opd-sinovic-create",
+        component: PermohonanOpdSinovicCreate,
+      },
+
+      //deprected
+      {
+        path: "permohonan-inovasi-opd-category",
+        name: "permohonan-inovasi-opd-category",
+        component: PermohonanOpdCategory,
+      },
+      {
+        path: "permohonan-inovasi-opd-sinovic-create/:category_uuid",
+        name: "permohonan-inovasi-opd-sinovic-create",
+        component: PermohonanOpdInovasiSinovicCreate,
+      },
+      {
+        path: "permohonan-inovasi-opd-iga-create/:category_uuid",
+        name: "permohonan-inovasi-opd-iga-create",
+        component: PermohonanOpdInovasiIgaCreate,
+      },
+
       {
         path: "permohonan-inovasi-opd-indikator/:inovasi_uuid",
         name: "permohonan-inovasi-opd-indikator",

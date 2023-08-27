@@ -96,7 +96,7 @@
                 small
               >{{ value.text }}</v-chip>
             </template>
-            <template v-slot:item.aksi="{ value }">
+            <template v-slot:item.id="{ value }">
               <v-menu
                 bottom
                 origin="center center"
@@ -114,19 +114,7 @@
 
                 <v-list>
                   <v-list-item
-                    @click="openIndikator(value)"
-                    v-show="page.actions.edit"
-                  >
-                    <v-list-item-title>
-                      <v-icon
-                        class="mr-2"
-                        :color="theme.color"
-                      >mdi-notebook-check</v-icon>Indikator
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-divider></v-divider>
-                  <v-list-item
-                    @click="editRecord(value.id)"
+                    @click="editRecord(value)"
                     v-show="page.actions.edit"
                   >
                     <v-list-item-title>
@@ -134,7 +122,7 @@
                     </v-list-item-title>
                   </v-list-item>
                   <v-list-item
-                    @click="postDeleteRecord(value.id)"
+                    @click="postDeleteRecord(value)"
                     v-show="page.actions.delete"
                   >
                     <v-list-item-title>
@@ -149,7 +137,6 @@
             subheader
             v-show="device.mobile"
           >
-
             <v-list-item-group
               multiple
               active-class=""
@@ -236,7 +223,7 @@
       <v-dialog
         transition="dialog-bottom-transition"
         v-model="form.add"
-        :max-width="device.desktop ? `600px` : `100%`"
+        :max-width="device.desktop ? `800px` : `100%`"
         persistent
         :fullscreen="device.mobile"
       >
@@ -249,30 +236,49 @@
               small
               color="orange"
               class="mr-1 animate__animated animate__flash animate__infinite"
-            >mdi-circle</v-icon> Formulir Master Kategori
+            >mdi-circle</v-icon> Formulir Kompetisi
           </v-toolbar>
           <v-card-text class="mt-2">
+            <v-col cols="12">
+              <v-select
+                label="Kategori"
+                outlined
+                dense
+                hide-details
+                :color="theme.color"
+                v-model="record.category_uuid"
+                :items="categories"
+              ></v-select>
+            </v-col>
             <v-col col="12">
               <v-text-field
                 outlined
                 :color="theme.color"
                 hide-details
-                label="*Kategori"
-                placeholder="Isilah nama kategori yang anda inginkan"
+                label="Nama Kompetisi"
+                placeholder=""
                 v-model="record.name"
                 :filled="record.name"
                 dense
               ></v-text-field>
             </v-col>
+            <v-col cols=12>
+              <tiptap-vuetify
+                v-model="record.description"
+                :extensions="extensions"
+                placeholder="Penjelasan Kompetisi"
+              />
+            </v-col>
             <v-col col="12">
               <v-text-field
                 outlined
                 :color="theme.color"
                 hide-details
-                label="*Kode"
-                v-model="record.code"
-                :filled="record.code"
+                label="Tanggal Mulai"
+                v-model="record.start_date"
+                :filled="record.start_date"
                 dense
+                type="date"
               ></v-text-field>
             </v-col>
             <v-col col="12">
@@ -280,11 +286,11 @@
                 outlined
                 :color="theme.color"
                 hide-details
-                label="*Icon"
-                placeholder="mdi-account"
-                v-model="record.icon"
-                :filled="record.icon"
+                label="Tanggal Selesai"
+                v-model="record.end_date"
+                :filled="record.end_date"
                 dense
+                type="date"
               ></v-text-field>
             </v-col>
             <v-col cols="12">
@@ -322,25 +328,59 @@
     </v-col>
   </div>
 </template>
-<script>
+  <script>
 import { mapActions, mapState } from "vuex";
 import "animate.css";
+import {
+  TiptapVuetify,
+  Heading,
+  Bold,
+  Italic,
+  Strike,
+  Underline,
+  Code,
+  Paragraph,
+  BulletList,
+  OrderedList,
+  ListItem,
+  Link,
+  Blockquote,
+  HardBreak,
+  HorizontalRule,
+  History,
+} from "tiptap-vuetify";
 
 export default {
-  name: "master-category",
+  name: "permohonan-daftar-kompetisi",
+  components: {
+    TiptapVuetify,
+  },
   data: () => ({
     num: 1,
     headers: [
       {
-        text: "KATEGORY",
+        text: "KOMPETISI",
         align: "start",
         sortable: false,
         value: "name",
       },
       {
-        text: "JUMLAH",
-        value: "jml",
-        width: 57,
+        text: "KATEGORI",
+        value: "category_name",
+        sortable: false,
+        align: "center",
+      },
+      {
+        text: "TGL.MULAI",
+        value: "start_date",
+        width: 150,
+        sortable: false,
+        align: "center",
+      },
+      {
+        text: "TGL.SELESAI",
+        value: "end_date",
+        width: 150,
         sortable: false,
         align: "center",
       },
@@ -353,7 +393,7 @@ export default {
       },
       {
         text: "AKSI",
-        value: "aksi",
+        value: "id",
         width: 80,
         sortable: false,
         align: "center",
@@ -361,6 +401,27 @@ export default {
     ],
     search: null,
     filename: null,
+    extensions: [
+      History,
+      Blockquote,
+      Bold,
+      Strike,
+      Italic,
+      ListItem,
+      BulletList,
+      OrderedList,
+      [
+        Heading,
+        {
+          options: {
+            levels: [1, 2, 3],
+          },
+        },
+      ],
+
+      Paragraph,
+    ],
+    categories: [],
   }),
   computed: {
     ...mapState([
@@ -391,19 +452,19 @@ export default {
   created() {
     this.setPage({
       crud: true,
-      dataUrl: "api/v2/master-data/category",
+      dataUrl: "api/v2/permohonan/admin/kompetisi",
       pagination: false,
       key: "id",
-      title: "MASTER KATEGORI DATA",
-      subtitle: "Berikut Daftar Seluruh Kategori Yang Tersedia",
+      title: "DAFTAR KOMPETISI",
+      subtitle: "Berikut Daftar Seluruh Kompetisi Yang Tersedia",
       breadcrumbs: [
         {
-          text: "Master Data",
+          text: "Permohonan",
           disabled: true,
           href: "",
         },
         {
-          text: "KATEGORI",
+          text: "Daftar Kompetisi",
           disabled: true,
           href: "",
         },
@@ -423,7 +484,7 @@ export default {
     this.fetchRecords();
   },
   mounted() {
-    this.fetchCatgeories();
+    this.fetchCategories();
   },
   methods: {
     ...mapActions([
@@ -490,14 +551,14 @@ export default {
         },
       });
     },
-    openIndikator: function (val) {
-      this.$router.push({
-        name: "master-data-category-indikator",
-        params: {
-          category_uuid: val.id,
-          category_name: val.name,
-        },
-      });
+    /**
+     * Custome Function
+     */
+    fetchCategories: async function () {
+      try {
+        let { data } = await this.http.get("api/v2/combo/category");
+        this.categories = data;
+      } catch (error) {}
     },
   },
 };

@@ -219,7 +219,7 @@
               small
               color="orange"
               class="mr-1 animate__animated animate__flash animate__infinite"
-            >mdi-circle</v-icon> Formulir Master Jenis Inovasi
+            >mdi-circle</v-icon> Formulir Master Urusan
           </v-toolbar>
           <v-card-text class="mt-2">
             <v-col col="12">
@@ -227,7 +227,7 @@
                 outlined
                 :color="theme.color"
                 hide-details
-                label="*Jenis Inovasi"
+                label="*Nama Urusan"
                 placeholder=""
                 v-model="record.name"
                 :filled="record.name"

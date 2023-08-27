@@ -20,7 +20,7 @@
                 >
                   <v-icon
                     :color="theme.mode == 'dark' ? `white` : `black`"
-                    @click="openForm"
+                    @click="openPermohonanCreate"
                   >add_circle</v-icon>
                 </v-btn>
               </template>
@@ -96,7 +96,7 @@
                 small
               >{{ value.text }}</v-chip>
             </template>
-            <template v-slot:item.aksi="{ value }">
+            <template v-slot:item.id="{ value }">
               <v-menu
                 bottom
                 origin="center center"
@@ -113,32 +113,70 @@
                 </template>
 
                 <v-list>
+                  <v-list-item @click="openIndikator(value)">
+                    <v-list-item-title>
+                      <v-icon
+                        class="mr-1"
+                        :color="theme.color"
+                      >mdi-clipboard-list-outline</v-icon>Indikator
+                    </v-list-item-title>
+                  </v-list-item>
                   <v-list-item
-                    @click="openIndikator(value)"
-                    v-show="page.actions.edit"
+                    v-show="false"
+                    @click="editRecord(value)"
                   >
                     <v-list-item-title>
                       <v-icon
-                        class="mr-2"
+                        class="mr-1"
                         :color="theme.color"
-                      >mdi-notebook-check</v-icon>Indikator
+                      >mdi-eye</v-icon>Pratinjau
+                    </v-list-item-title>
+                  </v-list-item>
+                  <v-list-item @click="postPush(value)">
+                    <v-list-item-title>
+                      <v-icon
+                        class="mr-1"
+                        :color="theme.color"
+                      >mdi-email-send</v-icon>Kirim Permohonan
+                    </v-list-item-title>
+                  </v-list-item>
+                  <v-list-item @click="postPull(value)">
+                    <v-list-item-title>
+                      <v-icon
+                        class="mr-1"
+                        color="red"
+                      >mdi-email-receive</v-icon>Batalkan Permohonan
+                    </v-list-item-title>
+                  </v-list-item>
+                  <v-list-item @click="openHistory(value)">
+                    <v-list-item-title>
+                      <v-icon
+                        class="mr-1"
+                        color="grey"
+                      >mdi-math-log</v-icon>Histori Permohonan
                     </v-list-item-title>
                   </v-list-item>
                   <v-divider></v-divider>
                   <v-list-item
-                    @click="editRecord(value.id)"
+                    @click="editRecord(value)"
                     v-show="page.actions.edit"
                   >
                     <v-list-item-title>
-                      <v-icon color="orange">mdi-pencil-circle</v-icon>Ubah
+                      <v-icon
+                        class="mr-1"
+                        color="orange"
+                      >mdi-pencil-circle</v-icon>Ubah
                     </v-list-item-title>
                   </v-list-item>
                   <v-list-item
-                    @click="postDeleteRecord(value.id)"
+                    @click="postDeleteRecord(value)"
                     v-show="page.actions.delete"
                   >
                     <v-list-item-title>
-                      <v-icon color="red">mdi-delete-circle</v-icon>Hapus
+                      <v-icon
+                        class="mr-1"
+                        color="red"
+                      >mdi-delete-circle</v-icon>Hapus
                     </v-list-item-title>
                   </v-list-item>
                 </v-list>
@@ -184,24 +222,6 @@
                       </template>
 
                       <v-list>
-                        <v-list-item
-                          @click="editRecord(item.id)"
-                          v-show="page.actions.edit"
-                        >
-                          <v-list-item-title>
-                            <v-icon color="orange">mdi-pencil-circle</v-icon>
-                            Index Inovasi Daerah
-                          </v-list-item-title>
-                        </v-list-item>
-                        <v-list-item
-                          @click="editRecord(item.id)"
-                          v-show="page.actions.edit"
-                        >
-                          <v-list-item-title>
-                            <v-icon color="orange">mdi-pencil-circle</v-icon>
-                            KIPP
-                          </v-list-item-title>
-                        </v-list-item>
 
                         <v-divider v-if="page.delete || page.edit"></v-divider>
                         <v-list-item
@@ -249,16 +269,26 @@
               small
               color="orange"
               class="mr-1 animate__animated animate__flash animate__infinite"
-            >mdi-circle</v-icon> Formulir Master Kategori
+            >mdi-circle</v-icon> Formulir Master Indikator
           </v-toolbar>
           <v-card-text class="mt-2">
+            <v-col cols="12">
+              <v-select
+                label="Kategori"
+                outlined
+                dense
+                hide-details
+                v-model="record.category_uuid"
+                :items="categories"
+              ></v-select>
+            </v-col>
             <v-col col="12">
               <v-text-field
                 outlined
                 :color="theme.color"
                 hide-details
-                label="*Kategori"
-                placeholder="Isilah nama kategori yang anda inginkan"
+                label="*Indikator"
+                placeholder=""
                 v-model="record.name"
                 :filled="record.name"
                 dense
@@ -269,30 +299,21 @@
                 outlined
                 :color="theme.color"
                 hide-details
-                label="*Kode"
-                v-model="record.code"
-                :filled="record.code"
-                dense
-              ></v-text-field>
-            </v-col>
-            <v-col col="12">
-              <v-text-field
-                outlined
-                :color="theme.color"
-                hide-details
-                label="*Icon"
-                placeholder="mdi-account"
-                v-model="record.icon"
-                :filled="record.icon"
+                label="*Skor"
+                placeholder=""
+                v-model="record.skor"
+                :filled="record.skor"
                 dense
               ></v-text-field>
             </v-col>
             <v-col cols="12">
               <v-switch
                 label="Status"
-                :color="theme.color"
-                v-model="record.status"
+                outlined
                 dense
+                hide-detail
+                v-model="record.status"
+                :color="theme.color"
               ></v-switch>
             </v-col>
           </v-card-text>
@@ -320,47 +341,131 @@
         </v-card>
       </v-dialog>
     </v-col>
+    <v-col cols="12">
+      <v-dialog
+        transition="dialog-bottom-transition"
+        v-model="history.show"
+        :max-width="device.desktop ? `600px` : `100%`"
+        persistent
+        :fullscreen="device.mobile"
+      >
+        <v-card>
+          <v-toolbar
+            :color="theme.color"
+            :dark="theme.mode"
+          >
+            <v-icon
+              small
+              color="orange"
+              class="mr-1 animate__animated animate__flash animate__infinite"
+            >mdi-circle</v-icon> Histori Permohonan Anda
+          </v-toolbar>
+          <v-card-text class="mt-2 overflow-y-scroll">
+            <v-timeline
+              align-top
+              dense
+            >
+              <v-timeline-item
+                :color="item.status"
+                small
+                v-for="(item,index) in history.records"
+                :key="index"
+              >
+                <v-row class="pt-1">
+                  <v-col cols="3">
+                    <strong>{{ item.tanggal  }}</strong>
+                    <br>
+                    <div>{{ item.waktu }}</div>
+                  </v-col>
+
+                  <v-col>
+                    <strong>{{ item.title }}</strong>
+                    <div>
+                      {{ item.user }}
+                    </div>
+                    <div :class="`text-caption `+ item.status+`--text`">
+                      {{ item.content }}
+                    </div>
+                  </v-col>
+                </v-row>
+              </v-timeline-item>
+            </v-timeline>
+          </v-card-text>
+
+          <v-divider></v-divider>
+          <v-card-actions class="justify-end">
+
+            <v-btn
+              outlined
+              color="grey"
+              @click="closeHistory"
+            >Tutup</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-col>
   </div>
 </template>
-<script>
+        <script>
 import { mapActions, mapState } from "vuex";
 import "animate.css";
 
 export default {
-  name: "master-category",
+  name: "permohonan-inovasi-iga",
   data: () => ({
     num: 1,
     headers: [
       {
-        text: "KATEGORY",
+        text: "JUDUL INOVASI",
         align: "start",
-        sortable: false,
+        sortable: true,
+
         value: "name",
       },
+
       {
-        text: "JUMLAH",
-        value: "jml",
-        width: 57,
+        text: "TAHAPAN",
+        align: "right",
         sortable: false,
-        align: "center",
+        value: "tahapan",
+        width: 100,
+      },
+      {
+        text: "INDIKATOR",
+        align: "right",
+        sortable: false,
+        value: "skor",
+        width: 100,
+      },
+      {
+        text: "KEMATANGAN",
+        align: "right",
+        sortable: false,
+        value: "kematangan",
+        width: 100,
       },
       {
         text: "STATUS",
-        value: "status",
-        width: 57,
-        sortable: false,
         align: "center",
+        sortable: false,
+        value: "status",
+        width: 100,
       },
       {
         text: "AKSI",
-        value: "aksi",
-        width: 80,
+        value: "id",
+        width: 100,
         sortable: false,
         align: "center",
       },
     ],
     search: null,
     filename: null,
+    categories: [],
+    history: {
+      show: false,
+      records: [],
+    },
   }),
   computed: {
     ...mapState([
@@ -391,19 +496,19 @@ export default {
   created() {
     this.setPage({
       crud: true,
-      dataUrl: "api/v2/master-data/category",
+      dataUrl: "api/v2/permohonan/opd/inovasi",
       pagination: false,
       key: "id",
-      title: "MASTER KATEGORI DATA",
-      subtitle: "Berikut Daftar Seluruh Kategori Yang Tersedia",
+      title: "PERMOHONAN INOVASI IGA",
+      subtitle: "Berikut Daftar Seluruh Permohonan Inovasi IGA Yang Tersedia",
       breadcrumbs: [
         {
-          text: "Master Data",
+          text: "Permohonan",
           disabled: true,
           href: "",
         },
         {
-          text: "KATEGORI",
+          text: "Inovasi",
           disabled: true,
           href: "",
         },
@@ -423,7 +528,7 @@ export default {
     this.fetchRecords();
   },
   mounted() {
-    this.fetchCatgeories();
+    this.fetchCategories();
   },
   methods: {
     ...mapActions([
@@ -490,14 +595,96 @@ export default {
         },
       });
     },
+    fetchCategories: async function () {
+      try {
+        let { data } = await this.http.get("api/v2/combo/category");
+        this.categories = data;
+      } catch (error) {}
+    },
+    openPermohonanCreate: function () {
+      this.$router.push({
+        name: "permohonan-opd-iga-create",
+        //name: "permohonan-inovasi-opd-category",
+      });
+    },
     openIndikator: function (val) {
       this.$router.push({
-        name: "master-data-category-indikator",
+        name: "permohonan-inovasi-opd-indikator",
         params: {
-          category_uuid: val.id,
-          category_name: val.name,
+          inovasi_uuid: val,
         },
       });
+    },
+    postPush: async function (val) {
+      try {
+        this.setLoading({ dialog: true, text: "Proses pengiriman permohonan" });
+        let {
+          data: { code, success, message, error },
+        } = await this.http.post("api/v2/permohonan/opd/inovasi-push", {
+          id: val,
+        });
+
+        if (!success) {
+          this.snackbar.color = "orange";
+          this.snackbar.text = message;
+          this.snackbar.state = true;
+          return;
+        }
+
+        this.snackbar.color = this.theme.color;
+        this.snackbar.text = message;
+        this.snackbar.state = true;
+
+        this.fetchRecords();
+      } catch (error) {
+        this.snackbar.color = "red";
+        this.snackbar.text = "Opps..., terjadi kesalahan";
+        this.snackbar.state = true;
+      } finally {
+        this.setLoading({ dialog: false, text: "" });
+      }
+    },
+    postPull: async function (val) {
+      try {
+        this.setLoading({ dialog: true, text: "Proses pembatalan permohonan" });
+        let {
+          data: { code, success, message, error },
+        } = await this.http.post("api/v2/permohonan/opd/inovasi-pull", {
+          id: val,
+        });
+
+        if (!success) {
+          this.snackbar.color = "orange";
+          this.snackbar.text = message;
+          this.snackbar.state = true;
+          return;
+        }
+
+        this.snackbar.color = this.theme.color;
+        this.snackbar.text = message;
+        this.snackbar.state = true;
+
+        this.fetchRecords();
+      } catch (error) {
+        this.snackbar.color = "red";
+        this.snackbar.text = "Opps..., terjadi kesalahan";
+        this.snackbar.state = true;
+      } finally {
+        this.setLoading({ dialog: false, text: "" });
+      }
+    },
+    openHistory: async function (val) {
+      try {
+        let { data } = await this.http.get(
+          "api/v2/permohonan/inovasi-history/" + val
+        );
+        this.history.records = data;
+        this.history.show = true;
+      } catch (error) {}
+    },
+    closeHistory: function () {
+      this.history.show = false;
+      this.history.records = [];
     },
   },
 };

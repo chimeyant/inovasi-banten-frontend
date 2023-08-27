@@ -603,7 +603,8 @@ export default {
     },
     openPermohonanCreate: function () {
       this.$router.push({
-        name: "permohonan-inovasi-opd-create",
+        //name: "permohonan-inovasi-opd-create",
+        name: "permohonan-inovasi-opd-category",
       });
     },
     openIndikator: function (val) {
