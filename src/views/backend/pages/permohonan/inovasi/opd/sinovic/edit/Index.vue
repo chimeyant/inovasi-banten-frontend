@@ -11,7 +11,7 @@
               color="white"
               class="mr-2"
             >mdi-circle</v-icon>
-            Formulir Permohonan Inovasi Sinovik (KIPP)
+            Formulir Perubahan Permohonan Inovasi Sinovik (KIPP)
           </v-card-title>
           <v-card-text>
             <v-row class="mt-2">
@@ -31,7 +31,6 @@
                   v-model="record.kompetisi_uuid"
                   :filled="record.kompetisi_uuid"
                   :items="kompetisis"
-                  disabled
                 ></v-select>
               </v-col>
               <v-col cols="12">
@@ -45,7 +44,6 @@
                   :color="theme.color"
                   v-model="record.name"
                   :filled="record.name"
-                  disabled
                 ></v-text-field>
               </v-col>
 
@@ -63,7 +61,6 @@
                       v-model="record.kelompok"
                       :filled="record.kelompok"
                       :items="kelompoks"
-                      disabled
                     ></v-select>
                   </v-col>
                   <v-col cols="12">
@@ -77,7 +74,6 @@
                       v-model="record.jenis_uuid"
                       :filled="record.jenis_uuid"
                       :items="jenisinovasis"
-                      disabled
                     ></v-select>
                   </v-col>
                   <v-col cols="12">
@@ -91,7 +87,6 @@
                       v-model="record.urusan_uuid"
                       :filled="record.urusan_uuid"
                       :items="urusans"
-                      disabled
                     ></v-select>
                   </v-col>
                   <v-col cols="12">
@@ -105,7 +100,6 @@
                       v-model="record.inisiator"
                       :filled="record.inisiator"
                       :items="inisiators"
-                      disabled
                     ></v-select>
                   </v-col>
 
@@ -122,7 +116,6 @@
                       v-model="record.bentuk_uuid"
                       :filled="record.bentuk_uuid"
                       :items="bentuks"
-                      disabled
                     ></v-select>
                   </v-col>
                   <v-col cols="12">
@@ -136,7 +129,6 @@
                       :color="theme.color"
                       v-model="record.waktu_uji"
                       :filled="record.waktu_uji"
-                      disabled
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
@@ -150,7 +142,6 @@
                       :color="theme.color"
                       v-model="record.waktu_penerapan"
                       :filled="record.waktu_penerapan"
-                      disabled
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12">
@@ -164,7 +155,6 @@
                       v-model="record.tahapan"
                       :filled="record.tahapan"
                       :items="tahapans"
-                      disabled
                     ></v-select>
                   </v-col>
 
@@ -182,20 +172,19 @@
                   :color="theme.color"
                   v-model="record.youtube"
                   :filled="record.youtube"
-                  disabled
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
                   label="Surat Pernyataan Implementasi (PDF | Max: 2Mb)"
-                  append-outer-icon="mdi-eye"
+                  append-outer-icon="attachment"
                   class="font-weight-thin"
                   v-model="surat_pernyataan_implementasi"
                   :filled="surat_pernyataan_implementasi"
                   :color="theme.color"
                   outlined
                   dense
-                  @click:append-outer="openPdfView(record.path_surat_pernyataan_implementasi)"
+                  @click:append-outer="uploadFile('surat_pernyataan_implementasi')"
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -204,13 +193,13 @@
                 <v-text-field
                   label="Surat Pernyataan Identitas atau Perorangan (PDF | Max: 2Mb)"
                   class="font-weight-thin"
-                  append-outer-icon="mdi-eye"
+                  append-outer-icon="attachment"
                   v-model="surat_pernyataan_identitas"
                   :filled="surat_pernyataan_identitas"
                   :color="theme.color"
                   outlined
                   dense
-                  @click:append-outer="openPdfView(record.path_surat_pernyataan_identitas)"
+                  @click:append-outer="uploadFile('surat_pernyataan_identitas')"
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -219,13 +208,13 @@
                 <v-text-field
                   label="Surat Pernyataan Ketersediaan Replikasi (PDF | Max: 2Mb)"
                   class="font-weight-thin"
-                  append-outer-icon="mdi-eye"
+                  append-outer-icon="attachment"
                   v-model="surat_pernyataan_ketersediaan_replikasi"
                   :filled="surat_pernyataan_ketersediaan_replikasi"
                   :color="theme.color"
                   outlined
                   dense
-                  @click:append-outer="openPdfView(record.path_surat_pernyataan_ketersediaan_replikasi)"
+                  @click:append-outer="uploadFile('surat_pernyataan_ketersediaan_replikasi')"
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -245,13 +234,13 @@
                 <v-text-field
                   label="File Pendukung Ringkasan (PDF | Max: 2Mb)"
                   class="font-weight-thin"
-                  append-outer-icon="mdi-eye"
+                  append-outer-icon="attachment"
                   v-model="ringkasan_att"
                   :filled="ringkasan_att"
                   :color="theme.color"
                   outlined
                   dense
-                  @click:append-outer="openPdfView(record.path_ringkasan_att)"
+                  @click:append-outer="uploadFile('ringkasan_att')"
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -270,13 +259,13 @@
                 <v-text-field
                   label="File Pendukung Latar Belakang (PDF | Max: 2Mb)"
                   class="font-weight-thin"
-                  append-outer-icon="mdi-eye"
+                  append-outer-icon="attachment"
                   v-model="latar_belakang_att"
                   :filled="latar_belakang_att"
                   :color="theme.color"
                   outlined
                   dense
-                  @click:append-outer="openPdfView(record.path_latar_belakang_att)"
+                  @click:append-outer="uploadFile('latar_belakang_att')"
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -294,13 +283,13 @@
                 <v-text-field
                   label="File Pendukung Kebaruan (PDF | Max: 2Mb)"
                   class="font-weight-thin"
-                  append-outer-icon="mdi-eye"
+                  append-outer-icon="attachment"
                   v-model="kebaruan_att"
                   :filled="kebaruan_att"
                   :color="theme.color"
                   outlined
                   dense
-                  @click:append-outer="openPdfView(record.path_kebaruan_att)"
+                  @click:append-outer="uploadFile('kebaruan_att')"
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -319,13 +308,13 @@
                 <v-text-field
                   label="File Pendukung Implementasi (PDF | Max: 2Mb)"
                   class="font-weight-thin"
-                  append-outer-icon="mdi-eye"
+                  append-outer-icon="attachment"
                   v-model="implementasi_att"
                   :filled="implementasi_att"
                   :color="theme.color"
                   outlined
                   dense
-                  @click:append-outer="openPdfView(record.path_implementasi_att)"
+                  @click:append-outer="uploadFile('implementasi_att')"
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -344,13 +333,13 @@
                 <v-text-field
                   label="File Pendukung Signifikansi (PDF | Max: 2Mb)"
                   class="font-weight-thin"
-                  append-outer-icon="mdi-eye"
+                  append-outer-icon="attachment"
                   v-model="signifikansi_att"
                   :filled="signifikansi_att"
                   :color="theme.color"
                   outlined
                   dense
-                  @click:append-outer="openPdfView(record.path_signifikansi_att)"
+                  @click:append-outer="uploadFile('signifikansi_att')"
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -370,13 +359,13 @@
                 <v-text-field
                   label="File Pendukung adaptabilitas (PDF | Max: 2Mb)"
                   class="font-weight-thin"
-                  append-outer-icon="mdi-eye"
+                  append-outer-icon="attachment"
                   v-model="adaptabilitas_att"
                   :filled="adaptabilitas_att"
                   :color="theme.color"
                   outlined
                   dense
-                  @click:append-outer="openPdfView(record.path_adaptabilitas_att)"
+                  @click:append-outer="uploadFile('adaptabilitas_att')"
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -396,13 +385,13 @@
                 <v-text-field
                   label="File Pendukung Sumber Daya (PDF | Max: 2Mb)"
                   class="font-weight-thin"
-                  append-outer-icon="mdi-eye"
+                  append-outer-icon="attachment"
                   v-model="sumber_daya_att"
                   :filled="sumber_daya_att"
                   :color="theme.color"
                   outlined
                   dense
-                  @click:append-outer="openPdfView(record.path_sumber_daya_att)"
+                  @click:append-outer="uploadFile('sumber_daya_att')"
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -422,13 +411,13 @@
                 <v-text-field
                   label="File Pendukung Startegi Keberlanjutan (PDF | Max: 2Mb)"
                   class="font-weight-thin"
-                  append-outer-icon="mdi-eye"
+                  append-outer-icon="attachment"
                   v-model="strategi_keberlanjutan_att"
                   :filled="strategi_keberlanjutan_att"
                   :color="theme.color"
                   outlined
                   dense
-                  @click:append-outer="openPdfView(record.path_strategi_keberlanjutan_att)"
+                  @click:append-outer="uploadFile('strategi_keberlanjutan_att')"
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -535,19 +524,19 @@
                   rows="2"
                   v-model="record.address"
                   :filled="record.address"
-                >{{ record.address }}</v-textarea>
+                >{{ record.alamat }}</v-textarea>
               </v-col>
               <v-col cols=12>
                 <v-text-field
                   label="Foto Inovasi (Max: 2Mb)"
                   class="font-weight-thin"
-                  append-outer-icon="mdi-eye"
+                  append-outer-icon="attachment"
                   v-model="foto"
                   :filled="foto"
                   :color="theme.color"
                   outlined
                   dense
-                  @click:append-outer="openPdfView(record.path_foto)"
+                  @click:append-outer="uploadFoto"
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -622,39 +611,8 @@
                       ></v-text-field>
                     </v-col>
                   </v-col>
-
                 </v-row>
               </v-col>
-              <v-col cols="12">
-                <div class="title">Hasil Verifikasi</div>
-              </v-col>
-
-              <v-col :cols="device.desktop  ?12:12">
-
-                <v-select
-                  label="Keputusan Verifikasi"
-                  outlined
-                  dense
-                  hide-details
-                  :color="theme.color"
-                  v-model="record.status"
-                  :items="statuses"
-                >
-                </v-select>
-
-              </v-col>
-              <v-col cols="12">
-                <v-textarea
-                  label="Pesan |Keterangan"
-                  outlined
-                  dense
-                  hide-details
-                  rows="4"
-                  :color="theme.color"
-                  v-model="record.pesan"
-                ></v-textarea>
-              </v-col>
-
             </v-row>
           </v-card-text>
           <v-card-actions class="mt-5">
@@ -663,61 +621,23 @@
                 outlined
                 :color="theme.color"
                 @click="postRecord"
-              >PROSES</v-btn>
+              >SIMPAN</v-btn>
               <v-btn
                 class="ml-2"
                 outlined
                 color="grey"
-                @click="$router.push({name:'verifikasi-kabkota-sinovic'})"
+                @click="$router.push({name:'permohonan-opd-sinovic'})"
               >BATAL</v-btn>
             </v-col>
           </v-card-actions>
         </v-card>
       </v-col>
-      <v-col cols="12">
-        <v-dialog
-          transition="dialog-bottom-transition"
-          v-model="pdfview.show"
-          :max-width="device.desktop ? `60%` : `100%`"
-          persistent
-          :fullscreen="device.mobile"
-        >
-          <v-card>
-            <v-toolbar
-              :color="theme.color"
-              :dark="theme.mode"
-            >
-              <v-icon
-                small
-                color="orange"
-                class="mr-1 animate__animated animate__flash animate__infinite"
-              >mdi-circle</v-icon> Lihat Dokumen
-            </v-toolbar>
-
-            <v-row>
-              <v-col cols="12">
-                <iframe
-                  :src="pdfview.url"
-                  frameborder="0"
-                  class="pdfview"
-                ></iframe>
-              </v-col>
-            </v-row>
-            <v-card-actions class="justify-end">
-              <v-btn
-                outlined
-                color="grey"
-                @click="closePdfView"
-              >Tutup</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-col>
+      <v-spacer></v-spacer>
     </v-row>
   </div>
 </template>
       
-<script>
+      <script>
 import { mapActions, mapState } from "vuex";
 import {
   LMap,
@@ -850,15 +770,6 @@ export default {
     sumber_daya_att: null,
     strategi_keberlanjutan_att: null,
     foto: null,
-
-    pdfview: {
-      show: false,
-      url: "/",
-    },
-    statuses: [
-      { text: "Diterima | Terverifikasi", value: "4" },
-      { text: "Ditolak", value: "2" },
-    ],
   }),
   computed: {
     ...mapState([
@@ -953,8 +864,8 @@ export default {
       try {
         let {
           data: { success, message },
-        } = await this.http.post(
-          "api/v2/permohonan/verifikator/sinovic-verifdoc",
+        } = await this.http.put(
+          "api/v2/permohonan/opd/sinovic/" + this.record.id,
           this.record
         );
 
@@ -968,7 +879,7 @@ export default {
         this.snackbar.text = message;
         this.snackbar.state = true;
 
-        this.$router.push({ name: "verifikasi-kabkota-sinovic" });
+        this.$router.push({ name: "permohonan-opd-sinovic" });
       } catch (error) {
         this.snackbar.color = "red";
         this.snackbar.text = error.data.errors[0].message;
@@ -1125,23 +1036,6 @@ export default {
         this.categories = data;
       } catch (error) {}
     },
-    openPdfView: async function (url) {
-      const res = await fetch(url, {
-        method: "GET",
-        headers: {
-          // Here you can set any headers you want
-        },
-      });
-      const blob = await res.blob();
-      const urlObject = URL.createObjectURL(blob);
-      //document.querySelector("iframe").setAttribute("src", urlObject);
-      this.pdfview.url = urlObject;
-      this.pdfview.show = true;
-    },
-    closePdfView: function () {
-      this.pdfview.url = "/";
-      this.pdfview.show = false;
-    },
   },
   watch: {
     "marker.position": {
@@ -1155,10 +1049,5 @@ export default {
 };
 </script>
   
-  <style>
-.pdfview {
-  width: 100%;
-  height: 70vh;
-}
-</style>
+  <style></style>
       

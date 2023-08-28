@@ -161,7 +161,7 @@
                   </v-list-item>
                   <v-divider></v-divider>
                   <v-list-item
-                    @click="editRecord(value)"
+                    @click="openPermohonanEdit(value)"
                     v-show="page.actions.edit"
                   >
                     <v-list-item-title>
@@ -598,6 +598,14 @@ export default {
     openPermohonanCreate: function () {
       this.$router.push({
         name: "permohonan-opd-sinovic-create",
+      });
+    },
+    openPermohonanEdit: function (val) {
+      this.$router.push({
+        name: "permohonan-opd-sinovic-edit",
+        params: {
+          id: val,
+        },
       });
     },
     openIndikator: function (val) {

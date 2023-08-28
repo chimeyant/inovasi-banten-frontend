@@ -262,6 +262,19 @@
               ></v-text-field>
             </v-col>
             <v-col col="12">
+              <v-textarea
+                outlined
+                :color="theme.color"
+                hide-details
+                label="Keterangan"
+                placeholder=""
+                v-model="record.description"
+                :filled="record.description"
+                dense
+                rows="3"
+              ></v-textarea>
+            </v-col>
+            <v-col col="12">
               <v-text-field
                 outlined
                 :color="theme.color"

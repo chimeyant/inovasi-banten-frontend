@@ -15,6 +15,26 @@
                   small
                   icon
                   v-on="on"
+                  class="animate__animated animate__shakeY animate__delay-1s"
+                >
+                  <v-icon
+                    :color="theme.mode == 'dark' ? `white` : `black`"
+                    @click="$router.push({name:'verifikator-sinovic'})"
+                  >mdi-close-circle</v-icon>
+                </v-btn>
+              </template>
+              <span>Kembali</span>
+            </v-tooltip>
+            <v-tooltip
+              :color="theme.color"
+              bottom
+            >
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  text
+                  small
+                  icon
+                  v-on="on"
                   v-show="page.actions.add"
                   class="animate__animated animate__shakeY animate__delay-1s"
                 >
@@ -88,6 +108,12 @@
               >
                 <strong>{{ value }}%</strong>
               </v-progress-linear>
+            </template>
+            <template v-slot:item.optional="{ value }">
+              <v-chip
+                :color="value.color"
+                small
+              >{{ value.text }}</v-chip>
             </template>
 
             <template v-slot:item.status="{ value }">
@@ -219,19 +245,9 @@
               small
               color="orange"
               class="mr-1 animate__animated animate__flash animate__infinite"
-            >mdi-circle</v-icon> Formulir Master Indikator
+            >mdi-circle</v-icon> Formulir Indikator Penilaian
           </v-toolbar>
           <v-card-text class="mt-2">
-            <v-col cols="12">
-              <v-select
-                label="Kategori"
-                outlined
-                dense
-                hide-details
-                v-model="record.category_uuid"
-                :items="categories"
-              ></v-select>
-            </v-col>
             <v-col col="12">
               <v-text-field
                 outlined
@@ -239,9 +255,10 @@
                 hide-details
                 label="*Indikator"
                 placeholder=""
-                v-model="record.name"
-                :filled="record.name"
+                v-model="record.indikator_name"
+                :filled="record.indikator_name"
                 dense
+                disabled
               ></v-text-field>
             </v-col>
             <v-col col="12">
@@ -255,6 +272,7 @@
                 :filled="record.description"
                 dense
                 rows="3"
+                disabled
               ></v-textarea>
             </v-col>
             <v-col col="12">
@@ -264,20 +282,10 @@
                 hide-details
                 label="*Skor"
                 placeholder=""
-                v-model="record.skor"
-                :filled="record.skor"
+                v-model="record.score"
+                :filled="record.score"
                 dense
               ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-switch
-                label="Status"
-                outlined
-                dense
-                hide-detail
-                v-model="record.status"
-                :color="theme.color"
-              ></v-switch>
             </v-col>
           </v-card-text>
 
@@ -306,7 +314,7 @@
     </v-col>
   </div>
 </template>
-    <script>
+          <script>
 import { mapActions, mapState } from "vuex";
 import "animate.css";
 
@@ -319,30 +327,16 @@ export default {
         text: "INDIKATOR",
         align: "start",
         sortable: true,
-
         value: "name",
-      },
-      {
-        text: "KATEGORI",
-        align: "start",
-        sortable: true,
-
-        value: "category",
       },
       {
         text: "SKOR",
         align: "right",
         sortable: false,
-        value: "skor",
+        value: "score",
         width: 100,
       },
-      {
-        text: "STATUS",
-        align: "center",
-        sortable: false,
-        value: "status",
-        width: 100,
-      },
+
       {
         text: "AKSI",
         value: "id",
@@ -384,19 +378,21 @@ export default {
   created() {
     this.setPage({
       crud: true,
-      dataUrl: "api/v2/master-data/indikator",
+      dataUrl:
+        "api/v2/permohonan/verifikator/sinovic-indikator-penilaian/" +
+        this.$route.params.id,
       pagination: false,
       key: "id",
-      title: "MASTER INDIKATOR INOVASI",
-      subtitle: "Berikut Daftar Seluruh Indikator Inovasi Yang Tersedia",
+      title: "INDIKATOR PENILAIAN ",
+      subtitle: "Berikut Daftar Seluruh " + " Yang Tersedia",
       breadcrumbs: [
         {
-          text: "Master",
+          text: "SINOVIC",
           disabled: true,
           href: "",
         },
         {
-          text: "Indikator",
+          text: "Inidikator Penilaian",
           disabled: true,
           href: "",
         },
@@ -404,9 +400,9 @@ export default {
       showtable: true,
       actions: {
         refresh: true,
-        add: true,
+        add: false,
         edit: true,
-        delete: true,
+        delete: false,
         bulkdelete: false,
         print: false,
         export: false,

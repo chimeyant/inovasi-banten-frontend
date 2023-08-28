@@ -625,36 +625,6 @@
 
                 </v-row>
               </v-col>
-              <v-col cols="12">
-                <div class="title">Hasil Verifikasi</div>
-              </v-col>
-
-              <v-col :cols="device.desktop  ?12:12">
-
-                <v-select
-                  label="Keputusan Verifikasi"
-                  outlined
-                  dense
-                  hide-details
-                  :color="theme.color"
-                  v-model="record.status"
-                  :items="statuses"
-                >
-                </v-select>
-
-              </v-col>
-              <v-col cols="12">
-                <v-textarea
-                  label="Pesan |Keterangan"
-                  outlined
-                  dense
-                  hide-details
-                  rows="4"
-                  :color="theme.color"
-                  v-model="record.pesan"
-                ></v-textarea>
-              </v-col>
-
             </v-row>
           </v-card-text>
           <v-card-actions class="mt-5">
@@ -663,12 +633,13 @@
                 outlined
                 :color="theme.color"
                 @click="postRecord"
+                v-show="false"
               >PROSES</v-btn>
               <v-btn
                 class="ml-2"
                 outlined
                 color="grey"
-                @click="$router.push({name:'verifikasi-kabkota-sinovic'})"
+                @click="$router.push({name:'verifikator-sinovic'})"
               >BATAL</v-btn>
             </v-col>
           </v-card-actions>
@@ -716,8 +687,8 @@
     </v-row>
   </div>
 </template>
-      
-<script>
+          
+    <script>
 import { mapActions, mapState } from "vuex";
 import {
   LMap,
@@ -1154,11 +1125,11 @@ export default {
   },
 };
 </script>
-  
-  <style>
+      
+      <style>
 .pdfview {
   width: 100%;
   height: 70vh;
 }
 </style>
-      
+          

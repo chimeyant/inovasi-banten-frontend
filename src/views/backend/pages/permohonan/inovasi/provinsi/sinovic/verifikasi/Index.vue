@@ -716,8 +716,8 @@
     </v-row>
   </div>
 </template>
-      
-<script>
+        
+  <script>
 import { mapActions, mapState } from "vuex";
 import {
   LMap,
@@ -1154,11 +1154,11 @@ export default {
   },
 };
 </script>
-  
-  <style>
+    
+    <style>
 .pdfview {
   width: 100%;
   height: 70vh;
 }
 </style>
-      
+        

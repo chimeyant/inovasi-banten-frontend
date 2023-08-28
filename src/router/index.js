@@ -60,6 +60,19 @@ import PermohonanVerifikatorVerifikasi from "../views/backend/pages/permohonan/i
 import PermohonanAdminMessage from "../views/backend/pages/permohonan/message/admin/Index.vue";
 
 /**
+ * Route Permohonna Admin Provinsi
+ */
+import VerifikasiProvinsiSinovic from "../views/backend/pages/permohonan/inovasi/provinsi/sinovic/Index.vue";
+import VerifikasiProvinsiSinovicCreate from "../views/backend/pages/permohonan/inovasi/provinsi/sinovic/verifikasi/Index.vue";
+
+/**
+ * Page Verifikator
+ */
+import VerifikatorSinovic from "../views/backend/pages/permohonan/inovasi/verifkator/sinovic/Index.vue";
+import VerifikatorSinovicCreate from "../views/backend/pages/permohonan/inovasi/verifkator/sinovic/verifikasi/Index.vue";
+import verifikatorSinovicIndikatorPenilaian from "../views/backend/pages/permohonan/inovasi/verifkator/sinovic/indikator/Index.vue";
+
+/**
  * route Permohonan Admin Kabupaten
  */
 import VerifikasiKabKotaSinovic from "../views/backend/pages/permohonan/inovasi/kabupaten/sinovic/Index.vue";
@@ -76,6 +89,7 @@ import PermohonanOpdIgaCreate from "../views/backend/pages/permohonan/inovasi/op
 //sinovic
 import PermohonanOpdSinovic from "../views/backend/pages/permohonan/inovasi/opd/sinovic/Index.vue";
 import PermohonanOpdSinovicCreate from "../views/backend/pages/permohonan/inovasi/opd/sinovic/create/Index.vue";
+import PermohonanOpdSinovicEdit from "../views/backend/pages/permohonan/inovasi/opd/sinovic/edit/Index.vue";
 
 //deprected
 import PermohonanOpdInovasi from "../views/backend/pages/permohonan/inovasi/opd/Index.vue";
@@ -306,6 +320,39 @@ const routes = [
       },
 
       /**
+       * Route Verifikasi Provinsi
+       */
+      {
+        path: "verifikasi-provinsi-sinovic",
+        name: "verifikasi-provinsi-sinovic",
+        component: VerifikasiProvinsiSinovic,
+      },
+      {
+        path: "verifikasi-provinsi-sinovic-create/:id",
+        name: "verifikasi-provinsi-sinovic-create",
+        component: VerifikasiProvinsiSinovicCreate,
+      },
+
+      /**
+       * Route Verifikator
+       */
+      {
+        path: "verifikator-sinovic",
+        name: "verifikator-sinovic",
+        component: VerifikatorSinovic,
+      },
+      {
+        path: "verifikator-sinovic-create/:id",
+        name: "verifikator-sinovic-create",
+        component: VerifikatorSinovicCreate,
+      },
+      {
+        path: "verifikator-sinovic-indikator-penilaian/:id",
+        name: "verifikator-sinovic-indikator-penilaian",
+        component: verifikatorSinovicIndikatorPenilaian,
+      },
+
+      /**
        * Route Verifikasi Kab Kota
        */
       {
@@ -342,6 +389,11 @@ const routes = [
         path: "permohonan-opd-sinovic-create",
         name: "permohonan-opd-sinovic-create",
         component: PermohonanOpdSinovicCreate,
+      },
+      {
+        path: "permohonan-opd-sinovic-edit/:id",
+        name: "permohonan-opd-sinovic-edit",
+        component: PermohonanOpdSinovicEdit,
       },
 
       //deprected

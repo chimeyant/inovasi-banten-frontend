@@ -449,8 +449,8 @@
                       dense
                       hide-details
                       :color="theme.color"
-                      v-model="record.inovator_phone"
-                      :filled="record.inovator_phone"
+                      v-model="record.inovator_telp"
+                      :filled="record.inovator_telp"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -626,7 +626,7 @@
                 class="ml-2"
                 outlined
                 color="grey"
-                @click="$router.push({name:'permohonan-inovasi-opd'})"
+                @click="$router.push({name:'permohonan-opd-sinovic'})"
               >BATAL</v-btn>
             </v-col>
           </v-card-actions>
