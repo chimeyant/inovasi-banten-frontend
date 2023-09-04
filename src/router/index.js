@@ -515,15 +515,21 @@ router.beforeEach((to, from, next) => {
 
   if (requiresAuth) {
     if (!Auth.check) {
-      next({ name: "signin" });
+      next({ name: "login" });
     } else {
       next();
     }
   } else {
-    if (to.name === "signin" && Auth.check) {
+    if (to.name === "login" && Auth.check) {
       if (Auth.user.authent == "superadmin") {
         next({ name: "dashboard" });
-      } else if (Auth.user.auth === "operator") {
+      } else if (Auth.user.authent === "provinsi") {
+        next({ name: "dashboard" });
+      } else if (Auth.user.authent === "provinsi-opd") {
+        next({ name: "dashboard" });
+      } else if (Auth.user.authent === "kabkota") {
+        next({ name: "dashboard" });
+      } else if (Auth.user.authent === "kabkota-opd") {
         next({ name: "dashboard" });
       } else {
         next({ name: "dashboard" });
