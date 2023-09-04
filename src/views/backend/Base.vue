@@ -1,5 +1,3 @@
-Template base
-
 <template>
   <v-app id="inspire">
 
@@ -146,11 +144,14 @@ Template base
       }}</v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon color="blue darken-1">mdi-widgets</v-icon>
+      <v-btn
+        icon
+        @click="$router.push({name:'home'})"
+      >
+        <v-icon color="blue darken-1">mdi-home-circle-outline</v-icon>
       </v-btn>
 
-      <v-btn
+      <!-- <v-btn
         icon
         class=""
       >
@@ -158,7 +159,7 @@ Template base
           color="orange darken-1"
           class=""
         >mdi-bell-outline</v-icon>
-      </v-btn>
+      </v-btn> -->
 
       <v-menu
         v-model="menu"

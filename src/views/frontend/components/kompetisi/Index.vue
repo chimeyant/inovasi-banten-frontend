@@ -3,12 +3,12 @@
     <v-container class="animate__animated animate__fadeIn">
 
       <v-row class="ml-5 ">
-        <h3 class="display-1 font-weight-bold">Repository</h3>
+        <h3 class="display-1 font-weight-bold">Kompetisi</h3>
         <v-spacer></v-spacer>
 
       </v-row>
       <v-row class="ml-5 mt-10 text-body-2">
-        Temukan kumpulan data-data inovasi yang ada di provinsi Banten
+        Temukan daftar inovasi di provinsi Banten
       </v-row>
       <v-row class="ml-4 mt-16">
         <v-col cols="4">
@@ -17,7 +17,7 @@
             class="mb-5 rounded-0"
           >
             <v-card-title class="green white--text font-weight-regular">
-              Formulir Pencarian
+              Pencarian
             </v-card-title>
             <v-card-text class="">
               <v-row class="mt-5">
@@ -40,7 +40,7 @@
             flat
           >
             <v-card-title class="green white--text font-weight-regular">
-              Database Inovasi
+              Daftar Kompetisi
             </v-card-title>
             <v-data-table
               v-show="device.desktop"
@@ -91,11 +91,11 @@
     </v-container>
   </div>
 </template>
-  
-  <script>
+    
+    <script>
 import { mapState, mapActions } from "vuex";
 export default {
-  name: "modul-dataset",
+  name: "modul-kompetisi",
   data: () => ({
     page: 1,
     perHalaman: [
@@ -109,17 +109,23 @@ export default {
 
     headers: [
       {
-        text: "INOVASI",
+        text: "KOMPETISI",
         align: "start",
         sortable: false,
         value: "name",
       },
       {
-        text: "INSTANSI | ORGANISASI",
+        text: "JENIS",
         align: "start",
         sortable: false,
-        value: "opd",
-        width: 300,
+        value: "category_name",
+      },
+      {
+        text: "WAKTU",
+        align: "start",
+        sortable: false,
+        value: "start_date",
+        width: 150,
       },
       { text: "AKSI", value: "id", sortable: false, width: 50 },
     ],
@@ -141,7 +147,7 @@ export default {
     ...mapActions(["setPage", "getAppInfo", "snackbarClose", "setLoading"]),
     fetchRecords: async function () {
       try {
-        let { data } = await this.http.get("inovasi");
+        let { data } = await this.http.get("kompetisi");
 
         this.datas = data;
       } catch (error) {}

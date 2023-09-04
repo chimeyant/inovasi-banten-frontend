@@ -160,21 +160,7 @@ export default {
       {
         title: "Kompetisi",
         route: "/kompetisi",
-        type: "subMenu",
-        submenus: [
-          {
-            title: "IGA",
-            icon: "mdi-clover",
-            route: "#",
-            type: "item",
-          },
-          {
-            title: "SINOVIC",
-            icon: "mdi-clover",
-            route: "#",
-            type: "item",
-          },
-        ],
+        type: "item",
       },
       {
         title: "Klinik Inovasi",

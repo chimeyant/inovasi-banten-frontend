@@ -7,6 +7,7 @@ import Login from "../views/frontend/Login.vue";
 //import Register from "../views/auth/Register.vue";
 import Home from "../views/frontend/Home.vue";
 import Repository from "../views/frontend/Repository.vue";
+import Kompetisi from "../views/frontend/Kompetisi.vue";
 
 //BASE APLIKASI
 import Base from "../views/backend/Base.vue";
@@ -145,6 +146,7 @@ const routes = [
       { path: "login", name: "login", component: Login },
       { path: "home", name: "home", component: Home },
       { path: "repository", name: "repository", component: Repository },
+      { path: "kompetisi", name: "kompetisi", component: Kompetisi },
     ],
   },
 
