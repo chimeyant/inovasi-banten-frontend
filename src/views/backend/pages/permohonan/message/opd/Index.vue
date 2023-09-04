@@ -255,7 +255,7 @@
               :color="theme.color"
               v-show="!form.edit"
               @click="postAddNewRecord"
-            >Tambah</v-btn>
+            >Kirim</v-btn>
             <v-btn
               outlined
               :color="theme.color"
@@ -286,7 +286,7 @@ export default {
         text: "TANGGAL",
         align: "center",
         sortable: false,
-        value: "status",
+        value: "sended_at",
         width: 159,
       },
       {
@@ -299,7 +299,7 @@ export default {
         text: "JUDUL",
         align: "start",
         sortable: true,
-        value: "name",
+        value: "title",
       },
       {
         text: "STATUS",
@@ -369,7 +369,7 @@ export default {
       actions: {
         refresh: true,
         add: true,
-        edit: true,
+        edit: false,
         delete: true,
         bulkdelete: false,
         print: false,
