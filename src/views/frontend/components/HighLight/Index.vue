@@ -28,17 +28,17 @@
               >
                 <div class="pa-5">
                   <img
-                    :src="item.url"
+                    :src="item.foto"
                     alt=""
                     srcset=""
                     class="highlight-slide-image"
                     width="100px"
                   >
                   <div class="highlight-slide-title black--text">
-                    {{ "Judul Inovasi...!!" }}
+                    {{ item.name }}
                     <div>
 
-                      <span class="mt-1 ml-2 black--text body-2 grey--text ">{{ "01/01/2022" }}</span>
+                      <span class="mt-1 ml-1 black--text body-2 grey--text font-weight-thin ">{{ item.kompetisi }}</span>
                     </div>
                   </div>
                   <div class="pa-3 mt-5 mb-5">
@@ -46,6 +46,9 @@
                       <v-btn
                         @click=""
                         color="green"
+                        class="white--text"
+                        outlined
+                        small
                       >Selengkapnya</v-btn>
 
                     </v-row>
@@ -76,22 +79,23 @@ export default {
   },
   data: () => ({
     highlights: [
-      {
-        url: "https://cdn.pixabay.com/photo/2017/10/04/09/56/laboratory-2815641_1280.jpg",
-      },
-      {
-        url: "https://source.unsplash.com/user/c_v_r/1900x800",
-      },
-      {
-        url: "https://source.unsplash.com/user/c_v_r/1600×900",
-      },
-      {
-        url: "https://source.unsplash.com/user/c_v_r/1600×900",
-      },
-      {
-        url: "https://source.unsplash.com/user/c_v_r/1600×900",
-      },
+      // {
+      //   url: "https://cdn.pixabay.com/photo/2017/10/04/09/56/laboratory-2815641_1280.jpg",
+      // },
+      // {
+      //   url: "https://source.unsplash.com/user/c_v_r/1900x800",
+      // },
+      // {
+      //   url: "https://source.unsplash.com/user/c_v_r/1600×900",
+      // },
+      // {
+      //   url: "https://source.unsplash.com/user/c_v_r/1600×900",
+      // },
+      // {
+      //   url: "https://source.unsplash.com/user/c_v_r/1600×900",
+      // },
     ],
+    datas: [],
   }),
   computed: {
     ...mapState(["page", "device", "http"]),
@@ -107,10 +111,16 @@ export default {
         window.dispatchEvent(new Event("resize"));
       }, 250);
     });
+
+    this.fetchHighlights();
   },
   methods: {
     ...mapActions(["setPage"]),
     fetchHighlights: async function () {
+      try {
+        let { data } = await this.http.get("top-inovasi");
+        this.highlights = data;
+      } catch (error) {}
       // let {
       //   data: { data },
       // } = await this.http.get("highlights");
@@ -173,7 +183,7 @@ export default {
   background-size: 100%;
 }
 .highlight-title {
-  font-size: 30px;
+  font-size: 20px;
   font-weight: bold;
   color: rgb(9, 124, 51);
   letter-spacing: 3px;
