@@ -122,7 +122,7 @@ export default {
       },
       {
         text: "WAKTU",
-        align: "start",
+        align: "center",
         sortable: false,
         value: "start_date",
         width: 150,
