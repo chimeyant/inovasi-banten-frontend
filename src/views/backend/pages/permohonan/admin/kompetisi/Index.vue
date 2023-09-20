@@ -368,7 +368,7 @@ export default {
         text: "KATEGORI",
         value: "category_name",
         sortable: false,
-        align: "center",
+        align: "left",
       },
       {
         text: "TGL.MULAI",
@@ -455,8 +455,8 @@ export default {
       dataUrl: "api/v2/permohonan/admin/kompetisi",
       pagination: false,
       key: "id",
-      title: "DAFTAR KOMPETISI",
-      subtitle: "Berikut Daftar Seluruh Kompetisi Yang Tersedia",
+      title: "DAFTAR JADWAL KEGIATAN",
+      subtitle: "Berikut Daftar Seluruh Jadwal Kegiatan Yang Tersedia",
       breadcrumbs: [
         {
           text: "Permohonan",
@@ -464,7 +464,7 @@ export default {
           href: "",
         },
         {
-          text: "Daftar Kompetisi",
+          text: "Jadwal Kegiatan",
           disabled: true,
           href: "",
         },

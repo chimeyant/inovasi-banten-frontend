@@ -79,6 +79,26 @@
             <v-row class="forget-password">
 
             </v-row>
+
+            <v-row class="pt-2 text-sm-body-2">
+              <v-divider></v-divider>
+              <span class="position-sm-relative mr-2 ml-2 align-text-top">
+                atau dengan
+              </span>
+              <v-divider></v-divider>
+            </v-row>
+            <v-row class="mt-5">
+              <v-col cols="12">
+                <v-btn
+                  block
+                  outlined
+                  color="white"
+                  class="text-transform-none elevation-1 shadow-1 ant-font-viga purple--text"
+                  @click="postLoginByGoogle"
+                >
+                  Masuk Dengan <span class="blue--text ml-1">G</span><span class="red--text">o</span><span class="yellow--text">o</span><span class="blue--text">g</span><span class="green--text">l</span><span class="red--text">e</span></v-btn>
+              </v-col>
+            </v-row>
           </v-col>
           <v-col
             cols="12"
@@ -174,6 +194,14 @@ export default {
       } else {
         this.password = true;
       }
+    },
+
+    postLoginByGoogle: async function () {
+      try {
+        await this.http.get("api/v2/auth/login-with-google").then((res) => {
+          window.open(res.data, "_SELF");
+        });
+      } catch (error) {}
     },
   },
 };

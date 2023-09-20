@@ -11,7 +11,7 @@
               color="white"
               class="mr-2"
             >mdi-circle</v-icon>
-            Formulir Permohonan Inovasi Sinovik (KIPP)
+            Formulir Permohonan Kompetisi
           </v-card-title>
           <v-card-text>
             <v-row class="mt-2">
@@ -443,7 +443,7 @@
                   <v-col cols="4">
                     <v-text-field
                       class="font-weight-thin"
-                      placeholder=""
+                      placeholder="Contoh : 08XXXXXXXXXX"
                       label="Telp Inovator"
                       outlined
                       dense
@@ -454,19 +454,6 @@
                     ></v-text-field>
                   </v-col>
                 </v-row>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  class="font-weight-thin"
-                  placeholder=""
-                  label="Nama Instansi"
-                  outlined
-                  dense
-                  hide-details
-                  :color="theme.color"
-                  v-model="record.inovator_instansi"
-                  :filled="record.inovator_instansi"
-                ></v-text-field>
               </v-col>
               <v-col cols=12>
                 <v-row>
@@ -626,7 +613,7 @@
                 class="ml-2"
                 outlined
                 color="grey"
-                @click="$router.push({name:'permohonan-opd-sinovic'})"
+                @click="$router.push({name:'permohonan-public-kompetisi'})"
               >BATAL</v-btn>
             </v-col>
           </v-card-actions>
@@ -636,8 +623,8 @@
     </v-row>
   </div>
 </template>
-    
-    <script>
+      
+      <script>
 import { mapActions, mapState } from "vuex";
 import {
   LMap,
@@ -846,7 +833,10 @@ export default {
       try {
         let {
           data: { success, message },
-        } = await this.http.post("api/v2/permohonan/opd/sinovic", this.record);
+        } = await this.http.post(
+          "api/v2/permohonan/public/kompetisi",
+          this.record
+        );
 
         if (!success) {
           this.snackbar.color = "red";
@@ -858,7 +848,7 @@ export default {
         this.snackbar.text = message;
         this.snackbar.state = true;
 
-        this.$router.push({ name: "permohonan-opd-sinovic" });
+        this.$router.push({ name: "permohonan-public-kompetisi" });
       } catch (error) {
         this.catchError(error);
       }
@@ -867,7 +857,7 @@ export default {
     //costome pages
     fetchKompetisis: async function () {
       try {
-        let { data } = await this.http.get("api/v2/combo/kompetisi-sinovic");
+        let { data } = await this.http.get("api/v2/combo/jadwal/KMP");
         this.kompetisis = data;
       } catch (error) {}
     },
@@ -1025,6 +1015,6 @@ export default {
   },
 };
 </script>
-
-<style></style>
-    
+  
+  <style></style>
+      

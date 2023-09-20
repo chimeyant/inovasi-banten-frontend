@@ -374,6 +374,7 @@ export default {
         value: "name",
       },
       { text: "EMAIL", value: "email" },
+      { text: "LEVEL", value: "authent" },
       {
         text: "STATUS",
         align: "center",
@@ -396,10 +397,17 @@ export default {
     authents: [
       { text: "Administrator", value: "administrator" },
       { text: "Team Pengkaji", value: "team-pengkaji" },
-      { text: "Pemda Tingkat I | Provinsi", value: "provinsi" },
+      {
+        text: "Pemda Tingkat I | Admin Provinsi | Verifikator ",
+        value: "provinsi",
+      },
       { text: "OPD Pemda Tingkat I | OPD Provinsi", value: "provinsi-opd" },
-      { text: "Pemda Tingkat II | KAB/KOTA", value: "kabkota" },
+      {
+        text: "Pemda Tingkat II | Admin KAB/KOTA | Verifikator KAB/KOTA",
+        value: "kabkota",
+      },
       { text: "OPD Pemda Tingkat II | OPD KAB/KOTA", value: "kabkota-opd" },
+      { text: "Kompetisi", value: "kompetisi" },
     ],
     search: null,
     jurusans: [],

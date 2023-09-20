@@ -15,12 +15,32 @@
                   small
                   icon
                   v-on="on"
+                  class="animate__animated animate__shakeY animate__delay-1s"
+                >
+                  <v-icon
+                    :color="theme.mode == 'dark' ? `white` : `black`"
+                    @click="$router.push({name:'verifikator-kompetisi'})"
+                  >mdi-close-circle</v-icon>
+                </v-btn>
+              </template>
+              <span>Kembali</span>
+            </v-tooltip>
+            <v-tooltip
+              :color="theme.color"
+              bottom
+            >
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  text
+                  small
+                  icon
+                  v-on="on"
                   v-show="page.actions.add"
                   class="animate__animated animate__shakeY animate__delay-1s"
                 >
                   <v-icon
                     :color="theme.mode == 'dark' ? `white` : `black`"
-                    @click="openPermohonanCreate"
+                    @click="openForm"
                   >add_circle</v-icon>
                 </v-btn>
               </template>
@@ -89,6 +109,12 @@
                 <strong>{{ value }}%</strong>
               </v-progress-linear>
             </template>
+            <template v-slot:item.optional="{ value }">
+              <v-chip
+                :color="value.color"
+                small
+              >{{ value.text }}</v-chip>
+            </template>
 
             <template v-slot:item.status="{ value }">
               <v-chip
@@ -113,32 +139,12 @@
                 </template>
 
                 <v-list>
-                  <v-list-item @click="openReview(value)">
-                    <v-list-item-title>
-                      <v-icon
-                        class="mr-1"
-                        :color="theme.color"
-                      >mdi-file-search</v-icon>Review Permohonan
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item @click="openFormStatusVerfikasi(value)">
-                    <v-list-item-title>
-                      <v-icon
-                        class="mr-1"
-                        :color="theme.color"
-                      >mdi-shield-sun-outline</v-icon>Proses Publikasi
-                    </v-list-item-title>
-                  </v-list-item>
-
                   <v-list-item
                     @click="editRecord(value)"
                     v-show="page.actions.edit"
                   >
                     <v-list-item-title>
-                      <v-icon
-                        class="mr-1"
-                        color="orange"
-                      >mdi-pencil-circle</v-icon>Ubah
+                      <v-icon color="orange">mdi-pencil-circle</v-icon>Ubah
                     </v-list-item-title>
                   </v-list-item>
                   <v-list-item
@@ -146,10 +152,7 @@
                     v-show="page.actions.delete"
                   >
                     <v-list-item-title>
-                      <v-icon
-                        class="mr-1"
-                        color="red"
-                      >mdi-delete-circle</v-icon>Hapus
+                      <v-icon color="red">mdi-delete-circle</v-icon>Hapus
                     </v-list-item-title>
                   </v-list-item>
                 </v-list>
@@ -242,19 +245,9 @@
               small
               color="orange"
               class="mr-1 animate__animated animate__flash animate__infinite"
-            >mdi-circle</v-icon> Formulir Master Indikator
+            >mdi-circle</v-icon> Formulir Indikator Penilaian
           </v-toolbar>
           <v-card-text class="mt-2">
-            <v-col cols="12">
-              <v-select
-                label="Kategori"
-                outlined
-                dense
-                hide-details
-                v-model="record.category_uuid"
-                :items="categories"
-              ></v-select>
-            </v-col>
             <v-col col="12">
               <v-text-field
                 outlined
@@ -262,10 +255,25 @@
                 hide-details
                 label="*Indikator"
                 placeholder=""
-                v-model="record.name"
-                :filled="record.name"
+                v-model="record.indikator_name"
+                :filled="record.indikator_name"
                 dense
+                disabled
               ></v-text-field>
+            </v-col>
+            <v-col col="12">
+              <v-textarea
+                outlined
+                :color="theme.color"
+                hide-details
+                label="Keterangan"
+                placeholder=""
+                v-model="record.description"
+                :filled="record.description"
+                dense
+                rows="3"
+                disabled
+              ></v-textarea>
             </v-col>
             <v-col col="12">
               <v-text-field
@@ -274,20 +282,10 @@
                 hide-details
                 label="*Skor"
                 placeholder=""
-                v-model="record.skor"
-                :filled="record.skor"
+                v-model="record.score"
+                :filled="record.score"
                 dense
               ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-switch
-                label="Status"
-                outlined
-                dense
-                hide-detail
-                v-model="record.status"
-                :color="theme.color"
-              ></v-switch>
             </v-col>
           </v-card-text>
 
@@ -314,70 +312,6 @@
         </v-card>
       </v-dialog>
     </v-col>
-    <v-col cols="12">
-      <v-dialog
-        transition="dialog-bottom-transition"
-        v-model="verifikasi.show"
-        :max-width="device.desktop ? `600px` : `100%`"
-        persistent
-        :fullscreen="device.mobile"
-      >
-        <v-card>
-          <v-toolbar
-            :color="theme.color"
-            :dark="theme.mode"
-          >
-            <v-icon
-              small
-              color="orange"
-              class="mr-1 animate__animated animate__flash animate__infinite"
-            >mdi-circle</v-icon> Formulir Publikasi
-          </v-toolbar>
-          <v-card-text class="mt-2">
-            <v-col col="12">
-              <v-textarea
-                outlined
-                :color="theme.color"
-                hide-details
-                label="Pesan"
-                placeholder=""
-                v-model="verifikasi.record.content"
-                :filled="verifikasi.record.content"
-                rows="3"
-                dense
-              ></v-textarea>
-            </v-col>
-            <v-col cols="12">
-              <v-select
-                label="Status"
-                outlined
-                dense
-                hide-details
-                v-model="verifikasi.record.status"
-                :items="verifikasi.status"
-                :color="theme.color"
-              ></v-select>
-            </v-col>
-
-          </v-card-text>
-
-          <v-divider></v-divider>
-          <v-card-actions class="justify-end">
-            <v-btn
-              outlined
-              :color="theme.color"
-              @click="postVerfikasiStatus"
-            >Kirim</v-btn>
-
-            <v-btn
-              outlined
-              color="grey"
-              @click="closeFormStatusVerfikasi"
-            >Batal</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-col>
   </div>
 </template>
             <script>
@@ -385,52 +319,35 @@ import { mapActions, mapState } from "vuex";
 import "animate.css";
 
 export default {
-  name: "permohonan-inovasi",
+  name: "master-indikator",
   data: () => ({
     num: 1,
     headers: [
       {
-        text: "JUDUL INOVASI",
+        text: "INDIKATOR",
         align: "start",
         sortable: true,
-
         value: "name",
       },
       {
-        text: "INOVATOR",
-        align: "start",
-        sortable: true,
-        value: "inovator",
-      },
-      {
-        text: "KAB/KOTA",
-        align: "start",
-        sortable: true,
-        value: "kabupaten",
+        text: "SKOR",
+        align: "right",
+        sortable: false,
+        value: "score",
+        width: 100,
       },
 
       {
-        text: "STATUS",
-        align: "center",
-        sortable: false,
-        value: "status",
+        text: "AKSI",
+        value: "id",
         width: 100,
+        sortable: false,
+        align: "center",
       },
     ],
     search: null,
     filename: null,
     categories: [],
-    verifikasi: {
-      show: false,
-      record: {},
-      status: [
-        { text: "Publikasi", value: "6" },
-        {
-          text: "Batalkan Publikasi",
-          value: "5",
-        },
-      ],
-    },
   }),
   computed: {
     ...mapState([
@@ -461,19 +378,22 @@ export default {
   created() {
     this.setPage({
       crud: true,
-      dataUrl: "api/v2/permohonan/administrator/inovasi",
+      dataUrl:
+        "api/v2/permohonan/verifikator/penilaian-kompetisi-indikator/" +
+        this.$route.params.id,
       pagination: false,
       key: "id",
-      title: "PERMOHONAN INOVASI",
-      subtitle: "Berikut Daftar Seluruh Permohonan Inovasi Yang Tersedia",
+      title: "INDIKATOR PENILAIAN KOMPETISI",
+      subtitle:
+        "Berikut Daftar Seluruh Indikator Penilaian Kompetisi Yang Tersedia",
       breadcrumbs: [
         {
-          text: "Permohonan",
+          text: "Kompetisi",
           disabled: true,
           href: "",
         },
         {
-          text: "Inovasi",
+          text: "Inidikator Penilaian",
           disabled: true,
           href: "",
         },
@@ -482,7 +402,7 @@ export default {
       actions: {
         refresh: true,
         add: false,
-        edit: false,
+        edit: true,
         delete: false,
         bulkdelete: false,
         print: false,
@@ -565,122 +485,6 @@ export default {
         let { data } = await this.http.get("api/v2/combo/category");
         this.categories = data;
       } catch (error) {}
-    },
-    openPermohonanCreate: function () {
-      this.$router.push({
-        name: "permohonan-inovasi-opd-create",
-      });
-    },
-    openIndikator: function (val) {
-      this.$router.push({
-        name: "permohonan-inovasi-opd-indikator",
-        params: {
-          inovasi_uuid: val,
-        },
-      });
-    },
-    postPush: async function (val) {
-      try {
-        this.setLoading({ dialog: true, text: "Proses pengiriman permohonan" });
-        let {
-          data: { code, success, message, error },
-        } = await this.http.post("api/v2/permohonan/opd/inovasi-push", {
-          id: val,
-        });
-
-        if (!success) {
-          this.snackbar.color = "orange";
-          this.snackbar.text = message;
-          this.snackbar.state = true;
-          return;
-        }
-
-        this.snackbar.color = this.theme.color;
-        this.snackbar.text = message;
-        this.snackbar.state = true;
-
-        this.fetchRecords();
-      } catch (error) {
-        this.snackbar.color = "red";
-        this.snackbar.text = "Opps..., terjadi kesalahan";
-        this.snackbar.state = true;
-      } finally {
-        this.setLoading({ dialog: false, text: "" });
-      }
-    },
-    postPull: async function (val) {
-      try {
-        this.setLoading({ dialog: true, text: "Proses pembatalan permohonan" });
-        let {
-          data: { code, success, message, error },
-        } = await this.http.post("api/v2/permohonan/opd/inovasi-pull", {
-          id: val,
-        });
-
-        if (!success) {
-          this.snackbar.color = "orange";
-          this.snackbar.text = message;
-          this.snackbar.state = true;
-          return;
-        }
-
-        this.snackbar.color = this.theme.color;
-        this.snackbar.text = message;
-        this.snackbar.state = true;
-
-        this.fetchRecords();
-      } catch (error) {
-        this.snackbar.color = "red";
-        this.snackbar.text = "Opps..., terjadi kesalahan";
-        this.snackbar.state = true;
-      } finally {
-        this.setLoading({ dialog: false, text: "" });
-      }
-    },
-    openFormStatusVerfikasi: function (val) {
-      this.verifikasi.record = {};
-      this.verifikasi.show = true;
-      this.verifikasi.record.inovasi_uuid = val;
-    },
-    closeFormStatusVerfikasi: function () {
-      this.verifikasi.show = false;
-      this.verifikasi.record = {};
-    },
-    postVerfikasiStatus: async function () {
-      try {
-        this.setLoading({ dialog: true, text: "Proses verifikasi..." });
-        let {
-          data: { code, success, message, error },
-        } = await this.http.post(
-          "api/v2/permohonan/verifikator/inovasi-set-status",
-          this.verifikasi.record
-        );
-        if (!success) {
-          this.snackbar.color = "orange";
-          this.snackbar.text = message;
-          this.snackbar.state = true;
-          return;
-        }
-        this.snackbar.color = this.theme.color;
-        this.snackbar.text = message;
-        this.snackbar.state = true;
-        this.fetchRecords();
-        this.closeFormStatusVerfikasi();
-      } catch (error) {
-        this.snackbar.color = "red";
-        this.snackbar.text = "Opps.., terjadi kesalahan ";
-        this.snackbar.state = false;
-      } finally {
-        this.setLoading({ dialog: false, text: "" });
-      }
-    },
-    openReview: function (val) {
-      this.$router.push({
-        name: "permohonan-inovasi-review",
-        params: {
-          id: val,
-        },
-      });
     },
   },
 };

@@ -11,7 +11,7 @@
               color="white"
               class="mr-2"
             >mdi-circle</v-icon>
-            Formulir Permohonan Inovasi Sinovik (KIPP)
+            Formulir Perubahan Permohonan Kompetisi
           </v-card-title>
           <v-card-text>
             <v-row class="mt-2">
@@ -455,19 +455,6 @@
                   </v-col>
                 </v-row>
               </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  class="font-weight-thin"
-                  placeholder=""
-                  label="Nama Instansi"
-                  outlined
-                  dense
-                  hide-details
-                  :color="theme.color"
-                  v-model="record.inovator_instansi"
-                  :filled="record.inovator_instansi"
-                ></v-text-field>
-              </v-col>
               <v-col cols=12>
                 <v-row>
                   <v-col cols="4">
@@ -626,7 +613,7 @@
                 class="ml-2"
                 outlined
                 color="grey"
-                @click="$router.push({name:'permohonan-opd-sinovic'})"
+                @click="$router.push({name:'permohonan-public-kompetisi'})"
               >BATAL</v-btn>
             </v-col>
           </v-card-actions>
@@ -636,8 +623,8 @@
     </v-row>
   </div>
 </template>
-    
-    <script>
+        
+        <script>
 import { mapActions, mapState } from "vuex";
 import {
   LMap,
@@ -819,7 +806,7 @@ export default {
       //custom evariable
     });
 
-    //this.fetchRecord();
+    this.fetchRecord();
   },
   mounted() {
     this.fetchKompetisis();
@@ -836,17 +823,38 @@ export default {
       "getUserInfo",
       "initUploadLibrary",
       "setRecord",
-      "catchError",
     ]),
     fetchRecord: async function () {
-      let { data } = await this.http.get("api/v2/user-info");
-      this.setRecord(data);
+      let { data } = await this.http.get(
+        "api/v2/permohonan/public/kompetisi/" + this.$route.params.id
+      );
+      this.setRecord(data).then(() => {
+        this.surat_pernyataan_implementasi =
+          this.record.surat_pernyataan_implementasi;
+        this.surat_pernyataan_identitas =
+          this.record.surat_pernyataan_identitas;
+        this.surat_pernyataan_ketersediaan_replikasi =
+          this.record.surat_pernyataan_ketersediaan_replikasi;
+        this.ringkasan_att = this.record.ringkasan_att;
+        this.latar_belakang_att = this.record.latar_belakang_att;
+        this.kebaruan_att = this.record.kebaruan_att;
+        this.implementasi_att = this.record.implementasi_att;
+        this.signifikansi_att = this.record.signifikansi_att;
+        this.adaptabilitas_att = this.record.adaptabilitas_att;
+        this.sumber_daya_att = this.record.sumber_daya_att;
+        this.strategi_keberlanjutan_att =
+          this.record.strategi_keberlanjutan_att;
+        this.foto = this.record.foto;
+      });
     },
     postRecord: async function () {
       try {
         let {
           data: { success, message },
-        } = await this.http.post("api/v2/permohonan/opd/sinovic", this.record);
+        } = await this.http.put(
+          "api/v2/permohonan/public/kompetisi/" + this.record.id,
+          this.record
+        );
 
         if (!success) {
           this.snackbar.color = "red";
@@ -858,16 +866,18 @@ export default {
         this.snackbar.text = message;
         this.snackbar.state = true;
 
-        this.$router.push({ name: "permohonan-opd-sinovic" });
+        this.$router.push({ name: "permohonan-public-kompetisi" });
       } catch (error) {
-        this.catchError(error);
+        this.snackbar.color = "red";
+        this.snackbar.text = error.data.errors[0].message;
+        this.snackbar.state = true;
       }
     },
 
     //costome pages
     fetchKompetisis: async function () {
       try {
-        let { data } = await this.http.get("api/v2/combo/kompetisi-sinovic");
+        let { data } = await this.http.get("api/v2/combo/jadwal/KMP");
         this.kompetisis = data;
       } catch (error) {}
     },
@@ -1025,6 +1035,6 @@ export default {
   },
 };
 </script>
-
-<style></style>
     
+    <style></style>
+        

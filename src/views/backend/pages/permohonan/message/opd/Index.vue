@@ -293,7 +293,7 @@ export default {
         text: "DARI",
         align: "start",
         sortable: true,
-        value: "name",
+        value: "fromuser",
       },
       {
         text: "JUDUL",

@@ -4,6 +4,7 @@ import BaseFrontend from "../views/frontend/Base.vue";
 import Auth from "../providers/AuthProviders";
 import SignIn from "../views/frontend/SignIn.vue";
 import Login from "../views/frontend/Login.vue";
+import LoginWithGoogle from "../views/frontend/LoginWithGoogle.vue";
 //import Register from "../views/auth/Register.vue";
 import Home from "../views/frontend/Home.vue";
 import Repository from "../views/frontend/Repository.vue";
@@ -65,13 +66,19 @@ import PermohonanAdminMessage from "../views/backend/pages/permohonan/message/ad
  */
 import VerifikasiProvinsiSinovic from "../views/backend/pages/permohonan/inovasi/provinsi/sinovic/Index.vue";
 import VerifikasiProvinsiSinovicCreate from "../views/backend/pages/permohonan/inovasi/provinsi/sinovic/verifikasi/Index.vue";
+import VerifikasiProvinsiKompetisi from "../views/backend/pages/permohonan/inovasi/provinsi/kompetisi/Index.vue";
+import VerifikasiProvinsiKompetisiCreate from "../views/backend/pages/permohonan/inovasi/provinsi/kompetisi/verifikasi/Index.vue";
 
 /**
  * Page Verifikator
  */
 import VerifikatorSinovic from "../views/backend/pages/permohonan/inovasi/verifkator/sinovic/Index.vue";
 import VerifikatorSinovicCreate from "../views/backend/pages/permohonan/inovasi/verifkator/sinovic/verifikasi/Index.vue";
-import verifikatorSinovicIndikatorPenilaian from "../views/backend/pages/permohonan/inovasi/verifkator/sinovic/indikator/Index.vue";
+import VerifikatorSinovicIndikatorPenilaian from "../views/backend/pages/permohonan/inovasi/verifkator/sinovic/indikator/Index.vue";
+
+import VerifikatorKompetisi from "../views/backend/pages/permohonan/inovasi/verifkator/kompetisi/Index.vue";
+import VerifikatorKompetisiCreate from "../views/backend/pages/permohonan/inovasi/verifkator/kompetisi/verifikasi/Index.vue";
+import VerifikatorKompetisiIndikatorPenilaian from "../views/backend/pages/permohonan/inovasi/verifkator/kompetisi/indikator/Index.vue";
 
 /**
  * route Permohonan Admin Kabupaten
@@ -99,6 +106,13 @@ import PermohonanOpdInovasiSinovicCreate from "../views/backend/pages/permohonan
 import PermohonanOpdInovasiIgaCreate from "../views/backend/pages/permohonan/inovasi/opd/category/iga/Create.vue";
 import PermohonanOpdInovasiIndkator from "../views/backend/pages/permohonan/inovasi/opd/indikator/Index.vue";
 import PermohonanOpdInovasiDocument from "../views/backend/pages/permohonan/inovasi/opd/document/Index.vue";
+
+/**
+ * Route Public Akun
+ */
+import PermohonanPublicKompetisi from "../views/backend/pages/permohonan/public/kompetisi/Index.vue";
+import PermohonanPublicKompetisiCreate from "../views/backend/pages/permohonan/public/kompetisi/create/Index.vue";
+import PermohonanPublicKompetisiEdit from "../views/backend/pages/permohonan/public/kompetisi/edit/Index.vue";
 
 /**
  * Route Klinik Konsultasi
@@ -144,6 +158,11 @@ const routes = [
     children: [
       { path: "", redirect: { name: "home" } },
       { path: "login", name: "login", component: Login },
+      {
+        path: "google/callback",
+        name: "login-with-google",
+        component: LoginWithGoogle,
+      },
       { path: "home", name: "home", component: Home },
       { path: "repository", name: "repository", component: Repository },
       { path: "kompetisi", name: "kompetisi", component: Kompetisi },
@@ -335,8 +354,19 @@ const routes = [
         component: VerifikasiProvinsiSinovicCreate,
       },
 
+      {
+        path: "verifikasi-provinsi-kompetisi",
+        name: "verifikasi-provinsi-kompetisi",
+        component: VerifikasiProvinsiKompetisi,
+      },
+      {
+        path: "verifikasi-provinsi-kompetisi-create/:id",
+        name: "verifikasi-provinsi-kompetisi-create",
+        component: VerifikasiProvinsiKompetisiCreate,
+      },
+
       /**
-       * Route Verifikator
+       * Route Verifikator Team Pengkaji
        */
       {
         path: "verifikator-sinovic",
@@ -351,7 +381,22 @@ const routes = [
       {
         path: "verifikator-sinovic-indikator-penilaian/:id",
         name: "verifikator-sinovic-indikator-penilaian",
-        component: verifikatorSinovicIndikatorPenilaian,
+        component: VerifikatorSinovicIndikatorPenilaian,
+      },
+      {
+        path: "verifikator-kompetisi",
+        name: "verifikator-kompetisi",
+        component: VerifikatorKompetisi,
+      },
+      {
+        path: "verifikator-kompetisi-create/:id",
+        name: "verifikator-kompetisi-create",
+        component: VerifikatorKompetisiCreate,
+      },
+      {
+        path: "verifikator-kompetisi-indikator-penilaian/:id",
+        name: "verifikator-kompetisi-indikator-penilaian",
+        component: VerifikatorKompetisiIndikatorPenilaian,
       },
 
       /**
@@ -425,6 +470,25 @@ const routes = [
           "permohonan-inovasi-opd-document/:inovasi_uuid/:indikator_uuid/:inovasi_indikator_uuid/:indikator_name",
         name: "permohonan-inovasi-opd-document",
         component: PermohonanOpdInovasiDocument,
+      },
+
+      /**
+       * Route Public Akun
+       */
+      {
+        path: "permohonan-public-kompetisi",
+        name: "permohonan-public-kompetisi",
+        component: PermohonanPublicKompetisi,
+      },
+      {
+        path: "permohonan-public-kompetisi-create",
+        name: "permohonan-public-kompetisi-create",
+        component: PermohonanPublicKompetisiCreate,
+      },
+      {
+        path: "permohonan-public-kompetisi-edit/:id",
+        name: "permohonan-public-kompetisi-edit",
+        component: PermohonanPublicKompetisiEdit,
       },
 
       /**
