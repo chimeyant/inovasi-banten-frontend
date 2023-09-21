@@ -110,6 +110,7 @@ import PermohonanOpdInovasiDocument from "../views/backend/pages/permohonan/inov
 /**
  * Route Public Akun
  */
+import PermohonanPublicDashboard from "../views/backend/pages/permohonan/public/dashboard/Index.vue";
 import PermohonanPublicKompetisi from "../views/backend/pages/permohonan/public/kompetisi/Index.vue";
 import PermohonanPublicKompetisiCreate from "../views/backend/pages/permohonan/public/kompetisi/create/Index.vue";
 import PermohonanPublicKompetisiEdit from "../views/backend/pages/permohonan/public/kompetisi/edit/Index.vue";
@@ -476,6 +477,11 @@ const routes = [
        * Route Public Akun
        */
       {
+        path: "permohonan-public-dashboard",
+        name: "permohonan-public-dashboard",
+        component: PermohonanPublicDashboard,
+      },
+      {
         path: "permohonan-public-kompetisi",
         name: "permohonan-public-kompetisi",
         component: PermohonanPublicKompetisi,
@@ -595,8 +601,8 @@ router.beforeEach((to, from, next) => {
         next({ name: "dashboard" });
       } else if (Auth.user.authent === "kabkota-opd") {
         next({ name: "dashboard" });
-      } else {
-        next({ name: "dashboard" });
+      } else if (Auth.user.authent === "kompetisi") {
+        next({ name: "permohonan-public-dashboard" });
       }
     } else {
       next();

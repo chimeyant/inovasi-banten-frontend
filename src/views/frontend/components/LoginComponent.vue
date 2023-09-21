@@ -180,6 +180,9 @@ export default {
           if (this.auth.user.user.authent == "kabkota-opd") {
             this.$router.push({ name: "dashboard" });
           }
+          if (this.auth.user.user.authent == "kompetisi") {
+            this.$router.push({ name: "permohonan-public-dashboard" });
+          }
         } catch (error) {
           this.snackbar.color = "red";
           this.snackbar.text = error;

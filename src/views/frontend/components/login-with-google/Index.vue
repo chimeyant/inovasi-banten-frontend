@@ -86,7 +86,7 @@ export default {
           this.$router.push({ name: "dashboard" });
         }
         if (this.auth.user.user.authent == "kompetisi") {
-          this.$router.push({ name: "dashboard" });
+          this.$router.push({ name: "permohonan-public-dashboard" });
         }
       } catch (error) {
         this.catchError(error);
