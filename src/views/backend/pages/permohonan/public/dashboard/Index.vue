@@ -17,7 +17,7 @@
       <v-col cols="12">
         <div class="text-center font-weight-regular grey--text ">Statistik Data Inovasi Anda</div>
       </v-col>
-      <v-col cols="3">
+      <v-col :cols="device.desktop ? 3:12">
         <v-card
           class="rounded-0 "
           color="teal"
@@ -44,7 +44,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="3">
+      <v-col :cols="device.desktop ? 3:12">
         <v-card
           class="rounded-0 "
           color="teal"
@@ -72,7 +72,7 @@
         </v-card>
       </v-col>
 
-      <v-col cols="3">
+      <v-col :cols="device.desktop ? 3:12">
         <v-card
           class="rounded-0 "
           color="teal"
@@ -100,7 +100,7 @@
         </v-card>
       </v-col>
 
-      <v-col cols="3">
+      <v-col :cols="device.desktop ? 3:12">
         <v-card
           class="rounded-0 "
           color="teal"
