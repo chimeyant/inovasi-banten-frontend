@@ -115,10 +115,10 @@ export default {
         value: "name",
       },
       {
-        text: "INSTANSI | ORGANISASI",
+        text: "INOVATOR",
         align: "start",
         sortable: false,
-        value: "opd",
+        value: "inovator",
         width: 300,
       },
       { text: "AKSI", value: "id", sortable: false, width: 50 },
