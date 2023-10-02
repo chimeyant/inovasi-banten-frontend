@@ -583,6 +583,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.auth);
 
+  console.log(Auth.user.authent);
   if (requiresAuth) {
     if (!Auth.check) {
       next({ name: "login" });
@@ -594,6 +595,8 @@ router.beforeEach((to, from, next) => {
       if (Auth.user.authent == "superadmin") {
         next({ name: "dashboard" });
       } else if (Auth.user.authent === "provinsi") {
+        next({ name: "dashboard" });
+      } else if (Auth.user.authent === "team-pengkaji") {
         next({ name: "dashboard" });
       } else if (Auth.user.authent === "provinsi-opd") {
         next({ name: "dashboard" });
