@@ -140,7 +140,7 @@
                       <v-icon
                         class="mr-1"
                         :color="theme.color"
-                      >mdi-file-eye-outline</v-icon>Lihat Permohonan
+                      >mdi-shield-search</v-icon>Verifikasi Permohonan
                     </v-list-item-title>
                   </v-list-item>
                   <v-list-item @click="openIndikatorPenilaian(value)">

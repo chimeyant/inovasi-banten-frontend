@@ -612,7 +612,7 @@
 
                 </v-row>
               </v-col>
-              <v-col cols="12">
+              <!-- <v-col cols="12">
                 <div class="title">Hasil Verifikasi</div>
               </v-col>
 
@@ -640,13 +640,13 @@
                   :color="theme.color"
                   v-model="record.pesan"
                 ></v-textarea>
-              </v-col>
-
+              </v-col> -->
             </v-row>
           </v-card-text>
           <v-card-actions class="mt-5">
             <v-col class="text-right">
               <v-btn
+                v-show="false"
                 outlined
                 :color="theme.color"
                 @click="postRecord"

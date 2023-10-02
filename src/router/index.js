@@ -603,6 +603,8 @@ router.beforeEach((to, from, next) => {
         next({ name: "dashboard" });
       } else if (Auth.user.authent === "kompetisi") {
         next({ name: "permohonan-public-dashboard" });
+      } else {
+        next();
       }
     } else {
       next();

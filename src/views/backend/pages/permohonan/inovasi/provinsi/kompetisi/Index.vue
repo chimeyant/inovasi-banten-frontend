@@ -140,7 +140,7 @@
                       <v-icon
                         class="mr-1"
                         :color="theme.color"
-                      > mdi-shield-search</v-icon>Verifikasi Permohonan
+                      > mdi-file-eye-outline</v-icon>Lihat Permohonan
                     </v-list-item-title>
                   </v-list-item>
                   <v-list-item @click="postPublish(value)">

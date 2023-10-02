@@ -227,7 +227,7 @@
                 <tiptap-vuetify
                   v-model="record.ringkasan"
                   :extensions="extensions"
-                  placeholder="Ringkasan Inovasi"
+                  placeholder="Ringkasan Inovasi Maksimal 200 Kata "
                 />
               </v-col>
               <v-col cols="12">
@@ -252,7 +252,7 @@
                 <tiptap-vuetify
                   v-model="record.latar_belakang"
                   :extensions="extensions"
-                  placeholder="Latar Belakang dan Tujuan"
+                  placeholder="Latar Belakang dan Tujuan Maksimal 300 Kata"
                 />
               </v-col>
               <v-col cols="12">
@@ -276,7 +276,7 @@
                 <tiptap-vuetify
                   v-model="record.kebaruan"
                   :extensions="extensions"
-                  placeholder="Kebaruan atau Nilai tambah inovasi"
+                  placeholder="Kebaruan atau Nilai tambah inovasi Maksimal 200 Kata"
                 />
               </v-col>
               <v-col cols="12">
@@ -301,7 +301,7 @@
                 <tiptap-vuetify
                   v-model="record.implementasi"
                   :extensions="extensions"
-                  placeholder="Menjelasankan implementasi"
+                  placeholder="Menjelasankan implementasi Maksimal 200 Kata"
                 />
               </v-col>
               <v-col cols="12">
@@ -326,7 +326,7 @@
                 <tiptap-vuetify
                   v-model="record.signifikansi"
                   :extensions="extensions"
-                  placeholder="Menjelaskan Signifikansi Inovasi"
+                  placeholder="Menjelaskan Signifikansi Inovasi 600 Kata"
                 />
               </v-col>
               <v-col cols="12">
@@ -352,7 +352,7 @@
                 <tiptap-vuetify
                   v-model="record.adaptabilitas"
                   :extensions="extensions"
-                  placeholder="Menjelaskan adaptabilitas inovasi"
+                  placeholder="Menjelaskan adaptabilitas inovasi Maksimal 100 Kata"
                 />
               </v-col>
               <v-col cols="12">
@@ -378,7 +378,7 @@
                 <tiptap-vuetify
                   v-model="record.sumber_daya"
                   :extensions="extensions"
-                  placeholder="Menjelaskan sumber daya inovasi"
+                  placeholder="Menjelaskan sumber daya inovasi Maksimal 200 Kata"
                 />
               </v-col>
               <v-col cols="12">
@@ -404,7 +404,7 @@
                 <tiptap-vuetify
                   v-model="record.strategi_keberlanjutan"
                   :extensions="extensions"
-                  placeholder="Menjelaskan startegi keberlanjutan inovasi"
+                  placeholder="Menjelaskan startegi keberlanjutan inovasi Maksimal 500 Kata"
                 />
               </v-col>
               <v-col cols="12">

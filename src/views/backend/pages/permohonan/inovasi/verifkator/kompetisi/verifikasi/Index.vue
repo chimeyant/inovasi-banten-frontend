@@ -609,15 +609,47 @@
                       ></v-text-field>
                     </v-col>
                   </v-col>
-
                 </v-row>
+              </v-col>
+              <v-col cols="12">
+                <div class="title">Hasil Verifikasi</div>
+              </v-col>
+
+              <v-col :cols="device.desktop  ?12:12">
+
+                <v-select
+                  label="Keputusan Verifikasi"
+                  outlined
+                  dense
+                  hide-details
+                  :color="theme.color"
+                  v-model="record.status"
+                  :items="statuses"
+                >
+                </v-select>
+
+              </v-col>
+              <v-col cols="12">
+                <v-textarea
+                  label="Pesan |Keterangan"
+                  outlined
+                  dense
+                  hide-details
+                  rows="4"
+                  :color="theme.color"
+                  v-model="record.pesan"
+                ></v-textarea>
               </v-col>
 
             </v-row>
           </v-card-text>
           <v-card-actions class="mt-5">
             <v-col class="text-right">
-
+              <v-btn
+                outlined
+                :color="theme.color"
+                @click="postRecord"
+              >PROSES</v-btn>
               <v-btn
                 class="ml-2"
                 outlined
