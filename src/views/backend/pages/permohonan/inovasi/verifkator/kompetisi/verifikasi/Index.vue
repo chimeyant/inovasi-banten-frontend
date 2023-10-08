@@ -174,15 +174,16 @@
               <v-col cols="12">
                 <v-text-field
                   class="font-weight-thin"
+                  append-outer-icon="mdi-eye"
                   placeholder=""
                   label="Link Youtube"
+                  @click:append-outer="openYoutubeView(record.youtube)"
                   outlined
                   dense
                   hide-details
                   :color="theme.color"
                   v-model="record.youtube"
                   :filled="record.youtube"
-                  disabled
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
@@ -702,6 +703,45 @@
           </v-card>
         </v-dialog>
       </v-col>
+      <v-col cols="12">
+        <v-dialog
+          transition="dialog-bottom-transition"
+          v-model="youtubeview.show"
+          :max-width="device.desktop ? `60%` : `100%`"
+          persistent
+          :fullscreen="device.mobile"
+        >
+          <v-card>
+            <v-toolbar
+              :color="theme.color"
+              :dark="theme.mode"
+            >
+              <v-icon
+                small
+                color="orange"
+                class="mr-1 animate__animated animate__flash animate__infinite"
+              >mdi-circle</v-icon> Lihat Video
+            </v-toolbar>
+
+            <v-row>
+              <v-col cols="12">
+                <iframe
+                  :src="youtubeview.url"
+                  frameborder="0"
+                  class="pdfview"
+                ></iframe>
+              </v-col>
+            </v-row>
+            <v-card-actions class="justify-end">
+              <v-btn
+                outlined
+                color="grey"
+                @click="closeYoutubeView"
+              >Tutup</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-col>
     </v-row>
   </div>
 </template>
@@ -841,6 +881,10 @@ export default {
     foto: null,
 
     pdfview: {
+      show: false,
+      url: "/",
+    },
+    youtubeview: {
       show: false,
       url: "/",
     },
@@ -1130,6 +1174,23 @@ export default {
     closePdfView: function () {
       this.pdfview.url = "/";
       this.pdfview.show = false;
+    },
+    openYoutubeView: async function (url) {
+      let youtubeId = await this.getYotubeId(url);
+      this.youtubeview.url = "//www.youtube.com/embed/" + youtubeId;
+      this.youtubeview.show = true;
+    },
+    closeYoutubeView: function () {
+      this.youtubeview.url = "/";
+      this.youtubeview.show = false;
+    },
+
+    getYotubeId: function (url) {
+      const regExp =
+        /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+      const match = url.match(regExp);
+
+      return match && match[2].length === 11 ? match[2] : null;
     },
   },
   watch: {
