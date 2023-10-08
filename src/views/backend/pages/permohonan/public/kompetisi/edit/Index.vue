@@ -46,11 +46,9 @@
                   :filled="record.name"
                 ></v-text-field>
               </v-col>
-
-              <v-row>
-                <v-col cols="6">
-
-                  <v-col cols="12">
+              <v-col cols="12">
+                <v-row>
+                  <v-col :cols="device.desktop ?6:12">
                     <v-select
                       label="Kelompok"
                       class="font-weight-thin"
@@ -63,7 +61,7 @@
                       :items="kelompoks"
                     ></v-select>
                   </v-col>
-                  <v-col cols="12">
+                  <v-col :cols="device.desktop ?6:12">
                     <v-select
                       label="Jenis Inovasi"
                       class="font-weight-thin"
@@ -76,7 +74,7 @@
                       :items="jenisinovasis"
                     ></v-select>
                   </v-col>
-                  <v-col cols="12">
+                  <v-col :cols="device.desktop ?6:12">
                     <v-select
                       label="SDGs"
                       class="font-weight-thin"
@@ -89,7 +87,7 @@
                       :items="urusans"
                     ></v-select>
                   </v-col>
-                  <v-col cols="12">
+                  <v-col :cols="device.desktop ?6:12">
                     <v-select
                       label="Inisiator Inovasi"
                       class="font-weight-thin"
@@ -103,9 +101,7 @@
                     ></v-select>
                   </v-col>
 
-                </v-col>
-                <v-col cols="6">
-                  <v-col cols="12">
+                  <v-col :cols="device.desktop ?6:12">
                     <v-select
                       label="Bentuk"
                       class="font-weight-thin"
@@ -118,7 +114,7 @@
                       :items="bentuks"
                     ></v-select>
                   </v-col>
-                  <v-col cols="12">
+                  <v-col :cols="device.desktop ?6:12">
                     <v-text-field
                       class="font-weight-thin"
                       label="Waktu Uji"
@@ -131,7 +127,7 @@
                       :filled="record.waktu_uji"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12">
+                  <v-col :cols="device.desktop ?6:12">
                     <v-text-field
                       class="font-weight-thin"
                       label="Waktu Penerapan"
@@ -144,7 +140,7 @@
                       :filled="record.waktu_penerapan"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12">
+                  <v-col :cols="device.desktop ?6:12">
                     <v-select
                       label="Tahapan"
                       class="font-weight-thin"
@@ -157,15 +153,14 @@
                       :items="tahapans"
                     ></v-select>
                   </v-col>
-
-                </v-col>
-              </v-row>
+                </v-row>
+              </v-col>
 
               <v-col cols="12">
                 <v-text-field
                   class="font-weight-thin"
                   placeholder=""
-                  label="Youtube ID"
+                  label="Link Youtube"
                   outlined
                   dense
                   hide-details
@@ -230,7 +225,10 @@
                   placeholder="Ringkasan Inovasi"
                 />
               </v-col>
-              <v-col cols="12">
+              <v-col
+                cols="12"
+                v-show="false"
+              >
                 <v-text-field
                   label="File Pendukung Ringkasan (PDF | Max: 2Mb)"
                   class="font-weight-thin"
@@ -427,7 +425,7 @@
               </v-col>
               <v-col cols="12">
                 <v-row>
-                  <v-col cols="8">
+                  <v-col :cols="device.desktop ?8:12">
                     <v-text-field
                       class="font-weight-thin"
                       placeholder=""
@@ -440,7 +438,7 @@
                       :filled="record.inovator_nama"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="4">
+                  <v-col :cols="device.desktop ?4:12">
                     <v-text-field
                       class="font-weight-thin"
                       placeholder=""
@@ -457,7 +455,7 @@
               </v-col>
               <v-col cols=12>
                 <v-row>
-                  <v-col cols="4">
+                  <v-col :cols="device.desktop ?4:12">
                     <v-select
                       label="Kabupaten/Kota"
                       class="font-weight-thin"
@@ -471,7 +469,7 @@
                       @change="fetchDistricts"
                     ></v-select>
                   </v-col>
-                  <v-col cols="4">
+                  <v-col :cols="device.desktop ?4:12">
                     <v-select
                       label="Kecamatan"
                       class="font-weight-thin"
@@ -485,7 +483,7 @@
                       @change="fetchVillages"
                     ></v-select>
                   </v-col>
-                  <v-col cols="4">
+                  <v-col :cols="device.desktop ?4:12">
                     <v-select
                       label="Desa/Kelurahan"
                       class="font-weight-thin"
@@ -529,11 +527,12 @@
               </v-col>
 
               <v-col cols="12">
-                <div class="subtitle-1 grey--text">Alamat Dalam Peta :</div>
+                <div class="subtitle-1 grey--text">Lokasi Inovasi di dalam Peta :</div>
+                <div class="body-2">Geser penanda atau marker merah ke lokasi inovasi anda</div>
               </v-col>
               <v-col cols=12>
                 <v-row>
-                  <v-col cols="6">
+                  <v-col :cols="device.desktop?6:12">
                     <v-img
                       height="100%"
                       width="100%"
@@ -570,33 +569,35 @@
                       </l-map>
                     </v-img>
                   </v-col>
-                  <v-col cols="6">
-                    <v-col cols=12>
-                      <v-text-field
-                        class="font-weight-thin"
-                        placeholder=""
-                        label="Garis Bujur"
-                        outlined
-                        dense
-                        hide-details
-                        :color="theme.color"
-                        v-model="record.lat"
-                        :filled="record.lat"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols=12>
-                      <v-text-field
-                        class="font-weight-thin"
-                        placeholder=""
-                        label="Gari Lintang"
-                        outlined
-                        dense
-                        hide-details
-                        :color="theme.color"
-                        v-model="record.lng"
-                        :filled="record.lng"
-                      ></v-text-field>
-                    </v-col>
+                  <v-col :cols="device.desktop ?6:12">
+                    <v-row>
+                      <v-col cols=12>
+                        <v-text-field
+                          class="font-weight-thin"
+                          placeholder=""
+                          label="Garis Bujur"
+                          outlined
+                          dense
+                          hide-details
+                          :color="theme.color"
+                          v-model="record.lat"
+                          :filled="record.lat"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols=12>
+                        <v-text-field
+                          class="font-weight-thin"
+                          placeholder=""
+                          label="Gari Lintang"
+                          outlined
+                          dense
+                          hide-details
+                          :color="theme.color"
+                          v-model="record.lng"
+                          :filled="record.lng"
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
                   </v-col>
                 </v-row>
               </v-col>

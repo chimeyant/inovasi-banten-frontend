@@ -228,7 +228,7 @@
 
                         <v-divider v-if="page.delete || page.edit"></v-divider>
                         <v-list-item
-                          @click="editRecord(item.id)"
+                          @click="openPermohonanEdit(item.id)"
                           v-show="page.actions.edit"
                         >
                           <v-list-item-title>
@@ -237,7 +237,7 @@
                           </v-list-item-title>
                         </v-list-item>
                         <v-list-item
-                          @click="postDeleteRecord(item.uuid)"
+                          @click="postDeleteRecord(item.id)"
                           v-show="page.actions.delete"
                         >
                           <v-list-item-title>

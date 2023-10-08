@@ -175,7 +175,7 @@
                 <v-text-field
                   class="font-weight-thin"
                   placeholder=""
-                  label="Youtube ID"
+                  label="Link Youtube"
                   outlined
                   dense
                   hide-details
@@ -241,7 +241,10 @@
                   placeholder="Ringkasan Inovasi"
                 />
               </v-col>
-              <v-col cols="12">
+              <v-col
+                cols="12"
+                v-show="false"
+              >
                 <v-text-field
                   label="File Pendukung Ringkasan (PDF | Max: 2Mb)"
                   class="font-weight-thin"
@@ -438,7 +441,7 @@
               </v-col>
               <v-col cols="12">
                 <v-row>
-                  <v-col cols="8">
+                  <v-col :cols="device.desktop ?8:12">
                     <v-text-field
                       class="font-weight-thin"
                       placeholder=""
@@ -451,7 +454,7 @@
                       :filled="record.inovator_nama"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="4">
+                  <v-col :cols="device.desktop ?4:12">
                     <v-text-field
                       class="font-weight-thin"
                       placeholder=""
@@ -468,7 +471,7 @@
               </v-col>
               <v-col cols=12>
                 <v-row>
-                  <v-col cols="4">
+                  <v-col :cols="device.desktop ?4:12">
                     <v-select
                       label="Kabupaten/Kota"
                       class="font-weight-thin"
@@ -482,7 +485,7 @@
                       @change="fetchDistricts"
                     ></v-select>
                   </v-col>
-                  <v-col cols="4">
+                  <v-col :cols="device.desktop ?4:12">
                     <v-select
                       label="Kecamatan"
                       class="font-weight-thin"
@@ -496,7 +499,7 @@
                       @change="fetchVillages"
                     ></v-select>
                   </v-col>
-                  <v-col cols="4">
+                  <v-col :cols="device.desktop ?4:12">
                     <v-select
                       label="Desa/Kelurahan"
                       class="font-weight-thin"
@@ -540,11 +543,11 @@
               </v-col>
 
               <v-col cols="12">
-                <div class="subtitle-1 grey--text">Alamat Dalam Peta :</div>
+                <div class="subtitle-1 grey--text">Lokasi Inovasi di dalam Peta :</div>
               </v-col>
               <v-col cols=12>
                 <v-row>
-                  <v-col cols="6">
+                  <v-col :cols="device.desktop ?6:12">
                     <v-img
                       height="100%"
                       width="100%"
@@ -581,7 +584,7 @@
                       </l-map>
                     </v-img>
                   </v-col>
-                  <v-col cols="6">
+                  <v-col :cols="device.desktop ?6:12">
                     <v-col cols=12>
                       <v-text-field
                         class="font-weight-thin"
