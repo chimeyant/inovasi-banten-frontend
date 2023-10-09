@@ -9,12 +9,12 @@ export default {
   data: () => ({
     color: "#3F51B5",
     colors: [],
-    data: [10, 5, 20, 30, 25, 55],
+    data: [],
   }),
   props: {
     title: String,
     labels: [],
-    datas: [3, 4, 57, 10, 8, 19],
+    datas: [],
   },
 
   computed: {
@@ -27,9 +27,10 @@ export default {
   },
   methods: {
     fetchData: async function () {
-      //let { data } = await this.http.get("api/v2/dashboard/recap-monthly");
+      let { data } = await this.http.get("api/v2/dashboard/statistik-perbulan");
 
-      this.data.forEach((element) => {
+      data.forEach((element) => {
+        console.log(element);
         this.color = this.getDynamiColor();
         this.colors.push(this.color);
       });
@@ -54,7 +55,7 @@ export default {
             {
               label: " Data Statistik ", //this.title,
               backgroundColor: this.colors,
-              data: this.data,
+              data: data,
             },
           ],
         },

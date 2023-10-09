@@ -35,7 +35,7 @@
           ><v-icon
               color="white"
               class="mr-2"
-            >mdi-chart-pie</v-icon>Data Berdasarkan Tahapan Inovasi </v-card-title>
+            >mdi-chart-pie</v-icon>Data Berdasarkan Proses</v-card-title>
           <v-card-text class="mt-5">
             <pie-chart
               :title="datapiechart.title"
@@ -60,10 +60,9 @@
           <v-card-text class="mt-5">
             <v-col cols="12">
               <l-map
-                style="height: 400px;width: 100%;z-index:9999; "
+                style="height: 500px ; z-index:0 ;"
                 :zoom="zoom"
                 :center="center"
-                @update:center="centerUpdated"
               >
                 <v-geosearch
                   :options="geosearchOptions"
@@ -74,19 +73,23 @@
                   :attribution="attribution"
                 ></l-tile-layer>
                 <l-marker
-                  :key="marker.id"
-                  :visible="marker.visible"
-                  :draggable="marker.draggable"
-                  :lat-lng.sync="marker.position"
+                  v-for="(item,index) in markers"
+                  :key="index"
+                  :visible="item.visible"
+                  :draggable="item.draggable"
+                  :lat-lng.sync="item.position"
                 >
 
                   <l-icon
-                    iconSize=32
-                    icon-url="/images/icon-marker-merah.png"
+                    :iconSize="item.size"
+                    :icon-url="item.icon"
+                    className=""
                   />
-                  <l-popup :content="marker.tooltip" />
-                  <l-tooltip :content="marker.tooltip" />
+                  <l-popup :content="item.tooltip" />
+                  <l-tooltip :content="item.tooltip" />
+
                 </l-marker>
+
               </l-map>
             </v-col>
           </v-card-text>
@@ -708,123 +711,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-
     </v-row>
-
-    <!-- <v-row class="pa-1">
-      <v-col class="stats-widget-v3">
-        <v-row :class="device.mobile ? `pa-1 ` : `pa-7`">
-          <v-col :cols="device.mobile ? `12` : `4`">
-            <v-card
-              :color="this.theme.color"
-              dark
-              class="card-ant-style"
-            >
-              <div class="d-flex flex-no-wrap justify-space-between">
-                <div>
-                  <v-card-title class="text-h6 box-statistik-title orange--text">JML. PENDING KLAIM</v-card-title>
-                  <v-card-text style="height:90px">
-                    <v-row class="justify-content-end">
-                      <v-col cols="12">
-                        <v-row class="mt-5 justify-end text-lg-h4 ml-7 mb-5 black--text">{{ dataklaimpertahun }}</v-row>
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
-                  <v-card-actions>
-                    <div class="caption white--text mt-4">
-                      Update At : last minute ago
-                    </div>
-                  </v-card-actions>
-                </div>
-                <div class="mr-8 mt-8">
-                  <v-avatar
-                    size="80"
-                    class="elevation-2"
-                    :color="theme.color + ` darken-1`"
-                  >
-                    <v-img src="/images/claim.png"></v-img>
-
-                  </v-avatar>
-                </div>
-              </div>
-            </v-card>
-          </v-col>
-
-          <v-col :cols="device.mobile ? `12` : `4`">
-            <v-card
-              :color="this.theme.color"
-              dark
-              class="card-ant-style"
-            >
-              <div class="d-flex flex-no-wrap justify-space-between">
-                <div>
-                  <v-card-title class="text-h6 box-statistik-title orange--text">TOTAL TARIF PENDING RS</v-card-title>
-                  <v-card-text style="height:90px">
-                    <v-row class="justify-content-end">
-                      <v-col cols="12">
-                        <v-row class="mt-5 justify-end text-lg-h4  ml-7 mb-5 black--text">{{ tarifrspertahun }}</v-row>
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
-                  <v-card-actions>
-                    <div class="caption white--text mt-4">
-                      Update At : last minute ago
-                    </div>
-                  </v-card-actions>
-                </div>
-                <div class="mr-8 mt-8 ">
-                  <v-avatar
-                    size="80"
-                    class="elevation-2"
-                    :color="theme.color + ` darken-1`"
-                  >
-                    <v-img src="/images/pending-money.png"></v-img>
-
-                  </v-avatar>
-                </div>
-              </div>
-            </v-card>
-          </v-col>
-
-          <v-col :cols="device.mobile ? `12` : `4`">
-            <v-card
-              :color="this.theme.color"
-              dark
-              class="card-ant-style"
-            >
-              <div class="d-flex flex-no-wrap justify-space-between">
-                <div>
-                  <v-card-title class="text-h6 box-statistik-title orange--text">TOTAL TARFI PENDING INA-CBGs</v-card-title>
-                  <v-card-text style="height: 90px">
-                    <v-row class="justify-content-end">
-                      <v-col cols="12">
-                        <v-row class="mt-5 justify-end text-lg-h4 ml-7 mb-5 black--text">{{ groupdata.jmldatakeuangan }}</v-row>
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
-                  <v-card-actions>
-                    <div class="caption white--text mt-4">
-                      Update At : last minute ago
-                    </div>
-                  </v-card-actions>
-                </div>
-                <div class="mr-8 mt-8">
-                  <v-avatar
-                    size="80"
-                    class="elevation-2"
-                    :color="theme.color + ` darken-1`"
-                  >
-                    <v-img src="/images/finance.png"></v-img>
-
-                  </v-avatar>
-                </div>
-              </div>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-col>
-    </v-row> -->
-
   </v-container>
 </template>
 
@@ -918,9 +805,9 @@ export default {
       datas: [30, 40, 50, 12, 30],
     },
     datapiechart: {
-      title: "Data Berdasarkan Tahapan Inovasi",
-      labels: ["Inisiatif", "Uji Coba", "Penerapan"],
-      datas: [10, 16, 18],
+      title: "Data Berdasarkan Proses",
+      labels: ["Pengajuan", "Perbaikan", "Terverifikasi", "Publish"],
+      datas: [],
     },
 
     piekey: 0,
@@ -954,6 +841,8 @@ export default {
     //this.fetcDataPertahun();
     //this.fetcTarifRsPertahun();
     //this.fetchDataPengobatan();
+    this.fetchDataPieChart();
+    this.fetchDataMaps();
   },
   mounted() {},
   methods: {
@@ -964,6 +853,24 @@ export default {
       "postUpdate",
       "postConfirmDelete",
     ]),
+
+    fetchDataPieChart: async function () {
+      try {
+        let { data } = await this.http
+          .get("api/v2/dashboard/datachart-perproses")
+          .then((res) => {
+            this.datapiechart.datas = res.data;
+            this.piekey++;
+          });
+      } catch (error) {}
+    },
+
+    fetchDataMaps: async function () {
+      try {
+        let { data } = await this.http.get("api/v2/dashboard/data-maps");
+        this.markers = data;
+      } catch (error) {}
+    },
 
     fetchDashboard: async function () {
       let {
@@ -993,20 +900,7 @@ export default {
       } catch (error) {}
     },
 
-    fetchDataPengobatan: async function () {
-      try {
-        let { data } = await this.http
-          .get("api/v2/dashboard/per-jenis-pengobatan")
-          .then((res) => {
-            this.datapiechart.labels = ["Rawat Inap", "Rawat Jalan"];
-            this.datapiechart.datas = res.data;
-
-            this.piekey += 1;
-          });
-      } catch (error) {}
-    },
-
-    fetchDataChartByJenis: async function () {
+    fetchDataChartByProses: async function () {
       try {
         let {
           data: { code, success, message, labels, datas },
