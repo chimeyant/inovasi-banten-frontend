@@ -36,7 +36,7 @@
                   >mdi-diamond-stone</v-icon>
                 </div>
                 <div class="white--text font-weight-thin text-center mb-1">
-                  O Data Inovasi
+                  {{ dashboard.jmlpermohonan }} Data Inovasi
                 </div>
               </v-col>
             </v-row>
@@ -63,7 +63,7 @@
                   >mdi-diamond-stone</v-icon>
                 </div>
                 <div class="white--text font-weight-thin text-center mb-1">
-                  O Data Inovasi
+                  {{ dashboard.jmldraftpermohonan }} Data Inovasi
                 </div>
               </v-col>
             </v-row>
@@ -91,7 +91,7 @@
                   >mdi-diamond-stone</v-icon>
                 </div>
                 <div class="white--text font-weight-thin text-center mb-1">
-                  O Data Inovasi
+                  {{ dashboard.jmlpermohonanproses }} Data Inovasi
                 </div>
               </v-col>
             </v-row>
@@ -119,7 +119,7 @@
                   >mdi-diamond-stone</v-icon>
                 </div>
                 <div class="white--text font-weight-thin text-center mb-1">
-                  O Data Inovasi
+                  {{ dashboard.jmlpermohonanpublish }} Data Inovasi
                 </div>
               </v-col>
             </v-row>
@@ -206,6 +206,8 @@ export default {
 
     piekey: 0,
     barkey: 0,
+
+    dashboard: {},
   }),
   computed: {
     ...mapState(["theme", "http", "device", "loading", "event", "user"]),
@@ -232,9 +234,7 @@ export default {
       ],
     });
 
-    //this.fetcDataPertahun();
-    //this.fetcTarifRsPertahun();
-    //this.fetchDataPengobatan();
+    this.fetchDashboard();
   },
   mounted() {},
   methods: {
@@ -247,15 +247,9 @@ export default {
     ]),
 
     fetchDashboard: async function () {
-      let {
-        data: {
-          data: { jmldatastatistik, jmldatageospasial, jmldatakeuangan },
-        },
-      } = await this.http.get("api/v2/dashboard");
+      let { data } = await this.http.get("api/v2/permohonan/public/dashboard");
 
-      this.groupdata.jmldatastatistik = jmldatastatistik;
-      this.groupdata.jmldatageospasial = jmldatageospasial;
-      this.groupdata.jmldatakeuangan = jmldatakeuangan;
+      this.dashboard = data;
     },
 
     fetcDataPertahun: async function () {
