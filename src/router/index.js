@@ -9,6 +9,7 @@ import LoginWithGoogle from "../views/frontend/LoginWithGoogle.vue";
 import Home from "../views/frontend/Home.vue";
 import Repository from "../views/frontend/Repository.vue";
 import Kompetisi from "../views/frontend/Kompetisi.vue";
+import Peta from "../views/frontend/Peta.vue";
 
 //BASE APLIKASI
 import Base from "../views/backend/Base.vue";
@@ -167,6 +168,7 @@ const routes = [
       { path: "home", name: "home", component: Home },
       { path: "repository", name: "repository", component: Repository },
       { path: "kompetisi", name: "kompetisi", component: Kompetisi },
+      { path: "peta", name: "peta", component: Peta },
     ],
   },
 

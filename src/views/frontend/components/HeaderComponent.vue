@@ -92,23 +92,23 @@
           </v-list-item>
 
           <v-list-item>
-            <v-list-item-title @click="$router.push({name:'infografis'})">
+            <v-list-item-title @click="$router.push({name:''})">
               Data Inovasi
             </v-list-item-title>
           </v-list-item>
           <v-list-item>
-            <v-list-item-title @click="$router.push({ name: 'dataset' })">
+            <v-list-item-title @click="$router.push({ name: '' })">
               Kompetisi
             </v-list-item-title>
           </v-list-item>
           <v-list-item>
-            <v-list-item-title @click="$router.push({ name: 'produsen-data' })">
+            <v-list-item-title @click="$router.push({ name: '' })">
               Klinik Inovasi
             </v-list-item-title>
           </v-list-item>
 
           <v-list-item>
-            <v-list-item-title @click="$router.push({ name: 'dokumen' })">
+            <v-list-item-title @click="$router.push({ name: '' })">
               Faq
             </v-list-item-title>
           </v-list-item>
@@ -152,7 +152,7 @@ export default {
           {
             title: "Peta Inovasi",
             icon: "mdi-clover",
-            route: "#",
+            route: "/peta",
             type: "item",
           },
         ],
