@@ -763,7 +763,7 @@ export default {
     url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
     attribution:
       '&copy; <a target="_blank" href=""><span class="green--text"> ESRI Pemerintah Provinsi Banten</span>',
-    zoom: 11,
+    zoom: 9,
     //-6.1716001, 106.6405384
     center: [-6.1716001, 106.6405384],
 
