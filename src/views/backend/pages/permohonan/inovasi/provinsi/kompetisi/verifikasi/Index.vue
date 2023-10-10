@@ -959,6 +959,7 @@ export default {
       "getUserInfo",
       "initUploadLibrary",
       "setRecord",
+      "setLoading",
     ]),
     fetchRecord: async function () {
       let { data } = await this.http.get(
@@ -1160,17 +1161,23 @@ export default {
       } catch (error) {}
     },
     openPdfView: async function (url) {
-      const res = await fetch(url, {
-        method: "GET",
-        headers: {
-          // Here you can set any headers you want
-        },
-      });
-      const blob = await res.blob();
-      const urlObject = URL.createObjectURL(blob);
-      //document.querySelector("iframe").setAttribute("src", urlObject);
-      this.pdfview.url = urlObject;
-      this.pdfview.show = true;
+      try {
+        this.setLoading({ dialog: true, text: "Mohon menunggu..." });
+        const res = await fetch(url, {
+          method: "GET",
+          headers: {
+            // Here you can set any headers you want
+          },
+        });
+        const blob = await res.blob();
+        const urlObject = URL.createObjectURL(blob);
+        //document.querySelector("iframe").setAttribute("src", urlObject);
+        this.pdfview.url = urlObject;
+        this.pdfview.show = true;
+      } catch (error) {
+      } finally {
+        this.setLoading({ dialog: false, text: "" });
+      }
     },
     closePdfView: function () {
       this.pdfview.url = "/";
