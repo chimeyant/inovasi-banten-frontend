@@ -408,6 +408,12 @@ export default {
         sortable: true,
         value: "kabupaten",
       },
+      {
+        text: "JENIS",
+        align: "start",
+        sortable: true,
+        value: "jenis",
+      },
 
       {
         text: "STATUS",
