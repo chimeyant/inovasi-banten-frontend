@@ -125,14 +125,12 @@ export default {
         align: "start",
         sortable: false,
         value: "inovator",
-        width: 300,
       },
       {
         text: "Kab/Kota",
         align: "start",
         sortable: false,
         value: "kabupaten",
-        width: 300,
       },
     ],
 
