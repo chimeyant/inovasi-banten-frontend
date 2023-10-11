@@ -109,19 +109,31 @@ export default {
 
     headers: [
       {
-        text: "INOVASI",
+        text: "No",
+        align: "start",
+        sortable: false,
+        value: "num",
+      },
+      {
+        text: "Inovasi",
         align: "start",
         sortable: false,
         value: "name",
       },
       {
-        text: "INOVATOR",
+        text: "Inovator",
         align: "start",
         sortable: false,
         value: "inovator",
         width: 300,
       },
-      { text: "AKSI", value: "id", sortable: false, width: 50 },
+      {
+        text: "Kab/Kota",
+        align: "start",
+        sortable: false,
+        value: "inovator",
+        width: 300,
+      },
     ],
 
     datas: [],
