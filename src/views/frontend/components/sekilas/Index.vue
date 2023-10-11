@@ -4,7 +4,10 @@
     <div class="mt-10">
       <v-container>
         <v-row>
-          <v-col cols="6">
+          <v-col
+            cols="6"
+            v-if="device.desktop"
+          >
             <v-row class="justify-content-center">
               <img
                 src="images/ilustration02.png"
@@ -16,7 +19,7 @@
             </v-row>
 
           </v-col>
-          <v-col cols="6">
+          <v-col :cols="device.desktop ?6:12">
             <p
               style="text-align: justify;"
               class="body-1"
@@ -32,7 +35,11 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 export default {
   name: "sekilas-component",
+  computed: {
+    ...mapState(["device", "info", "snackbar", "device", "http", "theme"]),
+  },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row class="mt-10">
+    <v-row :class="device.desktop ? `mt-10`:`mt-1`">
       <v-col
         cols="6"
         v-show="device.desktop"

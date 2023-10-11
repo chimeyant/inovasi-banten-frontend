@@ -10,8 +10,8 @@
       <v-row class="ml-5 mt-10 text-body-2">
         Temukan kumpulan data-data inovasi yang ada di provinsi Banten
       </v-row>
-      <v-row class="ml-4 mt-16">
-        <v-col cols="4">
+      <v-row :class="device.desktop ? `ml-4 mt-16`: `mt-10`">
+        <v-col :cols="device.desktop ?4:12">
           <v-card
             outlined
             class="mb-5 rounded-0"
@@ -33,7 +33,7 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="8">
+        <v-col :cols="device.desktop ?8:12">
           <v-card
             outlined
             class="mb-5 rounded-0"

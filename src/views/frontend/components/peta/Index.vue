@@ -6,7 +6,7 @@
         <h3 class="display-1 font-weight-bold">Peta Inovasi</h3>
         <v-spacer></v-spacer>
       </v-row>
-      <v-row class="ml-4 mt-16">
+      <v-row :class="device.desktop ?`ml-4 mt-16`:`mt-10`">
         <v-col cols="12">
           <v-card class="rounded-0">
             <v-card-title

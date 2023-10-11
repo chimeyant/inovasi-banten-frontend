@@ -25,6 +25,7 @@
       color="transparent"
       class="d-flex white light  mt-4  mb-5"
       style="margin-right: 150px !important;"
+      v-if="device.desktop"
     >
       <template v-for="(menu,index) in menus">
         <v-list-item
@@ -78,7 +79,7 @@
           light
           v-bind="attrs"
           v-on="on"
-          class="mt-4"
+          :class="device.desktop ? `mt-4`:`mt-1`"
         >
           <v-icon color="black">mdi-menu</v-icon>
         </v-btn>
@@ -92,12 +93,17 @@
           </v-list-item>
 
           <v-list-item>
-            <v-list-item-title @click="$router.push({name:''})">
+            <v-list-item-title @click="$router.push({name:'repository'})">
               Data Inovasi
             </v-list-item-title>
           </v-list-item>
           <v-list-item>
-            <v-list-item-title @click="$router.push({ name: '' })">
+            <v-list-item-title @click="$router.push({name:'peta'})">
+              Peta Inovasi
+            </v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-title @click="$router.push({ name: 'kompetisi' })">
               Kompetisi
             </v-list-item-title>
           </v-list-item>
@@ -144,12 +150,6 @@ export default {
             type: "item",
           },
           {
-            title: "Grafik Inovasi",
-            icon: "mdi-clover",
-            route: "#",
-            type: "item",
-          },
-          {
             title: "Peta Inovasi",
             icon: "mdi-clover",
             route: "/peta",
@@ -181,7 +181,7 @@ export default {
           },
         ],
       },
-      { title: "FAQ", route: "/faq", type: "item" },
+      { title: "FAQ", route: "#", type: "item" },
       { title: "Login", route: "/login", type: "item" },
     ],
   }),
