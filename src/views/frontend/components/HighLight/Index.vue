@@ -42,7 +42,7 @@
                     </div>
                   </div>
                   <div class="pa-3 mt-5 mb-5">
-                    <v-row>
+                    <!-- <v-row>
                       <v-btn
                         @click=""
                         color="green"
@@ -51,7 +51,7 @@
                         small
                       >Selengkapnya</v-btn>
 
-                    </v-row>
+                    </v-row> -->
                   </div>
                 </div>
               </slide>
