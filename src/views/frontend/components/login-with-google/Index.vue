@@ -8,7 +8,7 @@
             flat
             outlined
           >
-            <v-card-title class="blue white--text font-weight-thin">Konfirmasi</v-card-title>
+            <v-card-title class="green white--text font-weight-thin">Konfirmasi</v-card-title>
             <v-card-text class="mt-5">
               <div class="text-center font-weight-bold">
                 {{ registerResult.message }}
