@@ -2,7 +2,7 @@
   <div>
     <v-carousel
       cycle
-      :height="device.desktop ? `500` : `400`"
+      :height="device.desktop ? `500` : `150`"
       hide-delimiter-background
       :show-arrows="false"
     >
@@ -11,29 +11,26 @@
         :key="i"
         :src="slide.path"
       >
-        <v-col
-          cols="6"
-          v-show="device.desktop"
-        >
+        <v-col cols="6">
           <v-row>
             <div class="bg-black">
-              <div class="container-title">
+              <div :class="device.desktop ?`container-title`:`container-title-mobile`">
                 <div class="flex flex-column">
                   <div
                     v-if="slide.top_image_status"
-                    class="slider-title animated animate__fadeInUpBig animate__delay-5s"
+                    :class="device.desktop ? `slider-title animated animate__fadeInUpBig animate__delay-5s`:`slider-title-mobile animated animate__fadeInUpBig animate__delay-5s`"
                   >
                     <img
                       :src="slide.top_image_path"
                       alt=""
-                      height="100px"
+                      :height="device.desktop ? `100px`:`30px`"
                       srcset=""
                     >
                   </div>
-                  <div class="slider-title animated animate__lightSpeedInRight">
+                  <div :class="device.desktop ?`slider-title animated animate__lightSpeedInRight`:`slider-title-mobile animated animate__lightSpeedInRight`">
                     {{ slide.title }}
                   </div>
-                  <div class="slider-sub-title animated animate__fadeInUp">
+                  <div :class="device.desktop ? `slider-sub-title animated animate__fadeInUp`:`slider-sub-title-mobile animated animate__fadeInUp`">
 
                     {{ slide.content }}
                   </div>
@@ -182,13 +179,32 @@ export default {
   margin-bottom: 100px;
 }
 
+.container-title-mobile {
+  margin-left: 7%;
+  display: flex;
+  position: absolute;
+  height: 150px;
+  margin-top: 5px;
+  margin-bottom: 100px;
+}
+
 .slider-title {
   font-size: 40px;
   margin-top: 30px;
   font-weight: bold;
 }
+
+.slider-title-mobile {
+  font-size: 10px;
+  margin-top: 10px;
+}
 .slider-sub-title {
   max-width: 450px;
+}
+
+.slider-sub-title-mobile {
+  max-width: 100px;
+  font-size: 9px;
 }
 
 .slider-action {
