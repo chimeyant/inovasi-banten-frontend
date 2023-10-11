@@ -43,7 +43,6 @@
               Daftar Kompetisi
             </v-card-title>
             <v-data-table
-              v-show="device.desktop"
               :headers="headers"
               :items="datas"
               class="elevation-2 mb-1"

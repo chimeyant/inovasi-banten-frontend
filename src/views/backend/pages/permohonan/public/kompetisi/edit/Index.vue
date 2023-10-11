@@ -225,24 +225,6 @@
                   placeholder="Ringkasan Inovasi"
                 />
               </v-col>
-              <v-col
-                cols="12"
-                v-show="false"
-              >
-                <v-text-field
-                  label="File Pendukung Ringkasan (PDF | Max: 2Mb)"
-                  class="font-weight-thin"
-                  append-outer-icon="attachment"
-                  v-model="ringkasan_att"
-                  :filled="ringkasan_att"
-                  :color="theme.color"
-                  outlined
-                  dense
-                  @click:append-outer="uploadFile('ringkasan_att')"
-                  hide-details
-                ></v-text-field>
-              </v-col>
-
               <v-col cols="12">
                 <div class="title">Latar Belakang dan Tujuan (10%)</div>
               </v-col>
