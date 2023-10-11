@@ -131,7 +131,7 @@ export default {
         text: "Kab/Kota",
         align: "start",
         sortable: false,
-        value: "inovator",
+        value: "kabupaten",
         width: 300,
       },
     ],
