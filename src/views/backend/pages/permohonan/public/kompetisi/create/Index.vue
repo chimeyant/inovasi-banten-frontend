@@ -174,6 +174,7 @@
                 <v-text-field
                   label="Surat Pernyataan Implementasi (PDF | Max: 2Mb)"
                   append-outer-icon="attachment"
+                  append-icon="mdi-cloud-download"
                   class="font-weight-thin"
                   v-model="surat_pernyataan_implementasi"
                   :filled="surat_pernyataan_implementasi"
@@ -181,6 +182,7 @@
                   outlined
                   dense
                   @click:append-outer="uploadFile('surat_pernyataan_implementasi')"
+                  @click:append="downloadTemplate(1)"
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -190,12 +192,14 @@
                   label="Surat Pernyataan Identitas atau Perorangan (PDF | Max: 2Mb)"
                   class="font-weight-thin"
                   append-outer-icon="attachment"
+                  append-icon="mdi-cloud-download"
                   v-model="surat_pernyataan_identitas"
                   :filled="surat_pernyataan_identitas"
                   :color="theme.color"
                   outlined
                   dense
                   @click:append-outer="uploadFile('surat_pernyataan_identitas')"
+                  @click:append="downloadTemplate(2)"
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -205,12 +209,14 @@
                   label="Surat Pernyataan Ketersediaan Replikasi (PDF | Max: 2Mb)"
                   class="font-weight-thin"
                   append-outer-icon="attachment"
+                  append-icon="mdi-cloud-download"
                   v-model="surat_pernyataan_ketersediaan_replikasi"
                   :filled="surat_pernyataan_ketersediaan_replikasi"
                   :color="theme.color"
                   outlined
                   dense
                   @click:append-outer="uploadFile('surat_pernyataan_ketersediaan_replikasi')"
+                  @click:append="downloadTemplate(3)"
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -985,6 +991,28 @@ export default {
         let { data } = await this.http.get("api/v2/combo/category");
         this.categories = data;
       } catch (error) {}
+    },
+    downloadTemplate: function (val) {
+      var base_url = window.location.origin;
+      if (val == 1) {
+        window.open(
+          base_url + "/Template_Surat Pernyataan Implementasi Inovasi.docx",
+          "__blank"
+        );
+      }
+      if (val == 2) {
+        window.open(
+          base_url + "/Template_Surat Pernyataan identitas inovator.docx",
+          "__blank"
+        );
+      }
+      if (val == 3) {
+        window.open(
+          base_url +
+            "/Template_Surat Pernyataan Kesediaan Replikasi Inovasi Pelayanan Publik.docx",
+          "__blank"
+        );
+      }
     },
   },
   watch: {
