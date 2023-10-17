@@ -108,13 +108,13 @@
             </v-list-item-title>
           </v-list-item>
           <v-list-item>
-            <v-list-item-title @click="$router.push({ name: '' })">
+            <v-list-item-title @click="">
               Klinik Inovasi
             </v-list-item-title>
           </v-list-item>
 
           <v-list-item>
-            <v-list-item-title @click="$router.push({ name: '' })">
+            <v-list-item-title @click="">
               Faq
             </v-list-item-title>
           </v-list-item>
