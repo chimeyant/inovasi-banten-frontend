@@ -162,26 +162,26 @@ export default {
         route: "/kompetisi",
         type: "item",
       },
-      {
-        title: "Klinik Inovasi",
-        route: "/klinik-inovasi",
-        type: "subMenu",
-        submenus: [
-          {
-            title: "Tim Kajian",
-            icon: "mdi-clover",
-            route: "#",
-            type: "item",
-          },
-          {
-            title: "Inovator",
-            icon: "mdi-clover",
-            route: "#",
-            type: "item",
-          },
-        ],
-      },
-      { title: "FAQ", route: "#", type: "item" },
+      // {
+      //   title: "Klinik Inovasi",
+      //   route: "/klinik-inovasi",
+      //   type: "subMenu",
+      //   submenus: [
+      //     {
+      //       title: "Tim Kajian",
+      //       icon: "mdi-clover",
+      //       route: "#",
+      //       type: "item",
+      //     },
+      //     {
+      //       title: "Inovator",
+      //       icon: "mdi-clover",
+      //       route: "#",
+      //       type: "item",
+      //     },
+      //   ],
+      // },
+
       { title: "Login", route: "/login", type: "item" },
     ],
   }),
