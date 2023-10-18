@@ -169,12 +169,12 @@
                   v-model="record.youtube"
                   :filled="record.youtube"
                 ></v-text-field>
+
               </v-col>
               <v-col cols="12">
                 <v-text-field
                   label="Surat Pernyataan Implementasi (PDF | Max: 2Mb)"
                   append-outer-icon="attachment"
-                  append-icon="mdi-cloud-download"
                   class="font-weight-thin"
                   v-model="surat_pernyataan_implementasi"
                   :filled="surat_pernyataan_implementasi"
@@ -182,9 +182,12 @@
                   outlined
                   dense
                   @click:append-outer="uploadFile('surat_pernyataan_implementasi')"
-                  @click:append="downloadTemplate(1)"
                   hide-details
                 ></v-text-field>
+                <span>Contoh Surat Download Disini<v-icon
+                    class="ml-2 red--text"
+                    @click="downloadTemplate(1)"
+                  >mdi-cloud-download</v-icon> </span>
               </v-col>
 
               <v-col cols="12">
@@ -192,16 +195,18 @@
                   label="Surat Pernyataan Identitas atau Perorangan (PDF | Max: 2Mb)"
                   class="font-weight-thin"
                   append-outer-icon="attachment"
-                  append-icon="mdi-cloud-download"
                   v-model="surat_pernyataan_identitas"
                   :filled="surat_pernyataan_identitas"
                   :color="theme.color"
                   outlined
                   dense
                   @click:append-outer="uploadFile('surat_pernyataan_identitas')"
-                  @click:append="downloadTemplate(2)"
                   hide-details
                 ></v-text-field>
+                <span>Contoh Surat Download Disini<v-icon
+                    class="ml-2 red--text"
+                    @click="downloadTemplate(2)"
+                  >mdi-cloud-download</v-icon> </span>
               </v-col>
 
               <v-col cols="12">
@@ -209,16 +214,19 @@
                   label="Surat Pernyataan Ketersediaan Replikasi (PDF | Max: 2Mb)"
                   class="font-weight-thin"
                   append-outer-icon="attachment"
-                  append-icon="mdi-cloud-download"
                   v-model="surat_pernyataan_ketersediaan_replikasi"
                   :filled="surat_pernyataan_ketersediaan_replikasi"
                   :color="theme.color"
                   outlined
                   dense
                   @click:append-outer="uploadFile('surat_pernyataan_ketersediaan_replikasi')"
-                  @click:append="downloadTemplate(3)"
                   hide-details
                 ></v-text-field>
+                <span>Contoh Surat Download Disini<v-icon
+                    class="ml-2 red--text"
+                    @click="downloadTemplate(3)"
+                  >mdi-cloud-download</v-icon> </span>
+
               </v-col>
 
               <v-col cols="12">

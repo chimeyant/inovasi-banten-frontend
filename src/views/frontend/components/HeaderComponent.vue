@@ -38,7 +38,7 @@
           <v-list-item-title class="font-weight-bold">{{ menu.title }}</v-list-item-title>
         </v-list-item>
 
-        <v-menu
+        <!-- <v-menu
           offset-y
           v-if="menu.type=='subMenu'"
         >
@@ -63,7 +63,7 @@
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item>
           </v-list>
-        </v-menu>
+        </v-menu> -->
 
       </template>
     </v-list>
@@ -107,7 +107,7 @@
               Kompetisi
             </v-list-item-title>
           </v-list-item>
-          <!-- <v-list-item>
+          <v-list-item>
             <v-list-item-title @click="">
               Klinik Inovasi
             </v-list-item-title>
@@ -117,7 +117,7 @@
             <v-list-item-title @click="">
               Faq
             </v-list-item-title>
-          </v-list-item> -->
+          </v-list-item>
           <v-list-item>
             <v-list-item-title @click="$router.push({ name: 'login' })">
               Login
@@ -162,26 +162,26 @@ export default {
         route: "/kompetisi",
         type: "item",
       },
-      // {
-      //   title: "Klinik Inovasi",
-      //   route: "/klinik-inovasi",
-      //   type: "subMenu",
-      //   submenus: [
-      //     {
-      //       title: "Tim Kajian",
-      //       icon: "mdi-clover",
-      //       route: "#",
-      //       type: "item",
-      //     },
-      //     {
-      //       title: "Inovator",
-      //       icon: "mdi-clover",
-      //       route: "#",
-      //       type: "item",
-      //     },
-      //   ],
-      // },
-
+      {
+        title: "Klinik Inovasi",
+        route: "/klinik-inovasi",
+        type: "subMenu",
+        submenus: [
+          {
+            title: "Tim Kajian",
+            icon: "mdi-clover",
+            route: "#",
+            type: "item",
+          },
+          {
+            title: "Inovator",
+            icon: "mdi-clover",
+            route: "#",
+            type: "item",
+          },
+        ],
+      },
+      { title: "FAQ", route: "#", type: "item" },
       { title: "Login", route: "/login", type: "item" },
     ],
   }),
