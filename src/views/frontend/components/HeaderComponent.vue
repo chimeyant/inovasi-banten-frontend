@@ -37,33 +37,17 @@
         >
           <v-list-item-title class="font-weight-bold">{{ menu.title }}</v-list-item-title>
         </v-list-item>
-
-        <!-- <v-menu
-          offset-y
-          v-if="menu.type=='subMenu'"
+        <v-list-item
+          active-class="green darken-1 white--text rounded-pill animate__animated animate__bounce "
+          class="hidden-sm-and-down rounded-pill"
+          link
+          v-if="menu.type=='action'"
         >
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              active-class="green darken-1 white--text rounded-pill"
-              class="font-weight-bold rounded-pill "
-              v-bind="attrs"
-              v-on="on"
-              text
-              style="text-transform: unset !important;height: 50px;"
-            >
-              {{ menu.title }}
-            </v-btn>
-          </template>
-          <v-list>
-            <v-list-item
-              v-for="(item, index) in menu.submenus"
-              :key="index"
-              :to="item.route"
-            >
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu> -->
+          <v-list-item-title
+            @click="download"
+            class="font-weight-bold"
+          >{{ menu.title }}</v-list-item-title>
+        </v-list-item>
 
       </template>
     </v-list>
@@ -158,9 +142,20 @@ export default {
         ],
       },
       {
+        title: "Repository",
+        icon: "mdi-clover",
+        route: "/repository",
+        type: "item",
+      },
+      {
         title: "Kompetisi",
         route: "/kompetisi",
         type: "item",
+      },
+      {
+        title: "Buku Panduan",
+        route: "download",
+        type: "action",
       },
       {
         title: "Klinik Inovasi",
@@ -188,6 +183,14 @@ export default {
   mounted() {},
   computed: {
     ...mapState(["device", "theme", "info", "page"]),
+  },
+  methods: {
+    download: function () {
+      window.open(
+        "/Panduan Pengguna JARI Banten (Pemohon Kompetisi).pdf",
+        "__blank"
+      );
+    },
   },
 };
 </script>

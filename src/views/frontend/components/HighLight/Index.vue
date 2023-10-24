@@ -33,6 +33,7 @@
                     srcset=""
                     class="highlight-slide-image"
                     width="100px"
+                    @click="$router.push({name:'repository'})"
                   >
                   <div class="highlight-slide-title black--text">
                     {{ item.name }}
