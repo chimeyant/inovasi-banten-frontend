@@ -739,7 +739,7 @@ export default {
     ],
     kelompoks: [
       { text: "Umum", value: "umum" },
-      { text: "Kusus", value: "khusus" },
+      { text: "Khusus", value: "khusus" },
     ],
 
     surat_pernyataan_implementasi: null,
