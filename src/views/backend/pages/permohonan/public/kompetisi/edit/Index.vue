@@ -1015,6 +1015,46 @@ export default {
       },
       deep: true,
     },
+    "record.ringkasan": {
+      handler() {
+        this.wordCount(this.record.ringkasan, 200);
+      },
+    },
+    "record.latar_belakang": {
+      handler() {
+        this.wordCount(this.record.latar_belakang, 300);
+      },
+    },
+    "record.kebaruan": {
+      handler() {
+        this.wordCount(this.record.latar_belakang, 200);
+      },
+    },
+    "record.implementasi": {
+      handler() {
+        this.wordCount(this.record.latar_belakang, 200);
+      },
+    },
+    "record.signifikansi": {
+      handler() {
+        this.wordCount(this.record.latar_belakang, 600);
+      },
+    },
+    "record.adaptabilitas": {
+      handler() {
+        this.wordCount(this.record.latar_belakang, 100);
+      },
+    },
+    "record.sumber_daya": {
+      handler() {
+        this.wordCount(this.record.latar_belakang, 200);
+      },
+    },
+    "record.strategi_keberlanjutan": {
+      handler() {
+        this.wordCount(this.record.latar_belakang, 500);
+      },
+    },
   },
 };
 </script>
