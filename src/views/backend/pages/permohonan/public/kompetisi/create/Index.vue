@@ -238,6 +238,7 @@
                   v-model="record.ringkasan"
                   :extensions="extensions"
                   placeholder="Ringkasan Inovasi Maksimal 200 Kata "
+                  @change="wordCount(record.ringkasan, 5)"
                 />
               </v-col>
 
@@ -1022,6 +1023,15 @@ export default {
         );
       }
     },
+    wordCount: function (str, max) {
+      const strlength = str.split(" ").length;
+      if (Number(strlength) > max) {
+        this.snackbar.color = "red";
+        this.snackbar.text =
+          "Opps.., melebihi batas kata yang telah ditentukan..!";
+        this.snackbar.state = true;
+      }
+    },
   },
   watch: {
     "marker.position": {
@@ -1030,6 +1040,46 @@ export default {
         this.record.lng = this.marker.position.lng;
       },
       deep: true,
+    },
+    "record.ringkasan": {
+      handler() {
+        this.wordCount(this.record.ringkasan, 5);
+      },
+    },
+    "record.latar_belakang": {
+      handler() {
+        this.wordCount(this.record.latar_belakang, 300);
+      },
+    },
+    "record.kebaruan": {
+      handler() {
+        this.wordCount(this.record.latar_belakang, 200);
+      },
+    },
+    "record.implementasi": {
+      handler() {
+        this.wordCount(this.record.latar_belakang, 200);
+      },
+    },
+    "record.signifikansi": {
+      handler() {
+        this.wordCount(this.record.latar_belakang, 600);
+      },
+    },
+    "record.adaptabilitas": {
+      handler() {
+        this.wordCount(this.record.latar_belakang, 100);
+      },
+    },
+    "record.sumber_daya": {
+      handler() {
+        this.wordCount(this.record.latar_belakang, 200);
+      },
+    },
+    "record.strategi_keberlanjutan": {
+      handler() {
+        this.wordCount(this.record.latar_belakang, 500);
+      },
     },
   },
 };
