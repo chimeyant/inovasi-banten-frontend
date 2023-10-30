@@ -1043,7 +1043,7 @@ export default {
     },
     "record.ringkasan": {
       handler() {
-        this.wordCount(this.record.ringkasan, 5);
+        this.wordCount(this.record.ringkasan, 200);
       },
     },
     "record.latar_belakang": {
