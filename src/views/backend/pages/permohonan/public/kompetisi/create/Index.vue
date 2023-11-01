@@ -161,7 +161,7 @@
                 <v-text-field
                   class="font-weight-thin"
                   placeholder="Contoh : https://www.youtube.com/watch?v=wACrWcSld30"
-                  label="Link Youtube"
+                  label="Link Youtube (Optional)"
                   outlined
                   dense
                   hide-details
@@ -184,7 +184,7 @@
                   @click:append-outer="uploadFile('surat_pernyataan_implementasi')"
                   hide-details
                 ></v-text-field>
-                <span>Contoh Surat Download Disini<v-icon
+                <span>Contoh Surat Pernyataan Implementasi. Download Disini<v-icon
                     class="ml-2 red--text"
                     @click="downloadTemplate(1)"
                   >mdi-cloud-download</v-icon> </span>
@@ -203,7 +203,7 @@
                   @click:append-outer="uploadFile('surat_pernyataan_identitas')"
                   hide-details
                 ></v-text-field>
-                <span>Contoh Surat Download Disini<v-icon
+                <span>Contoh Surat Pernyataan Identitas. Download Disini<v-icon
                     class="ml-2 red--text"
                     @click="downloadTemplate(2)"
                   >mdi-cloud-download</v-icon> </span>
@@ -222,7 +222,7 @@
                   @click:append-outer="uploadFile('surat_pernyataan_ketersediaan_replikasi')"
                   hide-details
                 ></v-text-field>
-                <span>Contoh Surat Download Disini<v-icon
+                <span>Contoh Surat Pernyataan Ketersediaan. Download Disini<v-icon
                     class="ml-2 red--text"
                     @click="downloadTemplate(3)"
                   >mdi-cloud-download</v-icon> </span>
@@ -254,7 +254,7 @@
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                  label="File Pendukung Latar Belakang (PDF | Max: 2Mb)"
+                  label="File Pendukung Latar Belakang (Optional) (PDF | Max: 2Mb)"
                   class="font-weight-thin"
                   append-outer-icon="attachment"
                   v-model="latar_belakang_att"
@@ -278,7 +278,7 @@
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                  label="File Pendukung Kebaruan (PDF | Max: 2Mb)"
+                  label="File Pendukung Kebaruan (Optional) (PDF | Max: 2Mb)"
                   class="font-weight-thin"
                   append-outer-icon="attachment"
                   v-model="kebaruan_att"
@@ -298,12 +298,12 @@
                 <tiptap-vuetify
                   v-model="record.implementasi"
                   :extensions="extensions"
-                  placeholder="Menjelasankan implementasi Maksimal 200 Kata"
+                  placeholder="Menjelasankan implementasi  Maksimal 200 Kata"
                 />
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                  label="File Pendukung Implementasi (PDF | Max: 2Mb)"
+                  label="File Pendukung Implementasi (Optional) (PDF | Max: 2Mb)"
                   class="font-weight-thin"
                   append-outer-icon="attachment"
                   v-model="implementasi_att"
@@ -328,7 +328,7 @@
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                  label="File Pendukung Signifikansi (PDF | Max: 2Mb)"
+                  label="File Pendukung Signifikansi (Optional) (PDF | Max: 2Mb)"
                   class="font-weight-thin"
                   append-outer-icon="attachment"
                   v-model="signifikansi_att"
@@ -342,7 +342,7 @@
               </v-col>
 
               <v-col cols="12">
-                <div class="title">Adaptabilitas (20%)</div>
+                <div class="title">Adaptabilitas (20%) (Optional)</div>
               </v-col>
 
               <v-col cols=12>
@@ -354,7 +354,7 @@
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                  label="File Pendukung adaptabilitas (PDF | Max: 2Mb)"
+                  label="File Pendukung Adaptabilitas (Optional) (PDF | Max: 2Mb)"
                   class="font-weight-thin"
                   append-outer-icon="attachment"
                   v-model="adaptabilitas_att"
@@ -380,7 +380,7 @@
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                  label="File Pendukung Sumber Daya (PDF | Max: 2Mb)"
+                  label="File Pendukung Sumber Daya (Optional) (PDF | Max: 2Mb)"
                   class="font-weight-thin"
                   append-outer-icon="attachment"
                   v-model="sumber_daya_att"
@@ -406,7 +406,7 @@
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                  label="File Pendukung Startegi Keberlanjutan (PDF | Max: 2Mb)"
+                  label="File Pendukung Strategi Keberlanjutan (Optional) (PDF | Max: 2Mb)"
                   class="font-weight-thin"
                   append-outer-icon="attachment"
                   v-model="strategi_keberlanjutan_att"
@@ -691,11 +691,11 @@ export default {
     jenisinovasis: [],
     urusans: [],
     inisiators: [
-      { text: "Kepala Daerah", value: "kepala-daerah" },
-      { text: "Anggota DPRD", value: "anggota-dprd" },
-      { text: "OPD", value: "opd" },
+      { text: "Kepala Daerah", value: "kepala-daerah", disabled: true },
+      { text: "Anggota DPRD", value: "anggota-dprd", disabled: true },
+      { text: "OPD", value: "opd", disabled: true },
       { text: "ASN", value: "asn" },
-      { text: "Masyarakat", value: "masyarakat" },
+      { text: "Masyarakat", value: "masyarakat", disabled: true },
     ],
     bentuks: [],
     tahapans: [

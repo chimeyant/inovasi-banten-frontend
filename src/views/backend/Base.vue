@@ -144,12 +144,24 @@
       }}</v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <v-btn
-        icon
-        @click="$router.push({name:'home'})"
+      <v-tooltip
+        :color="theme.color"
+        bottom
       >
-        <v-icon color="blue darken-1">mdi-home-circle-outline</v-icon>
-      </v-btn>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            icon
+            @click="$router.push({name:'home'})"
+            v-on="on"
+          >
+            <v-icon
+              size="34"
+              color="blue darken-1"
+            >mdi-home-circle-outline</v-icon>
+          </v-btn>
+        </template>
+        <span>Lihat Beranda</span>
+      </v-tooltip>
 
       <!-- <v-btn
         icon
@@ -175,7 +187,7 @@
             class="mr-2"
           >
             <v-avatar
-              size="26"
+              size="34"
               class="border-2  border-gray-light indigo elevation-15 animated animate__tada"
             >
               <v-img :src="user.avatar_path"></v-img>
@@ -229,6 +241,7 @@
           </v-card-actions>
         </v-card>
       </v-menu>
+
     </v-app-bar>
 
     <v-main class="grey lighten-4">
