@@ -45,6 +45,25 @@
               </template>
               <span>Refresh Data</span>
             </v-tooltip>
+            <v-tooltip
+              :color="theme.color"
+              bottom
+            >
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  text
+                  small
+                  icon
+                  v-on="on"
+                >
+                  <v-icon
+                    :color="theme.mode == 'dark' ? `white` : `black`"
+                    @click="cetakPenilaian"
+                  >mdi-printer</v-icon>
+                </v-btn>
+              </template>
+              <span>Cetak Penilaian</span>
+            </v-tooltip>
 
             <v-spacer></v-spacer>
             <v-text-field
@@ -714,6 +733,21 @@ export default {
           id: val,
         },
       });
+    },
+    cetakPenilaian: async function () {
+      try {
+        let { data } = await this.http
+          .get("api/v2/permohonan/verifikator/cetak-penilaian")
+          .then((res) => {
+            var win = window.open("", "_blank");
+            win.document.open();
+            win.document.write(res.data);
+            win.document.close();
+            win.onafterprint = function () {
+              win.close();
+            };
+          });
+      } catch (error) {}
     },
   },
 };

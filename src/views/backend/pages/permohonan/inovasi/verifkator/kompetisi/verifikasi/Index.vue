@@ -88,9 +88,10 @@
                       dense
                       hide-details
                       :color="theme.color"
-                      v-model="record.urusan_uuid"
-                      :filled="record.urusan_uuid"
+                      v-model="record.urusans"
+                      :filled="record.urusans"
                       :items="urusans"
+                      multiple
                       disabled
                     ></v-select>
                   </v-col>

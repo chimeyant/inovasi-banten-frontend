@@ -83,9 +83,10 @@
                       dense
                       hide-details
                       :color="theme.color"
-                      v-model="record.urusan_uuid"
-                      :filled="record.urusan_uuid"
+                      v-model="record.urusans"
+                      :filled="record.urusans"
                       :items="urusans"
+                      multiple
                     ></v-select>
                   </v-col>
                   <v-col :cols="device.desktop? 6:12">
