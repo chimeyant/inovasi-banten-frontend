@@ -67,9 +67,7 @@ export default {
       crud: true,
     }).then(() => {
       this.getAppInfo().then(() => {
-        this.getAppInfo().then(() => {
-          window.document.title = this.info.app_name;
-        });
+        this.getAppInfo().then(() => {});
       });
     });
   },

@@ -583,9 +583,7 @@ export default {
     this.bg = this.page.domainUrl + "images/bg-nav-purple-3.jpg";
   },
   mounted() {
-    this.getAppInfo().then(() => {
-      window.document.title = this.info.app_name;
-    });
+    this.getAppInfo().then(() => {});
     this.getMenus();
     this.getUserInfo();
     this.sleep(500).then(() => {
