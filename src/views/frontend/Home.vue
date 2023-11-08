@@ -4,7 +4,6 @@
     <sekilas />
     <high-light />
     <sponsor />
-
   </div>
 </template>
 
