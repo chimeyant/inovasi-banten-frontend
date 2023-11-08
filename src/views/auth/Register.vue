@@ -344,7 +344,6 @@ export default {
       crud: true,
     }).then(() => {
       this.getAppInfo().then(() => {
-        window.document.title = this.info.app_name;
         const favicon = window.document.getElementById("favicon");
         favicon.href = this.info.app_logo;
       });
