@@ -1074,7 +1074,7 @@ export default {
     },
     "record.sumber_daya": {
       handler() {
-        this.wordCount(this.record.signifikansi, 200);
+        this.wordCount(this.record.sumber_daya, 200);
       },
     },
     "record.strategi_keberlanjutan": {
