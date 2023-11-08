@@ -1,17 +1,33 @@
 <template>
-  <v-app id="inspire" light>
-    <v-app-bar elevation="6" :class="theme + ` darken-1`" fixed>
+  <v-app
+    id="inspire"
+    light
+  >
+    <v-app-bar
+      elevation="6"
+      :class="theme + ` darken-1`"
+      fixed
+    >
       <v-app-bar-nav-icon>
-        <img class="ml-10" :src="info.apps_logo" alt="Vuetify.js" height="48"
-      /></v-app-bar-nav-icon>
+        <img
+          class="ml-10"
+          :src="info.apps_logo"
+          alt="Vuetify.js"
+          height="48"
+        /></v-app-bar-nav-icon>
 
-      <v-toolbar-title :class="{ 'pl-2': device.mobile }" v-if="!device.mobile">
-        <span class="font-weight-bold pl-5 white--text">{{ info.company }}</span
-        ><br />
+      <v-toolbar-title
+        :class="{ 'pl-2': device.mobile }"
+        v-if="!device.mobile"
+      >
+        <span class="font-weight-bold pl-5 white--text">{{ info.company }}</span><br />
         <span class="text-xs pl-5 white--text">{{ info.slogan }}</span>
       </v-toolbar-title>
 
-      <v-toolbar-title :class="{ 'pl-2': device.mobile }" v-if="device.mobile">
+      <v-toolbar-title
+        :class="{ 'pl-2': device.mobile }"
+        v-if="device.mobile"
+      >
         <span class="font-weight-bold pl-5 white--text">{{
           info.company
         }}</span>
@@ -24,40 +40,35 @@
           class="white--text"
           v-show="device.desktop"
           @click="$router.push({ name: 'home' })"
-          >BERANDA</v-btn
-        >
+        >BERANDA</v-btn>
 
         <v-btn
           text
           class="white--text"
           v-show="device.desktop"
           @click="$router.push({ name: 'pagu' })"
-          >PAGU</v-btn
-        >
+        >PAGU</v-btn>
 
         <v-btn
           text
           class="white--text"
           @click="$router.push({ name: 'formasi' })"
           v-show="device.desktop"
-          >PENDAFTAR</v-btn
-        >
+        >PENDAFTAR</v-btn>
 
         <v-btn
           text
           class="white--text"
           v-show="device.desktop"
           @click="$router.push({ name: 'dokumen' })"
-          >PENGUMUMAN</v-btn
-        >
+        >PENGUMUMAN</v-btn>
 
         <v-btn
           text
           @click="$router.push({ name: 'login' })"
           class="white--text"
           v-show="device.desktop"
-          >LOGIN</v-btn
-        >
+        >LOGIN</v-btn>
       </v-toolbar-items>
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
@@ -113,7 +124,11 @@
           :class="`my-5 ` + theme + ` lighten-5 mt-16`"
           align-center
         >
-          <v-flex xs12 sm4 class="my-3">
+          <v-flex
+            xs12
+            sm4
+            class="my-3"
+          >
             <div class="text-xs-center text-center">
               <h2 class="headline">PAGU JURUSAN</h2>
               <span class="subheading">
@@ -123,7 +138,11 @@
           </v-flex>
           <v-flex xs12>
             <v-container grid-list-xl>
-              <v-layout row wrap align-center>
+              <v-layout
+                row
+                wrap
+                align-center
+              >
                 _____
                 <br />
                 <br />
@@ -136,22 +155,32 @@
         <v-row class="pa-5">
           <v-col col="12">
             <v-card>
-              <v-card-title
-                :class="`flex flex-row-reverse ` + theme + ` lighten-1`"
-              >
-                <v-tooltip :color="theme + ` darken-4`" bottom>
+              <v-card-title :class="`flex flex-row-reverse ` + theme + ` lighten-1`">
+                <v-tooltip
+                  :color="theme + ` darken-4`"
+                  bottom
+                >
                   <template v-slot:activator="{ on }">
-                    <v-btn text small icon v-on="on">
-                      <v-icon color="white" @click="fetchFormasi"
-                        >refresh</v-icon
-                      >
+                    <v-btn
+                      text
+                      small
+                      icon
+                      v-on="on"
+                    >
+                      <v-icon
+                        color="white"
+                        @click="fetchFormasi"
+                      >refresh</v-icon>
                     </v-btn>
                   </template>
                   <span>Refresh Data</span>
                 </v-tooltip>
 
                 <v-spacer></v-spacer>
-                <v-col :cols="device.desktop ? `4` : `10`" class="pa-0">
+                <v-col
+                  :cols="device.desktop ? `4` : `10`"
+                  class="pa-0"
+                >
                   <v-text-field
                     v-model="search"
                     append-icon="mdi-magnify"
@@ -182,8 +211,7 @@
                 ></v-progress-linear>
 
                 <template v-slot:item.status="{ value }">
-                  <v-chip
-                    :color="
+                  <v-chip :color="
                       value == 'Pengajuan'
                         ? 'grey'
                         : value == 'Perbaikan Berkas'
@@ -191,9 +219,7 @@
                         : value == 'Pengajuan Perbaikan'
                         ? 'yellow'
                         : 'green'
-                    "
-                    >{{ value }}</v-chip
-                  >
+                    ">{{ value }}</v-chip>
                 </template>
               </v-data-table>
             </v-card>
@@ -202,7 +228,11 @@
       </section>
     </v-main>
     <section :class="theme + ` lighten-5`">
-      <v-layout column wrap :class="theme + ` darken-1 pb-0`">
+      <v-layout
+        column
+        wrap
+        :class="theme + ` darken-1 pb-0`"
+      >
         <v-flex class="pb-0 my-2 white--text align-center">
           <div class="subtitle-1 text-center">
             {{ info.company }}<br />
@@ -218,7 +248,11 @@
       :timeout="3500"
     >
       {{ snackbar.text }}
-      <v-btn dark text @click.stop="snackbarClose">Tutup</v-btn>
+      <v-btn
+        dark
+        text
+        @click.stop="snackbarClose"
+      >Tutup</v-btn>
     </v-snackbar>
   </v-app>
 </template>
@@ -251,7 +285,6 @@ export default {
       crud: true,
     }).then(() => {
       this.getAppInfo().then(() => {
-        window.document.title = this.info.company;
         const favicon = window.document.getElementById("favicon");
         favicon.href = this.info.apps_logo;
       });
