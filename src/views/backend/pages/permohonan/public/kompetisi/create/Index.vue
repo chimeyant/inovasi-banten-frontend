@@ -1054,32 +1054,32 @@ export default {
     },
     "record.kebaruan": {
       handler() {
-        this.wordCount(this.record.latar_belakang, 200);
+        this.wordCount(this.record.kebaruan, 200);
       },
     },
     "record.implementasi": {
       handler() {
-        this.wordCount(this.record.latar_belakang, 200);
+        this.wordCount(this.record.implementasi, 200);
       },
     },
     "record.signifikansi": {
       handler() {
-        this.wordCount(this.record.latar_belakang, 600);
+        this.wordCount(this.record.signifikansi, 600);
       },
     },
     "record.adaptabilitas": {
       handler() {
-        this.wordCount(this.record.latar_belakang, 100);
+        this.wordCount(this.record.adaptabilitas, 100);
       },
     },
     "record.sumber_daya": {
       handler() {
-        this.wordCount(this.record.latar_belakang, 200);
+        this.wordCount(this.record.signifikansi, 200);
       },
     },
     "record.strategi_keberlanjutan": {
       handler() {
-        this.wordCount(this.record.latar_belakang, 500);
+        this.wordCount(this.record.strategi_keberlanjutan, 500);
       },
     },
   },
