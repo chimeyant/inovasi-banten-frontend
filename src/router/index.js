@@ -80,6 +80,7 @@ import VerifikatorSinovicIndikatorPenilaian from "../views/backend/pages/permoho
 import VerifikatorKompetisi from "../views/backend/pages/permohonan/inovasi/verifkator/kompetisi/Index.vue";
 import VerifikatorKompetisiCreate from "../views/backend/pages/permohonan/inovasi/verifkator/kompetisi/verifikasi/Index.vue";
 import VerifikatorKompetisiIndikatorPenilaian from "../views/backend/pages/permohonan/inovasi/verifkator/kompetisi/indikator/Index.vue";
+import VerifikatorKompetisiPenilaian from "../views/backend/pages/permohonan/inovasi/verifkator/kompetisi/penilaian/Index.vue";
 
 /**
  * route Permohonan Admin Kabupaten
@@ -399,7 +400,7 @@ const routes = [
       {
         path: "verifikator-kompetisi-indikator-penilaian/:id",
         name: "verifikator-kompetisi-indikator-penilaian",
-        component: VerifikatorKompetisiIndikatorPenilaian,
+        component: VerifikatorKompetisiPenilaian,
       },
 
       /**

@@ -167,7 +167,7 @@
                       <v-icon
                         class="mr-1"
                         :color="theme.color"
-                      >mdi-file-document</v-icon>Indikator Penilaian
+                      >mdi-file-document</v-icon>Penilaian
                     </v-list-item-title>
                   </v-list-item>
                   <v-list-item
