@@ -18,7 +18,7 @@
                 >
                   <v-icon
                     :color="theme.mode == 'dark' ? `white` : `black`"
-                    @click="$router.push({name:'permohonan-inovasi-opd'})"
+                    @click="$router.push({name:'permohonan-opd-iga'})"
                   >mdi-close-circle</v-icon>
                 </v-btn>
               </template>
@@ -440,6 +440,7 @@ export default {
       show: false,
       record: {},
     },
+   
   }),
   computed: {
     ...mapState([

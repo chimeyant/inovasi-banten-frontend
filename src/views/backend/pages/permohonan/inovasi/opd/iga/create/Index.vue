@@ -644,7 +644,7 @@ export default {
         this.snackbar.text = message;
         this.snackbar.state = true;
 
-        this.$router.push({ name: "permohonan-inovasi-opd" });
+        this.$router.push({ name: "permohonan-opd-iga" });
       } catch (error) {
         this.snackbar.color = "red";
         this.snackbar.text = error.data.errors[0].message;

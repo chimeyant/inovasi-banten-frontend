@@ -508,7 +508,7 @@ export default {
           href: "",
         },
         {
-          text: "Inovasi",
+          text: "IGA",
           disabled: true,
           href: "",
         },

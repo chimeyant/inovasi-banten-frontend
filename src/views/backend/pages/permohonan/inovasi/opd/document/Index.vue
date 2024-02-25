@@ -260,6 +260,17 @@
             >mdi-circle</v-icon> Formulir Inovasi Dokumen Pendukung
           </v-toolbar>
           <v-card-text class="mt-2">
+            <v-col cols="12">
+              <v-select
+                label="Jenis Dokumen"
+                outlined
+                dense
+                hide-details
+                v-model="record.jenis"
+                :items="jenis"
+                :color="theme.color"
+              ></v-select>
+            </v-col>
             <v-col col="12">
               <v-text-field
                 outlined
@@ -443,6 +454,11 @@ export default {
 
       Paragraph,
     ],
+    jenis:[
+      {text:'Perbub', value:'perbub'},
+      {text:'Pergub', value:'pergub'},
+      {text:'Perda', value:'perda'}
+    ]
   }),
   computed: {
     ...mapState([
@@ -505,7 +521,7 @@ export default {
       actions: {
         refresh: true,
         add: true,
-        edit: true,
+        edit: false,
         delete: true,
         bulkdelete: false,
         print: false,

@@ -492,9 +492,9 @@ export default {
       dataUrl: "api/v2/permohonan/opd/sinovic",
       pagination: false,
       key: "id",
-      title: "PERMOHONAN INOVASI SINOVIC",
+      title: "PERMOHONAN INOVASI KIPP",
       subtitle:
-        "Berikut Daftar Seluruh Permohonan Inovasi SINOVIC Yang Tersedia",
+        "Berikut Daftar Seluruh Permohonan Inovasi KIPP Yang Tersedia",
       breadcrumbs: [
         {
           text: "Permohonan",
@@ -502,7 +502,7 @@ export default {
           href: "",
         },
         {
-          text: "Inovasi",
+          text: "KIPP",
           disabled: true,
           href: "",
         },
