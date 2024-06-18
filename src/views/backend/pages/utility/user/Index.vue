@@ -396,7 +396,11 @@ export default {
     ],
     authents: [
       { text: "Administrator", value: "administrator" },
-      { text: "Team Pengkaji", value: "team-pengkaji" },
+      { text: "Team Pengkaji 1", value: "team-pengkaji" },
+      { text: "Team Pengkaji 2", value: "team-pengkaji-2" },
+      { text: "Team Pengkaji 3", value: "team-pengkaji-3" },
+      { text: "Team Pengkaji 4", value: "team-pengkaji-4" },
+      { text: "Team Pengkaji 5", value: "team-pengkaji_-5" },
       {
         text: "Pemda Tingkat I | Admin Provinsi | Verifikator ",
         value: "provinsi",

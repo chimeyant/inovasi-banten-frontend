@@ -285,8 +285,7 @@
             <li v-for="item in page.breadcrumbs">
               <a class="text-body-2 font-weight-thin" href="#">{{ item.text }}</a>
             </li>
-            
-            </ul>
+          </ul>
         </v-toolbar>
       </v-card>
       <!--  -->

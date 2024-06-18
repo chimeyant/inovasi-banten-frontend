@@ -561,6 +561,7 @@ export default {
       { text: "2021", value: 2021 },
       { text: "2020", value: 2020 },
     ],
+
     filename: null,
     fileanggaran: null,
     fileprofilbisnis: null,

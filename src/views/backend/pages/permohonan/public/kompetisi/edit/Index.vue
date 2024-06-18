@@ -46,76 +46,96 @@
                   :filled="record.name"
                 ></v-text-field>
               </v-col>
+              <v-col :cols="device.desktop ?12:12">
+                <v-select
+                  label="Bentuk"
+                  class="font-weight-thin"
+                  outlined
+                  dense
+                  hide-details
+                  :color="theme.color"
+                  v-model="record.bentuk_uuid"
+                  :filled="record.bentuk_uuid"
+                  :items="bentuks"
+                ></v-select>
+              </v-col>
+              <v-col :cols="device.desktop ?12:12">
+                <v-select
+                  label="Jenis Inovasi"
+                  class="font-weight-thin"
+                  outlined
+                  dense
+                  hide-details
+                  :color="theme.color"
+                  v-model="record.jenis_uuid"
+                  :filled="record.jenis_uuid"
+                  :items="jenisinovasis"
+                ></v-select>
+              </v-col>
+              <v-col :cols="device.desktop ?12:12">
+                <v-select
+                  label="Kelompok"
+                  class="font-weight-thin"
+                  outlined
+                  dense
+                  hide-details
+                  :color="theme.color"
+                  v-model="record.kelompok"
+                  :filled="record.kelompok"
+                  :items="kelompoks"
+                  @change="fetchInisiators"
+                ></v-select>
+              </v-col>
+              <v-col :cols="device.desktop? 12:12">
+                <v-select
+                  label="Inisiator Inovasi"
+                  class="font-weight-thin"
+                  outlined
+                  dense
+                  hide-details
+                  :color="theme.color"
+                  v-model="record.inisiator"
+                  :filled="record.inisiator"
+                  :items="inisiators"
+                  @change="record.inisiator =='masyarakat' ? sdgs=false:sdgs=true"
+                ></v-select>
+              </v-col>
+              <v-col
+                :cols="device.desktop? 12:12"
+                v-show="sdgs"
+              >
+                <v-select
+                  label="SDGs"
+                  class="font-weight-thin"
+                  outlined
+                  dense
+                  hide-details
+                  :color="theme.color"
+                  v-model="record.urusans"
+                  :filled="record.urusans"
+                  :items="urusans"
+                  multiple
+                ></v-select>
+              </v-col>
+              <v-col cols="12">
+                <v-select
+                  label="Tipe Inovasi"
+                  class="font-weight-thin"
+                  outlined
+                  dense
+                  hide-details
+                  :color="theme.color"
+                  v-model="record.tipe"
+                  :filled="record.tipe"
+                  :items="tipes"
+                  @change="record.tipe=='replikasi'? replikasi=true:replikasi=false"
+                ></v-select>
+              </v-col>
+
               <v-col cols="12">
                 <v-row>
-                  <v-col :cols="device.desktop ?6:12">
-                    <v-select
-                      label="Kelompok"
-                      class="font-weight-thin"
-                      outlined
-                      dense
-                      hide-details
-                      :color="theme.color"
-                      v-model="record.kelompok"
-                      :filled="record.kelompok"
-                      :items="kelompoks"
-                    ></v-select>
-                  </v-col>
-                  <v-col :cols="device.desktop ?6:12">
-                    <v-select
-                      label="Jenis Inovasi"
-                      class="font-weight-thin"
-                      outlined
-                      dense
-                      hide-details
-                      :color="theme.color"
-                      v-model="record.jenis_uuid"
-                      :filled="record.jenis_uuid"
-                      :items="jenisinovasis"
-                    ></v-select>
-                  </v-col>
-                  <v-col :cols="device.desktop ?6:12">
-                    <v-select
-                      label="SDGs"
-                      class="font-weight-thin"
-                      outlined
-                      dense
-                      hide-details
-                      :color="theme.color"
-                      v-model="record.urusans"
-                      :filled="record.urusans"
-                      :items="urusans"
-                      multiple
-                    ></v-select>
-                  </v-col>
-                  <v-col :cols="device.desktop ?6:12">
-                    <v-select
-                      label="Inisiator Inovasi"
-                      class="font-weight-thin"
-                      outlined
-                      dense
-                      hide-details
-                      :color="theme.color"
-                      v-model="record.inisiator"
-                      :filled="record.inisiator"
-                      :items="inisiators"
-                    ></v-select>
-                  </v-col>
 
-                  <v-col :cols="device.desktop ?6:12">
-                    <v-select
-                      label="Bentuk"
-                      class="font-weight-thin"
-                      outlined
-                      dense
-                      hide-details
-                      :color="theme.color"
-                      v-model="record.bentuk_uuid"
-                      :filled="record.bentuk_uuid"
-                      :items="bentuks"
-                    ></v-select>
-                  </v-col>
-                  <v-col :cols="device.desktop ?6:12">
+                  <v-col :cols="device.desktop ?4:12">
                     <v-text-field
                       class="font-weight-thin"
                       label="Waktu Uji"
@@ -128,7 +148,7 @@
                       :filled="record.waktu_uji"
                     ></v-text-field>
                   </v-col>
-                  <v-col :cols="device.desktop ?6:12">
+                  <v-col :cols="device.desktop ?4:12">
                     <v-text-field
                       class="font-weight-thin"
                       label="Waktu Penerapan"
@@ -141,7 +161,7 @@
                       :filled="record.waktu_penerapan"
                     ></v-text-field>
                   </v-col>
-                  <v-col :cols="device.desktop ?6:12">
+                  <v-col :cols="device.desktop ?4:12">
                     <v-select
                       label="Tahapan"
                       class="font-weight-thin"
@@ -208,7 +228,10 @@
                   >mdi-cloud-download</v-icon> </span>
               </v-col>
 
-              <v-col cols="12">
+              <v-col
+                cols="12"
+                v-if="replikasi"
+              >
                 <v-text-field
                   label="Surat Pernyataan Ketersediaan Replikasi (PDF | Max: 2Mb)"
                   class="font-weight-thin"
@@ -689,19 +712,14 @@ export default {
     kompetisis: [],
     jenisinovasis: [],
     urusans: [],
-    inisiators: [
-      { text: "Kepala Daerah", value: "kepala-daerah", disabled: true },
-      { text: "Anggota DPRD", value: "anggota-dprd", disabled: true },
-      { text: "OPD", value: "opd", disabled: true },
-      { text: "ASN", value: "asn" },
-      { text: "Masyarakat", value: "masyarakat", disabled: true },
-    ],
+    inisiators: [],
     bentuks: [],
     tahapans: [
       { text: "Inisiatif", value: "inisiatif" },
       { text: "Uji Coba", value: "uji-coba" },
       { text: "Penerapan", value: "penerapan" },
     ],
+    sdgs: false,
     tahuns: [
       { text: "2024", value: 2024 },
       { text: "2023", value: 2023 },
@@ -709,6 +727,12 @@ export default {
       { text: "2021", value: 2021 },
       { text: "2020", value: 2020 },
     ],
+    tipes: [
+      { text: "Baru", value: "baru" },
+      { text: "Pengembangan", value: "pengembangan" },
+      { text: "Replikasi", value: "replikasi" },
+    ],
+    replikasi: false,
     filename: null,
     fileanggaran: null,
     fileprofilbisnis: null,
@@ -812,6 +836,8 @@ export default {
     this.fetchBentuks();
     this.fetchRegencies();
     this.fetchCategories();
+    this.fetchInisiators();
+    this.fetchReplikasi();
   },
   methods: {
     ...mapActions([
@@ -1051,8 +1077,37 @@ export default {
         this.snackbar.state = true;
       }
     },
+    fetchInisiators: function () {
+      this.inisiators = [];
+      if (this.record.kelompok == "khusus") {
+        let datas = [
+          { text: "Kepala Daerah", value: "kepala-daerah", disabled: false },
+          { text: "Anggota DPRD", value: "anggota-dprd", disabled: false },
+          { text: "OPD", value: "opd", disabled: false },
+          { text: "ASN", value: "asn", disabled: false },
+        ];
+        this.inisiators = datas;
+      } else {
+        let datas = [
+          { text: "Masyarakat", value: "masyarakat", disabled: false },
+        ];
+        this.inisiators = datas;
+      }
+    },
+    fetchReplikasi: function () {
+      if ((this.record.tipe = "replikasi")) {
+        this.replikasi = true;
+      } else {
+        this.replikasi = false;
+      }
+    },
   },
   watch: {
+    "record.kelompok": {
+      handler() {
+        fetchInisiators();
+      },
+    },
     "marker.position": {
       handler() {
         this.record.lat = this.marker.position.lat;

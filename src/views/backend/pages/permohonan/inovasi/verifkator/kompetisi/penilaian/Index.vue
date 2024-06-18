@@ -655,7 +655,7 @@
                             hide-default-footer
                             show-select
                           >
-                            <template v-slot:item.score1="{ value }">
+                            <template v-slot:item.score="{ value }">
                               <v-select
                                 outlined
                                 dense
@@ -663,18 +663,7 @@
                                 :color="theme.color"
                                 :items="penilaians"
                                 v-model="value.nilai"
-                                @change="updateNilaiScore1(value.nilai, value.id)"
-                              ></v-select>
-                            </template>
-                            <template v-slot:item.score2="{ value }">
-                              <v-select
-                                outlined
-                                dense
-                                hide-details
-                                :color="theme.color"
-                                :items="penilaians"
-                                v-model="value.nilai"
-                                @change="updateNilaiScore2(value.nilai, value.id)"
+                                @change="updateNilaiScore(value.nilai, value.id)"
                               ></v-select>
                             </template>
                           </v-data-table>
@@ -942,22 +931,8 @@ export default {
           value: "name",
         },
         {
-          text: "SKOR JURI 1",
+          text: "SKOR JURI",
           align: "center",
-          sortable: false,
-          value: "score1",
-          width: 150,
-        },
-        {
-          text: "SKOR JURI 2",
-          align: "center",
-          sortable: false,
-          value: "score2",
-          width: 150,
-        },
-        {
-          text: "SKOR AKHIR",
-          align: "right",
           sortable: false,
           value: "score",
           width: 150,
@@ -1293,7 +1268,7 @@ export default {
       return match && match[2].length === 11 ? match[2] : null;
     },
 
-    updateNilaiScore1: async function (score, id) {
+    updateNilaiScore: async function (score, id) {
       try {
         this.setLoading({ dialog: true, text: "Update Nilai...!" });
         let {
