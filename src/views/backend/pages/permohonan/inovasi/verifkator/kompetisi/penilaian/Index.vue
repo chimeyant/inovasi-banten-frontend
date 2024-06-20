@@ -656,6 +656,7 @@
                             show-select
                           >
                             <template v-slot:item.score="{ value }">
+
                               <v-select
                                 outlined
                                 dense
@@ -1274,7 +1275,7 @@ export default {
         let {
           data: { success, message },
         } = await this.http.post(
-          "api/v2/permohonan/verifikator/penilaian-kompetisi-score1/" + id,
+          "api/v2/permohonan/verifikator/penilaian-kompetisi-score/" + id,
           { nilai: score }
         );
 
