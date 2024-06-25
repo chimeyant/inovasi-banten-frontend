@@ -521,6 +521,13 @@ export default {
         width: 100,
       },
       {
+        text: "TOTAL SKOR",
+        align: "right",
+        sortable: false,
+        value: "score",
+        width: 150,
+      },
+      {
         text: "STATUS",
         align: "center",
         sortable: false,
