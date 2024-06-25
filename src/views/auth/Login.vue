@@ -332,6 +332,22 @@ export default {
           if (this.auth.user.user.authent == "administrator") {
             this.$router.push({ name: "dashboard" });
           }
+          if (this.auth.user.user.authent == "team-pengkaji") {
+            this.$router.push({ name: "dashboard" });
+          }
+          if (this.auth.user.user.authent == "team-pengkaji-2") {
+            this.$router.push({ name: "dashboard" });
+          }
+          if (this.auth.user.user.authent == "team-pengkaji-3") {
+            this.$router.push({ name: "dashboard" });
+          }
+          if (this.auth.user.user.authent == "team-pengkaji-4") {
+            this.$router.push({ name: "dashboard" });
+          }
+          if (this.auth.user.user.authent == "team-pengkaji-5") {
+            this.$router.push({ name: "dashboard" });
+          }
+
           if (this.auth.user.user.authent == "user") {
             this.$router.push({ name: "dosen-dashboard" });
           }

@@ -31,6 +31,7 @@
                   v-model="record.kompetisi_uuid"
                   :filled="record.kompetisi_uuid"
                   :items="kompetisis"
+                  :rules=[rules.required]
                 ></v-select>
               </v-col>
               <v-col cols="12">
@@ -44,6 +45,7 @@
                   :color="theme.color"
                   v-model="record.name"
                   :filled="record.name"
+                  :rules=[rules.required]
                 ></v-text-field>
               </v-col>
               <v-col :cols="device.desktop? 12:12">
@@ -57,6 +59,7 @@
                   v-model="record.bentuk_uuid"
                   :filled="record.bentuk_uuid"
                   :items="bentuks"
+                  :rules=[rules.required]
                 ></v-select>
               </v-col>
               <v-col :cols="device.desktop? 12:12">
@@ -70,6 +73,7 @@
                   v-model="record.jenis_uuid"
                   :filled="record.jenis_uuid"
                   :items="jenisinovasis"
+                  :rules=[rules.required]
                 ></v-select>
               </v-col>
               <v-col :cols="device.desktop? 12:12">
@@ -84,6 +88,7 @@
                   :filled="record.kelompok"
                   :items="kelompoks"
                   @change="fetchInisiators"
+                  :rules=[rules.required]
                 ></v-select>
               </v-col>
               <v-col :cols="device.desktop? 12:12">
@@ -98,6 +103,7 @@
                   :filled="record.inisiator"
                   :items="inisiators"
                   @change="record.inisiator =='masyarakat' ? sdgs=false:sdgs=true"
+                  :rules=[rules.required]
                 ></v-select>
               </v-col>
               <v-col
@@ -114,6 +120,7 @@
                   v-model="record.urusans"
                   :filled="record.urusans"
                   :items="urusans"
+                  :rules=[rules.required]
                   multiple
                 ></v-select>
               </v-col>
@@ -128,6 +135,7 @@
                   v-model="record.tipe"
                   :filled="record.tipe"
                   :items="tipes"
+                  :rules=[rules.required]
                   @change="record.tipe=='replikasi'? replikasi=true:replikasi=false"
                 ></v-select>
               </v-col>
@@ -144,6 +152,7 @@
                       :color="theme.color"
                       v-model="record.waktu_uji"
                       :filled="record.waktu_uji"
+                      :rules=[rules.required]
                     ></v-text-field>
                   </v-col>
                   <v-col :cols="device.desktop? 4:12">
@@ -157,6 +166,7 @@
                       :color="theme.color"
                       v-model="record.waktu_penerapan"
                       :filled="record.waktu_penerapan"
+                      :rules=[rules.required]
                     ></v-text-field>
                   </v-col>
                   <v-col :cols="device.desktop? 4:12">
@@ -170,6 +180,7 @@
                       v-model="record.tahapan"
                       :filled="record.tahapan"
                       :items="tahapans"
+                      :rules=[rules.required]
                     ></v-select>
                   </v-col>
                 </v-row>
@@ -186,6 +197,7 @@
                   :color="theme.color"
                   v-model="record.youtube"
                   :filled="record.youtube"
+                  :rules=[rules.required]
                 ></v-text-field>
 
               </v-col>
@@ -201,6 +213,7 @@
                   dense
                   @click:append-outer="uploadFile('surat_pernyataan_implementasi')"
                   hide-details
+                  :rules=[rules.required]
                 ></v-text-field>
                 <span>Contoh Surat Pernyataan Implementasi. Download Disini<v-icon
                     class="ml-2 red--text"
@@ -220,6 +233,7 @@
                   dense
                   @click:append-outer="uploadFile('surat_pernyataan_identitas')"
                   hide-details
+                  :rules=[rules.required]
                 ></v-text-field>
                 <span>Contoh Surat Pernyataan Identitas. Download Disini<v-icon
                     class="ml-2 red--text"
@@ -242,6 +256,7 @@
                   dense
                   @click:append-outer="uploadFile('surat_pernyataan_ketersediaan_replikasi')"
                   hide-details
+                  :rules=[rules.required]
                 ></v-text-field>
                 <span>Contoh Surat Pernyataan Ketersediaan. Download Disini<v-icon
                     class="ml-2 red--text"
@@ -260,6 +275,7 @@
                   :extensions="extensions"
                   placeholder="Ringkasan Inovasi Maksimal 200 Kata "
                   @change="wordCount(record.ringkasan, 5)"
+                  :rules=[rules.required]
                 />
               </v-col>
 
@@ -271,6 +287,7 @@
                   v-model="record.latar_belakang"
                   :extensions="extensions"
                   placeholder="Latar Belakang dan Tujuan Maksimal 300 Kata"
+                  :rules=[rules.required]
                 />
               </v-col>
               <v-col cols="12">
@@ -284,6 +301,7 @@
                   outlined
                   dense
                   @click:append-outer="uploadFile('latar_belakang_att')"
+                  :rules=[rules.required]
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -295,6 +313,7 @@
                   v-model="record.kebaruan"
                   :extensions="extensions"
                   placeholder="Kebaruan atau Nilai tambah inovasi Maksimal 200 Kata"
+                  :rules=[rules.required]
                 />
               </v-col>
               <v-col cols="12">
@@ -308,6 +327,7 @@
                   outlined
                   dense
                   @click:append-outer="uploadFile('kebaruan_att')"
+                  :rules=[rules.required]
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -320,6 +340,7 @@
                   v-model="record.implementasi"
                   :extensions="extensions"
                   placeholder="Menjelasankan implementasi  Maksimal 200 Kata"
+                  :rules=[rules.required]
                 />
               </v-col>
               <v-col cols="12">
@@ -333,6 +354,7 @@
                   outlined
                   dense
                   @click:append-outer="uploadFile('implementasi_att')"
+                  :rules=[rules.required]
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -345,6 +367,7 @@
                   v-model="record.signifikansi"
                   :extensions="extensions"
                   placeholder="Menjelaskan Signifikansi Inovasi 600 Kata"
+                  :rules=[rules.required]
                 />
               </v-col>
               <v-col cols="12">
@@ -359,6 +382,7 @@
                   dense
                   @click:append-outer="uploadFile('signifikansi_att')"
                   hide-details
+                  :rules=[rules.required]
                 ></v-text-field>
               </v-col>
 
@@ -371,6 +395,7 @@
                   v-model="record.adaptabilitas"
                   :extensions="extensions"
                   placeholder="Menjelaskan adaptabilitas inovasi Maksimal 100 Kata"
+                  :rules=[rules.required]
                 />
               </v-col>
               <v-col cols="12">
@@ -384,6 +409,7 @@
                   outlined
                   dense
                   @click:append-outer="uploadFile('adaptabilitas_att')"
+                  :rules=[rules.required]
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -397,6 +423,7 @@
                   v-model="record.sumber_daya"
                   :extensions="extensions"
                   placeholder="Menjelaskan sumber daya inovasi Maksimal 200 Kata"
+                  :rules=[rules.required]
                 />
               </v-col>
               <v-col cols="12">
@@ -410,6 +437,7 @@
                   outlined
                   dense
                   @click:append-outer="uploadFile('sumber_daya_att')"
+                  :rules=[rules.required]
                   hide-details
                 ></v-text-field>
               </v-col>
@@ -423,6 +451,7 @@
                   v-model="record.strategi_keberlanjutan"
                   :extensions="extensions"
                   placeholder="Menjelaskan startegi keberlanjutan inovasi Maksimal 500 Kata"
+                  :rules=[rules.required]
                 />
               </v-col>
               <v-col cols="12">
@@ -456,6 +485,7 @@
                       :color="theme.color"
                       v-model="record.inovator_nama"
                       :filled="record.inovator_nama"
+                      :rules=[rules.required]
                     ></v-text-field>
                   </v-col>
                   <v-col :cols="device.desktop ?4:12">
@@ -469,6 +499,7 @@
                       :color="theme.color"
                       v-model="record.inovator_telp"
                       :filled="record.inovator_telp"
+                      :rules=[rules.required]
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -487,6 +518,7 @@
                       :filled="record.regency_code"
                       :items="regencies"
                       @change="fetchDistricts"
+                      :rules=[rules.required]
                     ></v-select>
                   </v-col>
                   <v-col :cols="device.desktop ?4:12">
@@ -501,6 +533,7 @@
                       :items="districts"
                       :color="theme.color"
                       @change="fetchVillages"
+                      :rules=[rules.required]
                     ></v-select>
                   </v-col>
                   <v-col :cols="device.desktop ?4:12">
@@ -514,6 +547,7 @@
                       v-model="record.village_code"
                       :filled="record.village_code"
                       :items="villages"
+                      :rules=[rules.required]
                     ></v-select>
                   </v-col>
                 </v-row>
@@ -529,6 +563,7 @@
                   rows="2"
                   v-model="record.address"
                   :filled="record.address"
+                  :rules=[rules.required]
                 >{{ record.alamat }}</v-textarea>
               </v-col>
               <v-col cols=12>
@@ -543,6 +578,7 @@
                   dense
                   @click:append-outer="uploadFoto"
                   hide-details
+                  :rules=[rules.required]
                 ></v-text-field>
               </v-col>
 
@@ -777,6 +813,11 @@ export default {
     strategi_keberlanjutan_att: null,
     foto: null,
     sdgs: false,
+    rules: {
+      required: (value) => !!value || "Required.",
+      min: (v) => v.length >= 8 || "Min 8 characters",
+      emailMatch: () => `The email and password you entered don't match`,
+    },
   }),
   computed: {
     ...mapState([
@@ -1031,7 +1072,6 @@ export default {
           { text: "Kepala Daerah", value: "kepala-daerah", disabled: false },
           { text: "Anggota DPRD", value: "anggota-dprd", disabled: false },
           { text: "OPD", value: "opd", disabled: false },
-          { text: "ASN", value: "asn", disabled: false },
         ];
         this.inisiators = datas;
       } else {

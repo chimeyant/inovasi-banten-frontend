@@ -168,6 +168,18 @@ export default {
           if (this.auth.user.user.authent == "team-pengkaji") {
             this.$router.push({ name: "dashboard" });
           }
+          if (this.auth.user.user.authent == "team-pengkaji-2") {
+            this.$router.push({ name: "dashboard" });
+          }
+          if (this.auth.user.user.authent == "team-pengkaji-3") {
+            this.$router.push({ name: "dashboard" });
+          }
+          if (this.auth.user.user.authent == "team-pengkaji-4") {
+            this.$router.push({ name: "dashboard" });
+          }
+          if (this.auth.user.user.authent == "team-pengkaji-5") {
+            this.$router.push({ name: "dashboard" });
+          }
           if (this.auth.user.user.authent == "provinsi") {
             this.$router.push({ name: "dashboard" });
           }

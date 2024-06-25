@@ -59,6 +59,7 @@
                   <v-icon
                     :color="theme.mode == 'dark' ? `white` : `black`"
                     @click="cetakPenilaian"
+                    v-show="false"
                   >mdi-printer</v-icon>
                 </v-btn>
               </template>
@@ -154,7 +155,10 @@
                       >mdi-eye</v-icon>Pratinjau
                     </v-list-item-title>
                   </v-list-item>
-                  <v-list-item @click="openVerifikasi(value)">
+                  <v-list-item
+                    @click="openVerifikasi(value)"
+                    v-show="false"
+                  >
                     <v-list-item-title>
                       <v-icon
                         class="mr-1"
@@ -472,13 +476,6 @@ export default {
         align: "start",
         sortable: true,
         value: "inovator",
-      },
-      {
-        text: "SKOR",
-        align: "center",
-        sortable: false,
-        value: "score",
-        width: 100,
       },
       {
         text: "STATUS",

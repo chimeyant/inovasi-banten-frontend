@@ -601,6 +601,14 @@ router.beforeEach((to, from, next) => {
         next({ name: "dashboard" });
       } else if (Auth.user.authent === "team-pengkaji") {
         next({ name: "dashboard" });
+      } else if (Auth.user.authent === "team-pengkaji-2") {
+        next({ name: "dashboard" });
+      } else if (Auth.user.authent === "team-pengkaji-3") {
+        next({ name: "dashboard" });
+      } else if (Auth.user.authent === "team-pengkaji-4") {
+        next({ name: "dashboard" });
+      } else if (Auth.user.authent === "team-pengkaji-5") {
+        next({ name: "dashboard" });
       } else if (Auth.user.authent === "provinsi-opd") {
         next({ name: "dashboard" });
       } else if (Auth.user.authent === "kabkota") {
