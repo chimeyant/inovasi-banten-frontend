@@ -478,6 +478,12 @@ export default {
         value: "inovator",
       },
       {
+        text: "TOTAL SKOR",
+        align: "end",
+        sortable: true,
+        value: "score",
+      },
+      {
         text: "STATUS",
         align: "center",
         sortable: false,
