@@ -87,6 +87,7 @@ import VerifikatorKompetisiPenilaian from "../views/backend/pages/permohonan/ino
  */
 import VerifikasiKabKotaSinovic from "../views/backend/pages/permohonan/inovasi/kabupaten/sinovic/Index.vue";
 import VerifikasiKabKotaSinovicCreate from "../views/backend/pages/permohonan/inovasi/kabupaten/sinovic/verifikasi/Index.vue";
+import KabkotaKompetisi from "../views/backend/pages/permohonan/inovasi/kabupaten/kompetisi/Index.vue"
 
 /**
  * Rooute OPD
@@ -416,6 +417,12 @@ const routes = [
         name: "verifikasi-kabkota-sinovic-create",
         component: VerifikasiKabKotaSinovicCreate,
       },
+      {
+        path: "kabkota-kompetisi",
+        name: "kabkota-kompetisi",
+        component: KabkotaKompetisi,
+      },
+
 
       /**
        * Route Permohonan Inovasi OPD
