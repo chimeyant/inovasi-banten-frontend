@@ -116,6 +116,20 @@
                                 disabled
                               ></v-select>
                             </v-col>
+                            <v-col :cols="device.desktop? 12:12">
+                              <v-select
+                                label="Kategori"
+                                class="font-weight-thin"
+                                outlined
+                                dense
+                                hide-details
+                                :color="theme.color"
+                                v-model="record.kategori"
+                                :filled="record.kategori"
+                                :items="kategories"
+                                multiple
+                              ></v-select>
+                            </v-col>
                             <v-col cols="12">
                               <v-select
                                 label="Inisiator Inovasi"
@@ -863,6 +877,24 @@ export default {
       { text: "2022", value: 2022 },
       { text: "2021", value: 2021 },
       { text: "2020", value: 2020 },
+    ],
+    kategories: [
+      { text: "Kesehatan", value: "Kesehatan" },
+      { text: "Pendidikan", value: "Pendidikan" },
+      {
+        text: "Pertumbuhan Ekonomi dan Kesempatan Kerja ",
+        value: "Pertumbuhan Ekonomi dan Kesempatan Kerja",
+      },
+      { text: "Ketahanan Pangan", value: "Ketahanan Pangan" },
+      { text: "Pemberdayaan Masyarakat", value: "Pemberdayaan Masyarakat" },
+      { text: "Inklusi Sosial", value: "inklusi Sosial" },
+      {
+        text: "Energi dan Lingkungan Hidup",
+        value: "Energi dan Lingkungan Hidup",
+      },
+      { text: "Tata Kelola Pemerintahan", value: "Tata Kelola Pemerintahan" },
+      { text: "Penegakan Hukum", value: "Penegakan Hukum" },
+      { text: "Ketahanan Bencana", value: "Ketahanan Bencana" },
     ],
     filename: null,
     fileanggaran: null,
