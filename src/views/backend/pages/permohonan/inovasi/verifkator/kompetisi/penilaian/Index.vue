@@ -127,7 +127,6 @@
                                 v-model="record.kategori"
                                 :filled="record.kategori"
                                 :items="kategories"
-                                multiple
                               ></v-select>
                             </v-col>
                             <v-col cols="12">
