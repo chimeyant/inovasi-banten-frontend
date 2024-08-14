@@ -796,7 +796,7 @@ export default {
       Paragraph,
     ],
     kelompoks: [
-      { text: "Umum", value: "umum" },
+      { text: "Umum", value: "umum", disabled: true },
       { text: "Khusus", value: "khusus" },
     ],
 
