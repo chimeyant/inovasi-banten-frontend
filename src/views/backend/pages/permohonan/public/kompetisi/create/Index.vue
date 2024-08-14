@@ -829,7 +829,7 @@ export default {
       },
       { text: "Tata Kelola Pemerintahan", value: "Tata Kelola Pemerintahan" },
       { text: "Penegakan Hukum", value: "Penegakan Hukum" },
-      { text: "Ketahan Bencana", value: "Ketahanan Bencana" },
+      { text: "Ketahanan Bencana", value: "Ketahanan Bencana" },
     ],
 
     surat_pernyataan_implementasi: null,
