@@ -124,6 +124,20 @@
                   multiple
                 ></v-select>
               </v-col>
+              <v-col :cols="device.desktop? 12:12">
+                <v-select
+                  label="Kategori"
+                  class="font-weight-thin"
+                  outlined
+                  dense
+                  hide-details
+                  :color="theme.color"
+                  v-model="record.kategori"
+                  :filled="record.kategori"
+                  :items="kategories"
+                  multiple
+                ></v-select>
+              </v-col>
               <v-col cols="12">
                 <v-select
                   label="Tipe Inovasi"
@@ -798,6 +812,24 @@ export default {
     kelompoks: [
       { text: "Umum", value: "umum", disabled: true },
       { text: "Khusus", value: "khusus" },
+    ],
+    kategories: [
+      { text: "Kesehatan", value: "Kesehatan" },
+      { text: "Pendidikan", value: "Pendidikan" },
+      {
+        text: "Pertumbuhan Ekonomi dan Kesempatan Kerja ",
+        value: "Pertumbuhan Ekonomi dan Kesempatan Kerja",
+      },
+      { text: "Ketahanan Pangan", value: "Ketahanan Pangan" },
+      { text: "Pemberdayaan Masyarakat", value: "Pemberdayaan Masyarakat" },
+      { text: "Inklusi Sosial", value: "inklusi Sosial" },
+      {
+        text: "Energi dan Lingkungan Hidup",
+        value: "Energi dan Lingkungan Hidup",
+      },
+      { text: "Tata Kelola Pemerintahan", value: "Tata Kelola Pemerintahan" },
+      { text: "Penegakan Hukum", value: "Penegakan Hukum" },
+      { text: "Ketahan Bencana", value: "Ketahanan Bencana" },
     ],
 
     surat_pernyataan_implementasi: null,
