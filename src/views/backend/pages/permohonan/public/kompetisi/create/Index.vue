@@ -135,7 +135,6 @@
                   v-model="record.kategori"
                   :filled="record.kategori"
                   :items="kategories"
-                  multiple
                 ></v-select>
               </v-col>
               <v-col cols="12">
@@ -908,6 +907,8 @@ export default {
     this.fetchBentuks();
     this.fetchRegencies();
     this.fetchCategories();
+    this.getUserPosition().then(() => {});
+    this.centerUpdated(this.center);
   },
   methods: {
     ...mapActions([
@@ -1041,7 +1042,7 @@ export default {
     getUserPosition: async function () {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((pos) => {
-          this.center = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+          // this.center = { lat: pos.coords.latitude, lng: pos.coords.longitude };
           this.center = [pos.coords.latitude, pos.coords.longitude];
           this.marker.position = {
             lat: pos.coords.latitude,

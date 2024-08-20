@@ -143,7 +143,10 @@
                       >mdi-email-send</v-icon>Kirim Permohonan
                     </v-list-item-title>
                   </v-list-item>
-                  <v-list-item @click="postPull(value)">
+                  <v-list-item
+                    v-show="false"
+                    @click="postPull(value)"
+                  >
                     <v-list-item-title>
                       <v-icon
                         class="mr-1"
@@ -588,6 +591,7 @@ export default {
         },
       });
     },
+
     fetchCategories: async function () {
       try {
         let { data } = await this.http.get("api/v2/combo/category");
