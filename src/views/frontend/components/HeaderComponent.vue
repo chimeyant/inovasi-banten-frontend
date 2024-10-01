@@ -186,10 +186,7 @@ export default {
   },
   methods: {
     download: function () {
-      window.open(
-        "/Panduan Pengguna JARI Banten (Pemohon Kompetisi).pdf",
-        "__blank"
-      );
+      window.open("/JARIBantenUserGuide.pdf", "__blank");
     },
   },
 };
