@@ -186,7 +186,7 @@ export default {
   },
   methods: {
     download: function () {
-      window.open("/JARIBantenUserGuide.pdf", "__blank");
+      window.open("/JARIBantenUserGuide2024.pdf", "__blank");
     },
   },
 };
