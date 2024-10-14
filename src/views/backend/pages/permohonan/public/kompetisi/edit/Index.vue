@@ -1155,6 +1155,16 @@ export default {
         this.wordCount(this.record.strategi_keberlanjutan, 500);
       },
     },
+    "record.regency_code": {
+      handler() {
+        this.fetchDistricts();
+      },
+    },
+    "record.district_code": {
+      handler() {
+        this.fetchVillages();
+      },
+    },
   },
 };
 </script>
