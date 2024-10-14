@@ -121,7 +121,6 @@
                   :filled="record.urusans"
                   :items="urusans"
                   :rules=[rules.required]
-                  multiple
                 ></v-select>
               </v-col>
               <v-col :cols="device.desktop? 12:12">
