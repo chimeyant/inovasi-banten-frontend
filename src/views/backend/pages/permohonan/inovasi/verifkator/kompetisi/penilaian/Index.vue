@@ -690,6 +690,7 @@
                             dense
                             hide-details
                             :color="theme.color"
+                            label="Catatan"
                           >
 
                           </v-textarea>
