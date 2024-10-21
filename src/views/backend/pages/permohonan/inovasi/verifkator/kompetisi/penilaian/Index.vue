@@ -683,6 +683,17 @@
                           </v-data-table>
 
                         </v-col>
+                        <v-col cols="12">
+                          <v-textarea
+                            outlined
+                            rows="5"
+                            dense
+                            hide-details
+                            :color="theme.color"
+                          >
+
+                          </v-textarea>
+                        </v-col>
 
                       </v-row>
 
