@@ -1377,6 +1377,16 @@ export default {
       },
       deep: true,
     },
+    "record.regency_code": {
+      handler() {
+        this.fetchDistricts();
+      },
+    },
+    "record.district_code": {
+      handler() {
+        this.fetchVillages();
+      },
+    },
   },
 };
 </script>
