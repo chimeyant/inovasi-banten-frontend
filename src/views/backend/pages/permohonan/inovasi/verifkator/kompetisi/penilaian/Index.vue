@@ -691,6 +691,7 @@
                             hide-details
                             :color="theme.color"
                             label="Catatan"
+                            v-model="catatan"
                           >
 
                           </v-textarea>
@@ -801,7 +802,7 @@
   </div>
 </template>
               
-        <script>
+<script>
 import { mapActions, mapState } from "vuex";
 import {
   LMap,
@@ -987,6 +988,7 @@ export default {
 
       score1: null,
       score2: null,
+      catatan: null,
     },
     penilaians: [
       { text: "1", value: 1 },
@@ -1085,6 +1087,7 @@ export default {
         this.strategi_keberlanjutan_att =
           this.record.strategi_keberlanjutan_att;
         this.foto = this.record.foto;
+        this.catatan = this.record.komentar;
       });
     },
     fetchPenilaian: async function () {
@@ -1319,7 +1322,7 @@ export default {
           data: { success, message },
         } = await this.http.post(
           "api/v2/permohonan/verifikator/penilaian-kompetisi-score/" + id,
-          { nilai: score }
+          { nilai: score, catatan: this.catatan }
         );
 
         if (!success) {
