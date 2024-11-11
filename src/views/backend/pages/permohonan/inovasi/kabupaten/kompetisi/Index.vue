@@ -46,26 +46,6 @@
               <span>Refresh Data</span>
             </v-tooltip>
 
-            <v-tooltip
-              :color="theme.color"
-              bottom
-            >
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  text
-                  small
-                  icon
-                  v-on="on"
-                >
-                  <v-icon
-                    :color="theme.mode == 'dark' ? `white` : `black`"
-                    @click="cetakPenilaian"
-                  >mdi-printer</v-icon>
-                </v-btn>
-              </template>
-              <span>Cetak Penilaian</span>
-            </v-tooltip>
-
             <v-spacer></v-spacer>
             <v-text-field
               v-model="search"
