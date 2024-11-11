@@ -143,33 +143,6 @@
                       > mdi-file-eye-outline</v-icon>Lihat Permohonan
                     </v-list-item-title>
                   </v-list-item>
-                  <v-list-item @click="postPublish(value)">
-                    <v-list-item-title>
-                      <v-icon
-                        class="mr-1"
-                        color="green"
-                      >mdi-earth</v-icon>Publish Inovasi
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item @click="postUnPublish(value)">
-                    <v-list-item-title>
-                      <v-icon
-                        class="mr-1"
-                        color="red"
-                      >mdi-earth</v-icon>UnPublish Inovasi
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item
-                    @click="postPull(value)"
-                    v-show="false"
-                  >
-                    <v-list-item-title>
-                      <v-icon
-                        class="mr-1"
-                        color="red"
-                      >mdi-email-receive</v-icon>Batalkan Permohonan
-                    </v-list-item-title>
-                  </v-list-item>
                   <v-list-item @click="openHistory(value)">
                     <v-list-item-title>
                       <v-icon
