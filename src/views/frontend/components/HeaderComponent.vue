@@ -70,38 +70,7 @@
       </template>
       <v-card width="200">
         <v-list>
-          <v-list-item>
-            <v-list-item-title @click="$router.push({ name: 'home' })">
-              Beranda
-            </v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title @click="$router.push({name:'repository'})">
-              Data Inovasi
-            </v-list-item-title>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-title @click="$router.push({name:'peta'})">
-              Peta Inovasi
-            </v-list-item-title>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-title @click="$router.push({ name: 'kompetisi' })">
-              Kompetisi
-            </v-list-item-title>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-title @click="">
-              Klinik Inovasi
-            </v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title @click="">
-              Faq
-            </v-list-item-title>
-          </v-list-item>
+         
           <v-list-item>
             <v-list-item-title @click="$router.push({ name: 'login' })">
               Login
@@ -121,62 +90,7 @@ export default {
 
   data: () => ({
     menus: [
-      { title: "Beranda", route: "/home", type: "item" },
-      {
-        title: "Data Inovasi",
-        route: "#",
-        type: "subMenu",
-        submenus: [
-          {
-            title: "Seluruh Inovasi",
-            icon: "mdi-clover",
-            route: "/repository",
-            type: "item",
-          },
-          {
-            title: "Peta Inovasi",
-            icon: "mdi-clover",
-            route: "/peta",
-            type: "item",
-          },
-        ],
-      },
-      {
-        title: "Repository",
-        icon: "mdi-clover",
-        route: "/repository",
-        type: "item",
-      },
-      {
-        title: "Kompetisi",
-        route: "/kompetisi",
-        type: "item",
-      },
-      {
-        title: "Buku Panduan",
-        route: "download",
-        type: "action",
-      },
-      {
-        title: "Klinik Inovasi",
-        route: "/klinik-inovasi",
-        type: "subMenu",
-        submenus: [
-          {
-            title: "Tim Kajian",
-            icon: "mdi-clover",
-            route: "#",
-            type: "item",
-          },
-          {
-            title: "Inovator",
-            icon: "mdi-clover",
-            route: "#",
-            type: "item",
-          },
-        ],
-      },
-      { title: "FAQ", route: "#", type: "item" },
+      
       { title: "Login", route: "/login", type: "item" },
     ],
   }),
