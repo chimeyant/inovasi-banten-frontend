@@ -619,7 +619,7 @@ export default {
     signout: function () {
       this.clearMenu();
       this.signOut();
-      this.$router.push({ name: "home" });
+      this.$router.push({ name: "login" });
     },
     deleteRecord: function () {
       this.postDelete().then(() => {
