@@ -160,7 +160,7 @@ const routes = [
     name: "",
     component: BaseFrontend,
     children: [
-
+      { path: "", redirect: { name: "login" } },
       { path: "login", name: "login", component: Login },
       {
         path: "google/callback",
