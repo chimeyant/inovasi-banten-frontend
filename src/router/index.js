@@ -156,7 +156,7 @@ const routes = [
    * Frontend
    */
   {
-    path: "/auth",
+    path: "",
     name: "",
     component: BaseFrontend,
     children: [
@@ -175,7 +175,7 @@ const routes = [
    */
 
   {
-    path: "/auth",
+    path: "",
     name: "",
     meta: {
       auth: true,

@@ -1,5 +1,6 @@
 const CompressionPlugin = require("compression-webpack-plugin");
 module.exports = {
+  publicPath: '/auth/',
   chainWebpack(config) {
     config.plugins.delete("prefetch");
 
