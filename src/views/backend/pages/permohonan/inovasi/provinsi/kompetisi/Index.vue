@@ -682,6 +682,8 @@ export default {
     fetchCategories: async function () {
       try {
         let { data } = await this.http.get("api/v2/combo/category");
+        console.log(data);
+        
         this.categories = data;
       } catch (error) {}
     },

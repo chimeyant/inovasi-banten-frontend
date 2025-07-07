@@ -46,26 +46,6 @@
               <span>Refresh Data</span>
             </v-tooltip>
 
-            <v-tooltip
-              :color="theme.color"
-              bottom
-            >
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  text
-                  small
-                  icon
-                  v-on="on"
-                >
-                  <v-icon
-                    :color="theme.mode == 'dark' ? `white` : `black`"
-                    @click="cetakPenilaian"
-                  >mdi-printer</v-icon>
-                </v-btn>
-              </template>
-              <span>Cetak Penilaian</span>
-            </v-tooltip>
-
             <v-spacer></v-spacer>
             <v-text-field
               v-model="search"
@@ -161,33 +141,6 @@
                         class="mr-1"
                         :color="theme.color"
                       > mdi-file-eye-outline</v-icon>Lihat Permohonan
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item @click="postPublish(value)">
-                    <v-list-item-title>
-                      <v-icon
-                        class="mr-1"
-                        color="green"
-                      >mdi-earth</v-icon>Publish Inovasi
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item @click="postUnPublish(value)">
-                    <v-list-item-title>
-                      <v-icon
-                        class="mr-1"
-                        color="red"
-                      >mdi-earth</v-icon>UnPublish Inovasi
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item
-                    @click="postPull(value)"
-                    v-show="false"
-                  >
-                    <v-list-item-title>
-                      <v-icon
-                        class="mr-1"
-                        color="red"
-                      >mdi-email-receive</v-icon>Batalkan Permohonan
                     </v-list-item-title>
                   </v-list-item>
                   <v-list-item @click="openHistory(value)">
