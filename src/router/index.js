@@ -156,21 +156,17 @@ const routes = [
    * Frontend
    */
   {
-    path: "",
+    path: "/auth",
     name: "",
     component: BaseFrontend,
     children: [
-      { path: "", redirect: { name: "home" } },
+
       { path: "login", name: "login", component: Login },
       {
         path: "google/callback",
         name: "login-with-google",
         component: LoginWithGoogle,
       },
-      { path: "home", name: "home", component: Home },
-      { path: "repository", name: "repository", component: Repository },
-      { path: "kompetisi", name: "kompetisi", component: Kompetisi },
-      { path: "peta", name: "peta", component: Peta },
     ],
   },
 
