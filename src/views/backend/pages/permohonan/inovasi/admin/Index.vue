@@ -447,7 +447,7 @@ export default {
         },
       ],
     },
-    tahun: 2025,
+    tahun: "2025",
     tahuns :[
       { text: "2025", value: "2025" },
       { text: "2024", value: "2024" },  
