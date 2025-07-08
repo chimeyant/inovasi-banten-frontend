@@ -1,6 +1,5 @@
 <template>
   <div :class="device.desktop ? `home pa-6 grey lighten-4`:`home pa-0 grey lighten-4`">
-
     <v-row>
       <v-col cols="12">
         <v-card class="animated animate__fadeInUp rounded-0">
@@ -58,6 +57,17 @@
               :color="theme.color"
               style="max-width: 350px"
             ></v-text-field>
+            
+            <v-select
+              v-model="tahun"
+              :items="tahuns"
+              label="Tahun"
+              dense
+              hide-details
+              solo
+              @change="changeTahun"
+              style="max-width: 350px; margin-right: 2px"
+            ></v-select>
           </v-card-title>
           <v-data-table
             v-show="device.desktop"
@@ -437,6 +447,18 @@ export default {
         },
       ],
     },
+    tahun: 2025,
+    tahuns :[
+      { text: "2025", value: "2025" },
+      { text: "2024", value: "2024" },  
+      { text: "2023", value: "2023" },
+      { text: "2022", value: "2022" },
+      { text: "2021", value: "2021" },
+      { text: "2020", value: "2020" },
+      { text: "2019", value: "2019" },
+      { text: "2018", value: "2018" },
+      { text: "2017", value: "2017" },
+      ],
   }),
   computed: {
     ...mapState([
@@ -467,7 +489,7 @@ export default {
   created() {
     this.setPage({
       crud: true,
-      dataUrl: "api/v2/permohonan/administrator/inovasi",
+      dataUrl: "api/v2/permohonan/administrator/inovasi/" + this.tahun,
       pagination: false,
       key: "id",
       title: "PERMOHONAN INOVASI",
@@ -496,6 +518,7 @@ export default {
         help: false,
       },
     });
+
     this.fetchRecords();
   },
   mounted() {
@@ -514,6 +537,12 @@ export default {
       "setRecord",
       "setForm",
     ]),
+    changeTahun: function () {
+      this.setPage({  
+        dataUrl: "api/v2/permohonan/administrator/inovasi/" + this.tahun,
+      });
+      this.fetchRecords();
+    },
     openForm: function () {
       this.setForm({
         add: true,
