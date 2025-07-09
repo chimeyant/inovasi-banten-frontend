@@ -122,7 +122,7 @@
         small
       ></v-app-bar-nav-icon>
       <img
-        src="/images/logo.png"
+        src="/auth/images/logo.png"
         width="75"
         height="32px"
         alt=""
