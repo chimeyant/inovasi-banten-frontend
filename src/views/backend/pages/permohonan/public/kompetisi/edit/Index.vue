@@ -1056,7 +1056,7 @@ export default {
       }
       if (val == 2) {
         window.open(
-          base_url + "/auth/emplate_Surat Pernyataan identitas inovator.docx",
+          base_url + "/auth/Template_Surat Pernyataan identitas inovator.docx",
           "__blank"
         );
       }
