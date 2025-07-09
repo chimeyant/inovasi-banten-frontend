@@ -629,7 +629,7 @@
 
                           <l-icon
                             iconSize=32
-                            icon-url="/images/icon-marker-merah.png"
+                            icon-url="/auth/images/icon-marker-merah.png"
                           />
                           <l-popup :content="marker.tooltip" />
                           <l-tooltip :content="marker.tooltip" />
