@@ -1050,20 +1050,20 @@ export default {
       var base_url = window.location.origin;
       if (val == 1) {
         window.open(
-          base_url + "/Template_Surat Pernyataan Implementasi Inovasi.docx",
+          base_url + "/auth/Template_Surat Pernyataan Implementasi Inovasi.docx",
           "__blank"
         );
       }
       if (val == 2) {
         window.open(
-          base_url + "/Template_Surat Pernyataan identitas inovator.docx",
+          base_url + "/auth/emplate_Surat Pernyataan identitas inovator.docx",
           "__blank"
         );
       }
       if (val == 3) {
         window.open(
           base_url +
-            "/Template_Surat Pernyataan Kesediaan Replikasi Inovasi Pelayanan Publik.docx",
+            "/auth/Template_Surat Pernyataan Kesediaan Replikasi Inovasi Pelayanan Publik.docx",
           "__blank"
         );
       }
