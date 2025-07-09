@@ -730,7 +730,7 @@ export default {
     tipes: [
       { text: "Baru", value: "baru" },
       { text: "Pengembangan", value: "pengembangan" },
-      { text: "Replikasi", value: "replikasi" },
+      // { text: "Replikasi", value: "replikasi" },
     ],
     replikasi: false,
     filename: null,
