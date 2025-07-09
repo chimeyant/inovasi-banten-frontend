@@ -628,6 +628,9 @@ export default {
           "api/v2/permohonan/public/kompetisi-send/" + val
         );
 
+        console.log(error);
+        
+
         if (!success) {
           this.snackbar.color = "orange";
           this.snackbar.text = message;
