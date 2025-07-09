@@ -20,7 +20,7 @@
               <v-row class="mt-3">
                 <v-col cols="1">
                   <img
-                    src="/images/logo-banten.png"
+                    src="/auth/images/logo-banten.png"
                     alt=""
                     width="50"
                     class="ml-3 mt-2"

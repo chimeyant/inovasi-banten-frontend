@@ -27,7 +27,7 @@
 
                         <div class="text-center mt-4">
                           <img
-                            src="images/logo.png"
+                            src="/auth/images/logo.png"
                             alt=""
                             srcset=""
                             :width="device.desktop  ? `200px` : `200px`"

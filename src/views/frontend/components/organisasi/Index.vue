@@ -51,7 +51,7 @@
           >
             <div class="text-center">
               <img
-                src="/images/logo-banten.png"
+                src="/auth/images/logo-banten.png"
                 alt=""
                 width="100"
               >

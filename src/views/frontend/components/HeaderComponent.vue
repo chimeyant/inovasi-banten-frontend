@@ -10,7 +10,7 @@
     <v-toolbar-title>
       <div class="pl-5 pr-5">
         <img
-          src="/images/logo.png"
+          src="/auth/images/logo.png"
           width="160px"
           height="40px"
           alt="logo"
