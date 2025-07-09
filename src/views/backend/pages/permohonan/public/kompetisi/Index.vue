@@ -627,8 +627,6 @@ export default {
         } = await this.http.post(
           "api/v2/permohonan/public/kompetisi-send/" + val
         );
-
-        console.log(error);
         
 
         if (!success) {
@@ -647,6 +645,8 @@ export default {
         this.snackbar.color = "red";
         this.snackbar.text = "Opps..., terjadi kesalahan";
         this.snackbar.state = true;
+
+        console.log(error);
       } finally {
         this.setLoading({ dialog: false, text: "" });
       }
