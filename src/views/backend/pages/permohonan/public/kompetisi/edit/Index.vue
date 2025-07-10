@@ -762,7 +762,7 @@ export default {
       Paragraph,
     ],
     kelompoks: [
-      { text: "Umum", value: "umum" },
+      // { text: "Umum", value: "umum" },
       { text: "Khusus", value: "khusus" },
     ],
 
